@@ -1,0 +1,11 @@
+{
+    "development": {
+      "apiBaseUrl": "http://206.189.142.241/data-reader/api"
+    },
+    "production": {
+        "apiBaseUrl": "http://206.189.142.241/data-reader/api"
+    },
+    "qa": {
+        "apiBaseUrl": "http://206.189.142.241/data-reader/api"
+    }
+  }
