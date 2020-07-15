@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Search } from 'react-feather';
 import request from 'superagent';
 import _ from 'underscore';
 
 import AppConstant from '../../constant/AppConstant';
 import Accordion from './Accordion';
+import Search from './Search';
 
 function Sidebar({ onSelectIndicator }) {
   const [active, setActive] = useState(false);
@@ -54,10 +54,7 @@ function Sidebar({ onSelectIndicator }) {
         <p>Indicators</p>
       </div> */}
       <div className="searchbox">
-        <input type="text" id="search-bar" placeholder="Search" />
-        <a className="search-icon" href="#">
-          <Search />
-        </a>
+        <Search/>
       </div>
       {_.map(indicators, (group, index) => (
         <Accordion

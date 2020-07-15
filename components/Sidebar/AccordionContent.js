@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight, ChevronDown } from 'react-feather';
+import { Stack } from '@chakra-ui/core';
 import _ from 'underscore';
 
 import IndicatorItem from './IndicatorItem';
@@ -13,13 +14,13 @@ function AccordionContent({ subgroup, name, index, onSelectIndicator }) {
         <div onClick={() => setActive(!active)} className="sub-group-header">
           {chevron} {name}
         </div>
-        <ul className={`indicators-list ${active ? '':'hidden'}`}>
+        <Stack className={`indicators-list ${active ? '':'hidden'}`} spacing={10}>
           {active &&
             _.map(subgroup, (indicator, index) => (
               <IndicatorItem indicator={indicator} index={index} key={index}
                 onSelectIndicator={onSelectIndicator}/>
             ))}
-        </ul>
+        </Stack>
       </li>
     </div>
   );

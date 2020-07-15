@@ -109,7 +109,7 @@ export function HomePage({ username, loading, error, repos, onSubmitForm, onChan
 					<meta name="description" content="Health Heat Map" />
 				</Helmet>
 				<div>
-					<Grid gridTemplateColumns={'30% 1fr'} gap={0}>
+					<Grid gridTemplateColumns={'33% 1fr'} gap={0}>
 						<Box>
 							<Sidebar onSelectIndicator={loadData} />
 						</Box>
