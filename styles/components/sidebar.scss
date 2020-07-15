@@ -89,9 +89,15 @@
 				border-radius: 5px;
 				border: 1px solid #f3f3f3;
 			}
+			.sub-group-chevy {
+				svg {
+					width: 20px;
+					height: 20px;
+				}
+			}
 			.sub-group-header {
-                padding: 8px;
-                font-weight: normal;
+				padding: 8px;
+				font-weight: normal;
 				svg {
 					color: #9c9c9c;
 					width: 16px;

@@ -10,11 +10,12 @@ import MetadataPopUp from './MetadataPopUp';
 const filterIndicators = (groups, q) => {
 	return _.filter(groups, (group) => {
 		return _.filter(group.subs, (sub, key) => {
-			const indicatorsx = _.filter(sub, (i) => {
+			if (key.toLowerCase().includes(q.toLowerCase())) return true;
+			const indicators = _.filter(sub, (i) => {
 				return i.indicator_universal_name.toLowerCase().includes(q.toLowerCase());
 			});
-			group.subs[key] = [...indicatorsx];
-			return indicatorsx.length;
+			group.subs[key] = [...indicators];
+			return indicators.length;
 		}).length;
 	});
 };
@@ -67,7 +68,7 @@ function Sidebar({ onSelectIndicator }) {
 	}, []);
 
 	const showMetadata = (ind) => {
-		setMetadata(ind)
+		setMetadata(ind);
 	};
 
 	return (
@@ -91,7 +92,7 @@ function Sidebar({ onSelectIndicator }) {
 					/>
 				))}
 			</div>
-			<MetadataPopUp indicator={metadata}/>
+			<MetadataPopUp indicator={metadata} />
 		</div>
 	);
 }
