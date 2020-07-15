@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronRight, ChevronDown } from 'react-feather';
 import _ from 'underscore';
 
 import AccordionContent from './AccordionContent';
+import { Box } from '@chakra-ui/core';
 
-function Accordion({ group, index, onSelectIndicator }) {
-  const [active, setActive] = useState(false);
-  const chevron = active ? <ChevronDown /> : <ChevronRight />;
+function Accordion({ group, index, onSelectIndicator, q }) {
+	const [active, setActive] = useState(false);
+	const chevron = active ? <ChevronDown /> : <ChevronRight />;
 
-  return (
-    <div>
-      <ul className="accordion-container">
-        <div className="accordion-header" onClick={() => setActive(!active)}>
-          {chevron} {group.name}
-        </div>
-        {active &&
-          _.map(group.subs, (sub, key) => (
-            <li className="sub-group" key={key}>
-              <AccordionContent subgroup={sub} name={key} key={key} onSelectIndicator={onSelectIndicator}/>
-            </li>
-          ))}
-      </ul>
-    </div>
-  );
+	return (
+		<Box>
+			<ul className="accordion-container">
+				<div className="accordion-header" onClick={() => setActive(!active)}>
+					{chevron} {group.name}
+				</div>
+				{(active || q) && _.map(group.subs, (sub, key) => (
+					<Box className="sub-group" key={key}>
+						<AccordionContent
+							subgroup={sub}
+							name={key}
+							key={key}
+              q={q}
+							onSelectIndicator={onSelectIndicator}
+						/>
+					</Box>
+				))}
+			</ul>
+		</Box>
+	);
 }
 
 export default Accordion;

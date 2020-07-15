@@ -6,66 +6,77 @@ import AppConstant from '../../constant/AppConstant';
 import Accordion from './Accordion';
 import Search from './Search';
 
+const filterIndicators = (groups, q) => {
+	return _.filter(groups, (group) => {
+		return _.filter(group.subs, (sub, key) => {
+			const indicatorsx = _.filter(sub, (i) => {
+				return i.indicator_universal_name.toLowerCase().includes(q.toLowerCase());
+			});
+			group.subs[key] = [...indicatorsx];
+			return indicatorsx.length;
+		}).length;
+	});
+};
+
 function Sidebar({ onSelectIndicator }) {
-  const [active, setActive] = useState(false);
-  const [indicators, setIndicators] = useState(false);
+	const [indicators, setIndicators] = useState(false);
+	const [filteredIndicators, setFilteredIndicators] = useState(false);
+	const [q, setQ] = useState();
 
-  useEffect(() => {
-    // Get Indicators
-    request
-      .post(`${AppConstant.config.appBaseUrl}/dimensions`)
-      .send({
-        fields: [
-          'indicator_universal_name',
-          'indicator_category',
-          'indicator_subcategory',
-          'indicator_positive_negative',
-          'source',
-        ],
-      })
-      .then(res => {
-        const groups = _.groupBy(
-          _.filter(
-            res.body,
-            item =>
-              item.indicator_universal_name != '' &&
-              item.indicator_category &&
-              item.indicator_subcategory,
-          ),
-          'indicator_category',
-        );
-        const groupsWithSubs = [];
-        _.each(groups, (group, key) => {
-          groupsWithSubs.push({
-            name: key,
-            subs: _.groupBy(group, 'indicator_subcategory'),
-          });
-        });
-        setIndicators(groupsWithSubs);
-      })
-      .catch(err => {
-        console.log('Error loading Data', err);
-      });
-  }, []);
+	useEffect(() => {
+		console.log('indicators', indicators);
+		setFilteredIndicators(q ? filterIndicators(JSON.parse(JSON.stringify(indicators)), q) : indicators);
+	}, [q, indicators]);
 
-  return (
-    <div className="sidebar-container">
-      {/* <div className="sidebar-header">
+	useEffect(() => {
+		// Get Indicators
+		request
+			.post(`${AppConstant.config.appBaseUrl}/dimensions`)
+			.send({
+				fields: [
+					'indicator_universal_name',
+					'indicator_category',
+					'indicator_subcategory',
+					'indicator_positive_negative',
+					'source',
+				],
+			})
+			.then((res) => {
+				const groups = _.groupBy(
+					_.filter(
+						res.body,
+						(item) =>
+							item.indicator_universal_name != '' && item.indicator_category && item.indicator_subcategory
+					),
+					'indicator_category'
+				);
+				const groupsWithSubs = [];
+				_.each(groups, (group, key) => {
+					groupsWithSubs.push({
+						name: key,
+						subs: _.groupBy(group, 'indicator_subcategory'),
+					});
+				});
+				setIndicators(groupsWithSubs);
+			})
+			.catch((err) => {
+				console.log('Error loading Data', err);
+			});
+	}, []);
+
+	return (
+		<div className="sidebar-container">
+			{/* <div className="sidebar-header">
         <p>Indicators</p>
       </div> */}
-      <div className="searchbox">
-        <Search/>
-      </div>
-      {_.map(indicators, (group, index) => (
-        <Accordion
-          key={index}
-          group={group}
-          index={index}
-          onSelectIndicator={onSelectIndicator}
-        />
-      ))}
-    </div>
-  );
+			<div className="searchbox">
+				<Search onChange={setQ} />
+			</div>
+			{_.map(filteredIndicators, (group, index) => (
+				<Accordion key={index} group={group} index={index} q={q} onSelectIndicator={onSelectIndicator} q={q} />
+			))}
+		</div>
+	);
 }
 
 export default Sidebar;
