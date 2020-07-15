@@ -1,30 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+<div align="center"><strong>Health Heatmap UI</strong></div>
+<div align="center">Health Heatmap UI - Built with React, Redux, Webpack, Mapbox</div>
 
-## Getting Started
+<br />
 
-First, run the development server:
+## Quick start
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1.  Make sure that you have Node.js v8.15.1 and npm v5 or above installed.
+2.  Clone this repo
+3.  Move to the appropriate directory: `cd <YOUR_PROJECT_NAME>`.<br />
+4.  Run `yarn` in order to install dependencies<br />
+    _At this point you can run `yarn next` to see the app at `http://localhost:3000`._
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Documentation
+
+- Todo - Link to Docs
 
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
+This project is licensed under the Apache-2.0, Copyright (c) 2020 Metastring Foundation - 
+<a href='https://www.metastringfoundation.org/' target='_blank'>www.metastringfoundation.org</a>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
