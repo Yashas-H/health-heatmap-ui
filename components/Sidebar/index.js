@@ -5,6 +5,7 @@ import _ from 'underscore';
 import AppConstant from '../../constant/AppConstant';
 import Accordion from './Accordion';
 import Search from './Search';
+import MetadataPopUp from './MetadataPopUp';
 
 const filterIndicators = (groups, q) => {
 	return _.filter(groups, (group) => {
@@ -21,6 +22,7 @@ const filterIndicators = (groups, q) => {
 function Sidebar({ onSelectIndicator }) {
 	const [indicators, setIndicators] = useState(false);
 	const [filteredIndicators, setFilteredIndicators] = useState(false);
+	const [metadata, setMetadata] = useState(false);
 	const [q, setQ] = useState();
 
 	useEffect(() => {
@@ -64,17 +66,32 @@ function Sidebar({ onSelectIndicator }) {
 			});
 	}, []);
 
+	const showMetadata = (ind) => {
+		setMetadata(ind)
+	};
+
 	return (
-		<div className="sidebar-container">
-			{/* <div className="sidebar-header">
+		<div>
+			<div className="sidebar-container">
+				{/* <div className="sidebar-header">
         <p>Indicators</p>
       </div> */}
-			<div className="searchbox">
-				<Search onChange={setQ} />
+				<div className="searchbox">
+					<Search onChange={setQ} />
+				</div>
+				{_.map(filteredIndicators, (group, index) => (
+					<Accordion
+						key={index}
+						group={group}
+						index={index}
+						q={q}
+						onSelectIndicator={onSelectIndicator}
+						q={q}
+						showMetadata={showMetadata}
+					/>
+				))}
 			</div>
-			{_.map(filteredIndicators, (group, index) => (
-				<Accordion key={index} group={group} index={index} q={q} onSelectIndicator={onSelectIndicator} q={q} />
-			))}
+			<MetadataPopUp indicator={metadata}/>
 		</div>
 	);
 }

@@ -5,7 +5,7 @@ import _ from 'underscore';
 
 import IndicatorItem from './IndicatorItem';
 
-function AccordionContent({ subgroup, name, index, onSelectIndicator, q }) {
+function AccordionContent({ subgroup, name, index, onSelectIndicator, q, showMetadata }) {
 	const [active, setActive] = useState(false);
 	const chevron = active ? <ChevronDown /> : <ChevronRight />;
 	return (
@@ -24,6 +24,7 @@ function AccordionContent({ subgroup, name, index, onSelectIndicator, q }) {
 									key={index}
 									onSelectIndicator={onSelectIndicator}
 									q={q}
+									showMetadata={showMetadata}
 								/>
 							))}
 					</Stack>
