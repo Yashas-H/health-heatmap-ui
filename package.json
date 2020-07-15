@@ -1,0 +1,28 @@
+{
+  "name": "nextjs-blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.8.0",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "chroma-js": "^2.1.0",
+    "emotion-theming": "^10.0.27",
+    "naksha-component-react-restructured": "^1.6.3",
+    "next": "9.4.4",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-draggable": "^4.4.3",
+    "react-feather": "^2.0.8",
+    "react-helmet": "^6.1.0",
+    "react-select": "^3.1.0",
+    "sass": "^1.26.10",
+    "superagent": "^5.3.1",
+    "underscore": "^1.10.2"
+  }
+}

@@ -1,0 +1,49 @@
+.bar-chart-container{
+    .select-title{
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 13px 30px;
+        font-size: 12px;
+    }
+    .selector-area{
+        margin: 10px 30px;
+        .selector-name{
+            font-weight: 400;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        .indicator-multi-select{
+            input[type='text']{
+                height: 20px !important;
+                margin-bottom: 0;
+            }
+            width: calc(100%);
+            padding: 0 5px 3px 0;
+            .select__single-value{
+                top: 15px !important;
+                color: hsl(217, 84%, 34%);
+            }
+            .select__value-container{
+                font-size: 14px;
+                font-weight: normal;
+            }
+            #react-select-2-input{
+                // height: 0 !important;
+            }
+            .select__dropdown-indicator{
+                padding-top: 0;
+            }
+            .select__indicator-separator{
+                margin-top: 0;
+            }
+        }
+        .plot-btn{
+            margin-top: 20px;
+        }
+    }
+}
+
+.select__menu{
+    font-size: 12px;
+    font-weight: 400;
+}

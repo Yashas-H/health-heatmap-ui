@@ -1,0 +1,11 @@
+{
+  "development": {
+    "apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api"
+  },
+  "production": {
+    "apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api"
+  },
+  "qa": {
+    "apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api"
+  }
+}
