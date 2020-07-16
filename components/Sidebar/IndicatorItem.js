@@ -47,7 +47,7 @@ function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q })
 					</Stack>
 					{_.map(indicator.sources, (source, i) => {
 						return (
-							<Stack ml="24px">
+							<Stack ml="24px" key={i}>
 								<Checkbox
 									variantColor="blue"
 									fontSize="sm"

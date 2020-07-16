@@ -148,8 +148,8 @@ class Map extends Component {
 				{/* Map */}
 				<Naksha
 					viewPort={{
-						latitude: 21.17182424768975,
-						longitude: 91.52421299825329,
+						latitude: 23.17182424768975,
+						longitude: 81.52421299825329,
 						zoom: 3.4494111278786177,
 						bearing: 0,
 						pitch: 0,

@@ -43,9 +43,9 @@ function MetadatPopUp({ indicator }) {
 	}, [indicator]);
 
 	const LoadingSkeleton = () => {
-		return _.map(_.range(5), () => {
+		return _.map(_.range(5), (i) => {
 			return (
-				<Box>
+				<Box key={i}>
 					<Skeleton colorStart="#a9a9a9" colorEnd="#c7c7c7" height="16px" mb="5px" />
 					<Skeleton colorStart="#a9a9a9" colorEnd="#c7c7c7" height="22px" mb="40px" width="50%" />
 				</Box>
