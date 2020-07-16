@@ -3,7 +3,7 @@ import { ChevronRight, ChevronDown } from 'react-feather';
 import _ from 'underscore';
 
 import AccordionContent from './AccordionContent';
-import { Box, Tag, Text } from '@chakra-ui/core';
+import { Box, Text } from '@chakra-ui/core';
 
 function Accordion({ group, index, onSelectIndicator, q, showMetadata }) {
 	const [active, setActive] = useState(false);
@@ -13,14 +13,14 @@ function Accordion({ group, index, onSelectIndicator, q, showMetadata }) {
 		<Box>
 			<ul className="accordion-container">
 				<div className="accordion-header" onClick={() => setActive(!active)}>
-					{chevron} {group.name}
-					<Tag size="sm" rounded="full">
-						<Text fonSize={12}>83</Text>
-					</Tag>
+					<Text>
+						<span>{chevron}</span>
+						{group.name} <Text as="sup" fontWeight="300">{group.count}</Text>
+					</Text>
 				</div>
 				{(active || q) &&
 					_.map(group.subs, (sub, key) => (
-						<Box className="sub-group" key={key}>
+						<div className="sub-group" key={key}>
 							<AccordionContent
 								subgroup={sub}
 								name={key}
@@ -29,7 +29,7 @@ function Accordion({ group, index, onSelectIndicator, q, showMetadata }) {
 								showMetadata={showMetadata}
 								onSelectIndicator={onSelectIndicator}
 							/>
-						</Box>
+						</div>
 					))}
 			</ul>
 		</Box>

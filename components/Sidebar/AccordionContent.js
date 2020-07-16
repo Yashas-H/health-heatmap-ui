@@ -14,10 +14,13 @@ function AccordionContent({ subgroup, name, index, onSelectIndicator, q, showMet
 			{subgroup.length ? (
 				<li className="sub-group has-border">
 					<div onClick={() => setActive(!active)} className="sub-group-header">
-						<Stack is isInline spacing={2} mt='5px'>
+						<Stack is isInline spacing={2} mt="5px">
 							<spna className="sub-group-chevy">{chevron}</spna>
 							<Text>
-								<Highlight search={q}>{name}</Highlight>
+								<Highlight search={q}>{name}</Highlight>{' '}
+								<Text as="sup" fontWeight="300">
+									{subgroup.length}
+								</Text>
 							</Text>
 						</Stack>
 					</div>

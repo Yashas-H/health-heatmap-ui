@@ -15,7 +15,7 @@ export default function Home() {
 				<main>
 					<h1 className="title">
 						<Link href="/map">
-							<a href="#">Helath Heatmap</a>
+							<a href="#">Health Heatmap</a>
 						</Link>
 					</h1>
 					<p className="description">FOR INDIA'S DATA-DRIVEN DECISION MAKING</p>

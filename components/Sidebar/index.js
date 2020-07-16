@@ -55,9 +55,20 @@ function Sidebar({ onSelectIndicator }) {
 				);
 				const groupsWithSubs = [];
 				_.each(groups, (group, key) => {
+					// Remove duplicate indicators and group by source
+					let dupes = _.groupBy(group, 'indicator_universal_name');
+					dupes = _.map(dupes, (dupe) => {
+						if (dupe.length > 1)
+							return {
+								...dupe[0],
+								sources: _.map(dupe, (i) => i.source),
+							};
+						return dupe[0];
+					});
 					groupsWithSubs.push({
 						name: key,
-						subs: _.groupBy(group, 'indicator_subcategory'),
+						count: dupes.length,
+						subs: _.groupBy(dupes, 'indicator_subcategory'),
 					});
 				});
 				setIndicators(groupsWithSubs);

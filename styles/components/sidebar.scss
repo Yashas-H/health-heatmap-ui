@@ -66,6 +66,7 @@
 		padding: 2px 6px;
 		font-weight: bold;
 		font-size: 15px;
+		cursor: pointer;
 		svg {
 			color: #9c9c9c;
 			width: 16px;
@@ -82,7 +83,7 @@
 		}
 		&.sub-group {
 			font-size: 14px;
-			margin-top: 10px;
+			margin-top: 5px;
 			padding-right: 5px;
 			font-weight: 300;
 			&.has-border {
@@ -96,8 +97,9 @@
 				}
 			}
 			.sub-group-header {
-				padding: 8px;
+				padding: 2px 12px;
 				font-weight: normal;
+				cursor: pointer;
 				svg {
 					color: #9c9c9c;
 					width: 16px;
