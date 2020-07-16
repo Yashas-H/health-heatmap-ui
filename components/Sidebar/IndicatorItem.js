@@ -4,7 +4,7 @@ import Highlight from 'react-highlighter';
 import _ from 'underscore';
 
 function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q }) {
-	const InfoIcon = ({ showMetadata }) => {
+	const InfoIcon = () => {
 		return (
 			<Icon
 				name="info"
