@@ -15,11 +15,14 @@ function Accordion({ group, index, onSelectIndicator, q, showMetadata }) {
 				<div className="accordion-header" onClick={() => setActive(!active)}>
 					<Text>
 						<span>{chevron}</span>
-						{group.name} <Text as="sup" fontWeight="300">{group.count}</Text>
+						{group.name}{' '}
+						<Text as="sup" fontWeight="300">
+							{group.count}
+						</Text>
 					</Text>
 				</div>
-				{(active || q) &&
-					_.map(group.subs, (sub, key) => (
+				<Box display={active || q ? 'block' : 'none'}>
+					{_.map(group.subs, (sub, key) => (
 						<div className="sub-group" key={key}>
 							<AccordionContent
 								subgroup={sub}
@@ -31,6 +34,7 @@ function Accordion({ group, index, onSelectIndicator, q, showMetadata }) {
 							/>
 						</div>
 					))}
+				</Box>
 			</ul>
 		</Box>
 	);

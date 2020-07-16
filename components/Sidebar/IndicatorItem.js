@@ -25,7 +25,11 @@ function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q })
 					<Checkbox
 						variantColor="blue"
 						fontSize="sm"
-						onChange={(e) => onSelectIndicator(indicator, event.target.checked)}
+						defaultIsChecked={indicator.checked}
+						onChange={(e) => {
+							indicator.checked = event.target.checked;
+							onSelectIndicator(indicator, event.target.checked);
+						}}
 						py={1}
 					>
 						<Text fontSize="sm">
@@ -41,18 +45,20 @@ function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q })
 							<Highlight search={q}>{indicator.indicator_universal_name}</Highlight>
 						</Text>
 					</Stack>
-					{_.map(indicator.sources, (source) => {
+					{_.map(indicator.sources, (source, i) => {
 						return (
 							<Stack ml="24px">
 								<Checkbox
 									variantColor="blue"
 									fontSize="sm"
-									onChange={(e) =>
-										onSelectIndicator({ ...indicator, source: source }, event.target.checked)
-									}
+									defaultIsChecked={indicator.sources[i].checked}
+									onChange={(e) => {
+										indicator.sources[i].checked = event.target.checked;
+										onSelectIndicator({ ...indicator, source: source.name }, event.target.checked);
+									}}
 									py={1}
 								>
-									<Text fontSize="sm">Source: {source}</Text>
+									<Text fontSize="sm">Source: {source.name}</Text>
 								</Checkbox>
 							</Stack>
 						);

@@ -24,19 +24,17 @@ function AccordionContent({ subgroup, name, index, onSelectIndicator, q, showMet
 							</Text>
 						</Stack>
 					</div>
-
-					<Stack className={`indicators-list`} spacing={10}>
-						{(active || q) &&
-							_.map(subgroup, (indicator, index) => (
-								<IndicatorItem
-									indicator={indicator}
-									index={index}
-									key={index}
-									onSelectIndicator={onSelectIndicator}
-									q={q}
-									showMetadata={showMetadata}
-								/>
-							))}
+					<Stack className={`indicators-list`} spacing={10} display={active || q ? 'block' : 'none'}>
+						{_.map(subgroup, (indicator, index) => (
+							<IndicatorItem
+								indicator={indicator}
+								index={index}
+								key={index}
+								onSelectIndicator={onSelectIndicator}
+								q={q}
+								showMetadata={showMetadata}
+							/>
+						))}
 					</Stack>
 				</li>
 			) : null}

@@ -61,7 +61,9 @@ function Sidebar({ onSelectIndicator }) {
 						if (dupe.length > 1)
 							return {
 								...dupe[0],
-								sources: _.map(dupe, (i) => i.source),
+								sources: _.map(dupe, (i) => ({
+									name: i.source,
+								})),
 							};
 						return dupe[0];
 					});
