@@ -98,7 +98,7 @@ function Sidebar({ onSelectIndicator }) {
 	return indicators ? (
 		<Box>
 			<div>
-				<div className="sidebar-container">
+				<Box className="sidebar-container" pb="50px">
 					<div className="searchbox">
 						<Search onChange={setQ} />
 					</div>
@@ -113,7 +113,7 @@ function Sidebar({ onSelectIndicator }) {
 							showMetadata={showMetadata}
 						/>
 					))}
-				</div>
+				</Box>
 				<MetadataPopUp indicator={metadata} />
 			</div>
 		</Box>

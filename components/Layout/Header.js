@@ -13,7 +13,7 @@ const Header = (props) => {
 	const handleToggle = () => setShow(!show);
 
 	return (
-		<div className="nav">
+		<Box className="nav" position="fixed" width="100%" zIndex="9000">
 			<Flex
 				as="nav"
 				align="center"
@@ -68,7 +68,7 @@ const Header = (props) => {
 					<MenuItems>Get Involved</MenuItems>
 				</Box>
 			</Flex>
-		</div>
+		</Box>
 	);
 };
 

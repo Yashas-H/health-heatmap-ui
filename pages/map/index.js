@@ -1,12 +1,12 @@
-import Head from 'next/head';
-import { Grid, Box } from '@chakra-ui/core';
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import _ from 'underscore';
 import Select from 'react-select';
+import { Grid, Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/core';
 
 import Sidebar from '../../components/Sidebar';
 import Map from '../../components/Map';
+import DataGrid from '../../components/DataGrid';
 import Filters from '../../components/Filters';
 import request from 'superagent';
 
@@ -145,8 +145,24 @@ export function HomePage({ username, loading, error, repos, onSubmitForm, onChan
 										/>
 									</div>
 								)}
-								{/* Map Component */}
-								<Map data={data} />
+
+								<Tabs>
+									<TabList>
+										<Tab>Map</Tab>
+										<Tab>Data</Tab>
+									</TabList>
+
+									<TabPanels>
+										<TabPanel>
+											{/* Map Component */}
+											<Map data={data} />
+										</TabPanel>
+										<TabPanel>
+											{/* Data Grid Component */}
+											<DataGrid IndicatorData={data} />
+										</TabPanel>
+									</TabPanels>
+								</Tabs>
 							</div>
 						</Box>
 					</Grid>
