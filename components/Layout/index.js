@@ -23,7 +23,7 @@ export default ({ page, children }) => {
 			<header>
 				<Header />
 			</header>
-			<div style={{ paddingTop: '62px' }}>{children}</div>
+			{children}
 			{/* <footer className="footer">
         <div className="content has-text-centered">
           <span>Powered By Metastring</span>

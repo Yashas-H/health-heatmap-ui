@@ -13,7 +13,7 @@ const Header = (props) => {
 	const handleToggle = () => setShow(!show);
 
 	return (
-		<Box className="nav" position="fixed" width="100%" zIndex="9000">
+		<Box className="nav">
 			<Flex
 				as="nav"
 				align="center"
