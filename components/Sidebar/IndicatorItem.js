@@ -1,46 +1,64 @@
 import React, { useState } from 'react';
-import { Checkbox, Text, Icon, Stack, Link } from '@chakra-ui/core';
+import { Checkbox, Text, Icon, Stack, Box } from '@chakra-ui/core';
 import Highlight from 'react-highlighter';
 import _ from 'underscore';
 
 function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q }) {
+	const InfoIcon = ({ showMetadata }) => {
+		return (
+			<Icon
+				name="info"
+				size="18px"
+				color="grey"
+				cursor="pointer"
+				mr="8px"
+				onClick={(e) => showMetadata(indicator)}
+				alignContent="top"
+			/>
+		);
+	};
 	return (
-		<Stack isInline spacing={1} align="center">
-			{indicator.sources ? (
-				<Icon name="info" size="18px" color="grey" />
+		<Stack>
+			{!indicator.sources ? (
+				<Stack isInline spacing="12px" align="center" my="3px">
+					<InfoIcon />
+					<Checkbox
+						variantColor="blue"
+						fontSize="sm"
+						onChange={(e) => onSelectIndicator(indicator, event.target.checked)}
+						py={1}
+					>
+						<Text fontSize="sm">
+							<Highlight search={q}>{indicator.indicator_universal_name}</Highlight>
+						</Text>
+					</Checkbox>
+				</Stack>
 			) : (
-				<Icon name="info" size="18px" color="grey" cursor="pointer" onClick={(e) => showMetadata(indicator)} />
-			)}
-			<Checkbox
-				variantColor="blue"
-				fontSize="sm"
-				onChange={(e) => onSelectIndicator(indicator, event.target.checked)}
-				py={1}
-			>
-				<Text fontSize="sm">
-					<Highlight search={q}>{indicator.indicator_universal_name}</Highlight>
-				</Text>
-				<Text fontSize="sm">
-					Source:
-					{indicator.sources &&
-						_.map(indicator.sources, (source) => {
-							return (
-								<Link
-									fontSize={12}
-									color="white"
-									bg="grey"
-									mx="5px"
-									my="8px"
-									padding="3px"
-									borderRadius="2px"
-									onClick={(e) => showMetadata({ ...indicator, source: source })}
+				<Box>
+					<Stack isInline spacing={1} align="center" my="3px">
+						<InfoIcon showMetadata={showMetadata} />
+						<Text fontSize="sm">
+							<Highlight search={q}>{indicator.indicator_universal_name}</Highlight>
+						</Text>
+					</Stack>
+					{_.map(indicator.sources, (source) => {
+						return (
+							<Stack ml="24px">
+								<Checkbox
+									variantColor="blue"
+									fontSize="sm"
+									onChange={(e) =>
+										onSelectIndicator({ ...indicator, source: source }, event.target.checked)
+									}
+									py={1}
 								>
-									{source}
-								</Link>
-							);
-						})}
-				</Text>
-			</Checkbox>
+									<Text fontSize="sm">Source: {source}</Text>
+								</Checkbox>
+							</Stack>
+						);
+					})}
+				</Box>
+			)}
 		</Stack>
 	);
 }

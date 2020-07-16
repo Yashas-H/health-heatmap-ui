@@ -66,7 +66,7 @@ export function HomePage({ username, loading, error, repos, onSubmitForm, onChan
 				let districtData = _.filter(res.body.data, (item) => item['entity.type'] === 'DISTRICT');
 
 				stateData = _.groupBy(stateData, (item) => item['entity.state']);
-				districtData = _.groupBy(districtData, (item) => item['entity.district']);
+				districtData = _.groupBy(districtData, (item) => item['entity.district_map']);
 
 				setData({
 					district: districtData,
