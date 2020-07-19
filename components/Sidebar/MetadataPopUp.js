@@ -22,7 +22,7 @@ import {
 
 import AppConstant from '../../constant/AppConstant';
 
-function MetadatPopUp({ indicator }) {
+function MetadatPopUp({ indicator, setMetadataOnClose }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [metadata, setMetadata] = useState();
 
@@ -54,7 +54,14 @@ function MetadatPopUp({ indicator }) {
 	};
 
 	return (
-		<Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+		<Drawer
+			isOpen={isOpen}
+			placement="right"
+			onClose={(e) => {
+				setMetadataOnClose(false);
+				onClose();
+			}}
+		>
 			<DrawerOverlay />
 			<DrawerContent>
 				<DrawerCloseButton />
@@ -125,7 +132,7 @@ function MetadatPopUp({ indicator }) {
 															<Text fontWeight="bold" color="gray.500">
 																{key}
 															</Text>
-															<Text>{data[key] || "N/A"}</Text>
+															<Text>{data[key] || 'N/A'}</Text>
 														</Text>
 													))}
 												</AccordionPanel>

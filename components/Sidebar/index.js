@@ -25,7 +25,7 @@ function Sidebar({ onSelectIndicator }) {
 	const [indicators, setIndicators] = useState(false);
 	const [filteredIndicators, setFilteredIndicators] = useState(false);
 	const [metadata, setMetadata] = useState(false);
-	const [q, setQ] = useState("");
+	const [q, setQ] = useState('');
 
 	useEffect(() => {
 		setFilteredIndicators(q ? filterIndicators(JSON.parse(JSON.stringify(indicators)), q) : indicators);
@@ -95,30 +95,32 @@ function Sidebar({ onSelectIndicator }) {
 		setMetadata(ind);
 	};
 
-	return indicators ? (
-		<Box>
-			<div>
-				<Box className="sidebar-container" pb="50px">
-					<div className="searchbox">
-						<Search onChange={setQ} />
-					</div>
-					{_.map(filteredIndicators, (group, index) => (
-						<Accordion
-							key={index}
-							group={group}
-							index={index}
-							q={q}
-							onSelectIndicator={onSelectIndicator}
-							q={q}
-							showMetadata={showMetadata}
-						/>
-					))}
-				</Box>
-				<MetadataPopUp indicator={metadata} />
-			</div>
-		</Box>
-	) : (
-		<LoadingSkeleton />
+	return (
+		<div>
+			<Box className="sidebar-container" pb="50px">
+				<div className="searchbox">
+					<Search onChange={setQ} disabled={!indicators} />
+				</div>
+				{indicators ? (
+					<Box>
+						{_.map(filteredIndicators, (group, index) => (
+							<Accordion
+								key={index}
+								group={group}
+								index={index}
+								q={q}
+								onSelectIndicator={onSelectIndicator}
+								q={q}
+								showMetadata={showMetadata}
+							/>
+						))}
+					</Box>
+				) : (
+					<LoadingSkeleton />
+				)}
+				<MetadataPopUp indicator={metadata} showMetadata={showMetadata} setMetadataOnClose={setMetadata} />
+			</Box>
+		</div>
 	);
 }
 
