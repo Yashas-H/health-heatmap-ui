@@ -5,14 +5,24 @@ import _ from 'underscore';
 import AccordionContent from './AccordionContent';
 import { Box, Text } from '@chakra-ui/core';
 
-function Accordion({ group, index, onSelectIndicator, q, showMetadata }) {
+function Accordion({ group, openAll, setOpenAll, onSelectIndicator, q, showMetadata }) {
 	const [active, setActive] = useState(false);
 	const chevron = active ? <ChevronDown /> : <ChevronRight />;
+
+	useEffect(() => {
+		if (openAll !== 'tralse') setActive(openAll);
+	}, [openAll]);
 
 	return (
 		<Box>
 			<ul className="accordion-container">
-				<div className="accordion-header" onClick={() => setActive(!active)}>
+				<div
+					className="accordion-header"
+					onClick={() => {
+						setOpenAll('tralse');
+						setActive(!active);
+					}}
+				>
 					<Text>
 						<span>{chevron}</span>
 						{group.name}{' '}
@@ -23,7 +33,7 @@ function Accordion({ group, index, onSelectIndicator, q, showMetadata }) {
 				</div>
 				<Box display={active || q ? 'block' : 'none'}>
 					{_.map(group.subs, (sub, key) => (
-						<div className="sub-group" key={key}>
+						<Box className="sub-group" key={key}>
 							<AccordionContent
 								subgroup={sub}
 								name={key}
@@ -31,8 +41,10 @@ function Accordion({ group, index, onSelectIndicator, q, showMetadata }) {
 								q={q}
 								showMetadata={showMetadata}
 								onSelectIndicator={onSelectIndicator}
+								openAll={openAll}
+								setOpenAll={setOpenAll}
 							/>
-						</div>
+						</Box>
 					))}
 				</Box>
 			</ul>

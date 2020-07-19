@@ -6,14 +6,25 @@ import Highlight from 'react-highlighter';
 
 import IndicatorItem from './IndicatorItem';
 
-function AccordionContent({ subgroup, name, index, onSelectIndicator, q, showMetadata }) {
+function AccordionContent({ subgroup, name, openAll, setOpenAll, onSelectIndicator, q, showMetadata }) {
 	const [active, setActive] = useState(false);
 	const chevron = active ? <ChevronDown /> : <ChevronRight />;
+
+	useEffect(() => {
+		if (openAll !== 'tralse') setActive(openAll);
+	}, [openAll]);
+
 	return (
 		<div>
 			{subgroup.length ? (
 				<li className="sub-group has-border">
-					<div onClick={() => setActive(!active)} className="sub-group-header">
+					<div
+						onClick={() => {
+							setOpenAll('tralse');
+							setActive(!active);
+						}}
+						className="sub-group-header"
+					>
 						<Stack isInline spacing={2} mt="5px">
 							<span className="sub-group-chevy">{chevron}</span>
 							<Text>

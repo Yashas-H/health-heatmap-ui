@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import request from 'superagent';
 import _ from 'underscore';
-import { Box, Skeleton } from '@chakra-ui/core';
+import { Box, Skeleton, Stack } from '@chakra-ui/core';
 
 import AppConstant from '../../constant/AppConstant';
 import Accordion from './Accordion';
@@ -26,8 +26,10 @@ function Sidebar({ onSelectIndicator }) {
 	const [filteredIndicators, setFilteredIndicators] = useState(false);
 	const [metadata, setMetadata] = useState(false);
 	const [q, setQ] = useState('');
+	const [openAll, setOpenAll] = useState(false);
 
 	useEffect(() => {
+		console.log('FILTERS');
 		setFilteredIndicators(q ? filterIndicators(JSON.parse(JSON.stringify(indicators)), q) : indicators);
 	}, [q, indicators]);
 
@@ -91,6 +93,7 @@ function Sidebar({ onSelectIndicator }) {
 			);
 		});
 	};
+
 	const showMetadata = (ind) => {
 		setMetadata(ind);
 	};
@@ -98,22 +101,37 @@ function Sidebar({ onSelectIndicator }) {
 	return (
 		<div>
 			<Box className="sidebar-container" pb="50px">
-				<div className="searchbox">
-					<Search onChange={setQ} disabled={!indicators} />
-				</div>
+				<Box className="sidebar-header">
+					<div className="searchbox">
+						<Search onChange={setQ} disabled={!indicators} />
+					</div>
+					<Stack isInline spacing={8} align="right" className="expand-all-stack">
+						<a className="expand-collapse-btn" onClick={(e) => setOpenAll(true)}>
+							EXPAND ALL
+						</a>
+						<a className="expand-collapse-btn">|</a>
+						<a className="expand-collapse-btn" onClick={(e) => setOpenAll(false)}>
+							COLLAPSE ALL
+						</a>
+					</Stack>
+				</Box>
 				{indicators ? (
-					<Box>
-						{_.map(filteredIndicators, (group, index) => (
-							<Accordion
-								key={index}
-								group={group}
-								index={index}
-								q={q}
-								onSelectIndicator={onSelectIndicator}
-								q={q}
-								showMetadata={showMetadata}
-							/>
-						))}
+					<Box mt="90px">
+						<Box mx="7px">
+							{_.map(filteredIndicators, (group, index) => (
+								<Accordion
+									key={index}
+									group={group}
+									index={index}
+									q={q}
+									onSelectIndicator={onSelectIndicator}
+									q={q}
+									showMetadata={showMetadata}
+									openAll={openAll}
+									setOpenAll={setOpenAll}
+								/>
+							))}
+						</Box>
 					</Box>
 				) : (
 					<LoadingSkeleton />
