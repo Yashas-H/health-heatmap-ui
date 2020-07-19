@@ -33,7 +33,7 @@ function Accordion({ group, openAll, setOpenAll, onSelectIndicator, q, showMetad
 				</div>
 				<Box display={active || q ? 'block' : 'none'}>
 					{_.map(group.subs, (sub, key) => (
-						<Box className="sub-group" key={key}>
+						<Box key={key} className="sub-group-accordion">
 							<AccordionContent
 								subgroup={sub}
 								name={key}

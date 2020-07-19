@@ -18,7 +18,7 @@ function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q })
 		);
 	};
 	return (
-		<Stack>
+		<Stack className="indicator-item">
 			{!indicator.sources ? (
 				<Stack isInline spacing="12px" align="center" my="3px">
 					<InfoIcon />
