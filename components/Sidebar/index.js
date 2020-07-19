@@ -116,7 +116,7 @@ function Sidebar({ onSelectIndicator }) {
 					</Stack>
 				</Box>
 				{indicators ? (
-					<Box mt="90px">
+					<Box mt="10px" className="inidicator-list">
 						<Box mx="7px">
 							{_.map(filteredIndicators, (group, index) => (
 								<Accordion

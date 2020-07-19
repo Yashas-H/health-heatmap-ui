@@ -1,15 +1,5 @@
 .sidebar-container {
-	overflow-y: scroll;
-	height: calc(100% - 50px);
-	// border-right: 1px solid #ccc;
-	position: fixed;
-	width: 33%;
-	background: #fff;
 	.sidebar-header {
-		position: fixed;
-		height: 80px;
-		width: 33%;
-		top: 62px;
 		z-index: 1;
 		background: #fff;
 		border-bottom: 1px dotted #ccc;
@@ -67,6 +57,14 @@
 			cursor: pointer;
 			margin-right: 10px;
 		}
+	}
+	.inidicator-list {
+		overflow-y: scroll;
+		height: calc(100% - 62px);
+		position: fixed;
+		width: 33%;
+		background: #fff;
+		padding-bottom: 110px;
 	}
 }
 .accordion-container {
