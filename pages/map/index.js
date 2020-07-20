@@ -149,7 +149,8 @@ export function HomePage({ username, loading, error, repos, onSubmitForm, onChan
 								<Tabs>
 									<TabList>
 										<Tab>Map</Tab>
-										<Tab>Data</Tab>
+										{!_.isEmpty(data.state) && <Tab>State Data</Tab>}
+										{!_.isEmpty(data.district) && <Tab>District Data</Tab>}
 									</TabList>
 
 									<TabPanels>
@@ -158,8 +159,16 @@ export function HomePage({ username, loading, error, repos, onSubmitForm, onChan
 											<Map data={data} />
 										</TabPanel>
 										<TabPanel>
-											{/* Data Grid Component */}
-											<DataGrid IndicatorData={data} />
+											{/* State Data */}
+											{!_.isEmpty(data.state) && (
+												<DataGrid IndicatorData={data.state} type="state" />
+											)}
+										</TabPanel>
+										<TabPanel>
+											{/* District Data */}
+											{!_.isEmpty(data.district) && (
+												<DataGrid IndicatorData={data.district} type="district" />
+											)}
 										</TabPanel>
 									</TabPanels>
 								</Tabs>

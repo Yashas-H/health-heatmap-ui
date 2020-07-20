@@ -1,23 +1,14 @@
 import { useTable } from 'react-table';
 import _ from 'underscore';
+import { Box } from '@chakra-ui/core';
 
-function DataGrid({ IndicatorData }) {
-	console.log('data', IndicatorData);
+function DataGrid({ IndicatorData, type }) {
+	let data = [];
 
-	const data = _.map(IndicatorData.district || IndicatorData.state, (item, name) => {
-		return {
-			region: name,
-			value: item[0].value,
-			distCode: item[0]['entity.DistCode'],
-			state: item[0]['entity.state'],
-			settlement: item[0]['settlement'],
-		};
-	});
-
-	const columns = React.useMemo(
+	const columnsState = React.useMemo(
 		() => [
 			{
-				Header: 'Region',
+				Header: type,
 				accessor: 'region', // accessor is the "key" in the data
 			},
 			{
@@ -25,8 +16,29 @@ function DataGrid({ IndicatorData }) {
 				accessor: 'value',
 			},
 			{
-				Header: 'District Code',
-				accessor: 'distCode',
+				Header: type + ' Code',
+				accessor: 'code',
+			},
+			{
+				Header: 'Settlement',
+				accessor: 'settlement',
+			},
+		],
+		[]
+	);
+	const columnsDist = React.useMemo(
+		() => [
+			{
+				Header: type,
+				accessor: 'region', // accessor is the "key" in the data
+			},
+			{
+				Header: 'Value',
+				accessor: 'value',
+			},
+			{
+				Header: type + ' Code',
+				accessor: 'code',
 			},
 			{
 				Header: 'State',
@@ -40,53 +52,83 @@ function DataGrid({ IndicatorData }) {
 		[]
 	);
 
+	switch (type) {
+		case 'state':
+			data = _.map(IndicatorData, (item, name) => {
+				return {
+					region: name,
+					value: item[0].value,
+					settlement: item[0]['settlement'],
+				};
+			});
+			break;
+		case 'district':
+			data = _.map(IndicatorData, (item, name) => {
+				return {
+					region: name,
+					value: item[0].value,
+					code: item[0]['entity.DistCode'],
+					state: item[0]['entity.state'],
+					settlement: item[0]['settlement'],
+				};
+			});
+			break;
+		default:
+			break;
+	}
+	const columns = type === 'state' ? columnsState : columnsDist;
 	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 
 	return (
-		<table {...getTableProps()} style={{ fontSize: '14px', marginTop: '12px', width: 'calc(100% - 5px)' }}>
-			<thead>
-				{headerGroups.map((headerGroup) => (
-					<tr {...headerGroup.getHeaderGroupProps()}>
-						{headerGroup.headers.map((column) => (
-							<th
-								{...column.getHeaderProps()}
-								style={{
-									borderBottom: 'solid 3px #3182ce',
-									background: 'aliceblue',
-									color: 'black',
-									fontWeight: 'bold',
-								}}
-							>
-								{column.render('Header')}
-							</th>
-						))}
-					</tr>
-				))}
-			</thead>
-			<tbody {...getTableBodyProps()}>
-				{rows.map((row) => {
-					prepareRow(row);
-					return (
-						<tr {...row.getRowProps()}>
-							{row.cells.map((cell) => {
-								return (
-									<td
-										{...cell.getCellProps()}
-										style={{
-											padding: '5px',
-											border: 'solid 1px #ccc',
-											background: '#fff',
-										}}
-									>
-										{cell.render('Cell')}
-									</td>
-								);
-							})}
+		<Box className="table-box" mb="100px">
+			<table {...getTableProps()} style={{ fontSize: '14px', marginTop: '12px', width: '66%' }}>
+				<thead>
+					{headerGroups.map((headerGroup) => (
+						<tr {...headerGroup.getHeaderGroupProps()}>
+							{headerGroup.headers.map((column) => (
+								<th
+									{...column.getHeaderProps()}
+									style={{
+										borderBottom: 'solid 3px #3182ce',
+										background: 'aliceblue',
+										color: 'black',
+										fontWeight: 'bold',
+										textTransform: 'capitalize',
+									}}
+								>
+									{column.render('Header')}
+									{/* Add a sort direction indicator */}
+									{/* <span>{column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}</span> */}
+								</th>
+							))}
 						</tr>
-					);
-				})}
-			</tbody>
-		</table>
+					))}
+				</thead>
+				<tbody {...getTableBodyProps()}>
+					{rows.map((row) => {
+						prepareRow(row);
+						return (
+							<tr {...row.getRowProps()}>
+								{row.cells.map((cell) => {
+									return (
+										<td
+											{...cell.getCellProps()}
+											style={{
+												padding: '5px',
+												border: 'solid 1px #ccc',
+												background: '#fff',
+											}}
+										>
+											{cell.render('Cell')}
+										</td>
+									);
+								})}
+							</tr>
+						);
+					})}
+				</tbody>
+			</table>
+		</Box>
 	);
 }
 export default DataGrid;
