@@ -29,7 +29,6 @@ function Sidebar({ onSelectIndicator }) {
 	const [openAll, setOpenAll] = useState(false);
 
 	useEffect(() => {
-		console.log('FILTERS');
 		setFilteredIndicators(q ? filterIndicators(JSON.parse(JSON.stringify(indicators)), q) : indicators);
 	}, [q, indicators]);
 

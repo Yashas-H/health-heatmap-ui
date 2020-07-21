@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactMapGL, { Popup } from 'react-map-gl';
 import request from 'superagent';
 import chroma from 'chroma-js';
@@ -12,71 +12,32 @@ import distMap from './district.json';
 const DISTRICT = 'DISTRICT';
 const STATE = 'STATE';
 
-class Map extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			viewport: {
-				width: '66vw',
-				// height:"100vh",
-				height: 500,
-				latitude: 22.960447815852717,
-				longitude: 76.3195108744048,
-				zoom: 3.4,
-			},
-			legends: null,
-			showPopup: false,
-			layerType: STATE,
-			layerData: [],
-		};
-	}
+const Map = ({ data }) => {
+	const [legends, setLegends] = useState(false);
+	const [layerType, setLayerType] = useState(false);
+	const [layerData, setLayerData] = useState([]);
+	const [prevData, setPrevData] = useState({});
 
-	componentDidMount() {
-		// const { data } = this.props;
-		// if (
-		//   !_.isEmpty(data) ||
-		//   !_.isEmpty(data.state) ||
-		//   !_.isEmpty(data.district)
-		// ) {
-		//   map.on('load', () => {
-		//     this.updateMap(data);
-		//   });
-		// }
-	}
+	const showLayers = !_.isEmpty(data) && !_.isEmpty(data.state) && !_.isEmpty(data.district);
 
-	componentWillReceiveProps(next) {
-		if (_.isEmpty(next.data) && _.isEmpty(next.data.state) && _.isEmpty(next.data.district)) {
-			this.clearMap();
+	useEffect(() => {
+		if (_.isEmpty(data) && _.isEmpty(data.state) && _.isEmpty(data.district)) {
 			return;
 		}
-		if (next.data.indicatorId != this.props.data.indicatorId) this.updateMap(next.data);
-	}
+		if (data.indicatorId != prevData.indicatorId) updateMap();
+		setPrevData(data);
+	}, [data]);
 
-	clearMap = () => {
-		// this.setState({ layers: [] });
-	};
-
-	addLayer = (layer) => {
-		this.setState({
-			layers: [
-				{
-					...layerData.layers[0],
-					source: layerData.sources,
-				},
-			],
-		});
-	};
-
-	updateMap = (data, layerType) => {
+	const updateMap = () => {
 		let type = layerType ? layerType : DISTRICT;
 		const chromaScale = data.legendType === 'POSITIVE' ? 'YlGn' : 'OrRd';
 		if (!data) return;
 
 		if (!layerType && !_.isEmpty(data.state)) {
 			type = STATE;
-			this.setState({ layerType: STATE });
+			setLayerType(STATE);
 		} else if (!layerType) {
-			this.setState({ layerType: DISTRICT });
+			setLayerType(DISTRICT);
 		}
 
 		// Parse data
@@ -95,6 +56,9 @@ class Map extends Component {
 		);
 
 		// Calculate color for each entity based on the value
+		layer.id = data.indicatorId;
+		layer.styles.colors.id = data.indicatorId;
+		layer.styles.colors.source = data.indicatorId;
 		layer.styles.colors.paint['fill-color'].stops = [];
 		_.each(apiData, (entity, name) => {
 			layer.styles.colors.paint['fill-color'].stops.push([
@@ -105,15 +69,17 @@ class Map extends Component {
 
 		const step = (max - min) / 9;
 		const legendColors = chroma.scale(chromaScale).colors(10);
-		const legends = _.map(legendColors, (color, i) => {
+		const l = _.map(legendColors, (color, i) => {
 			return {
 				color: color,
 				value: parseInt(min + Math.ceil(i * step)),
 			};
 		});
 		// Send to Naksha
-		this.setState({ layerData: [layer] });
-		this.setState({ legends: legends.reverse() });
+		let preLayerData = layerData;
+		preLayerData.push({...layer});
+		setLayerData(preLayerData);
+		setLegends(l.reverse());
 	};
 
 	// Handle pop-up on hover over layer
@@ -131,7 +97,7 @@ class Map extends Component {
 	//   }
 	// };
 
-	handleLayerChange = (e) => {
+	const handleLayerChange = (e) => {
 		if (e.target.checked) {
 			const layerType = e.target.id === STATE ? STATE : DISTRICT;
 			this.setState({ layerType: layerType });
@@ -139,80 +105,75 @@ class Map extends Component {
 		}
 	};
 
-	render() {
-		const { viewport, legends, showPopup, layerType, layerData } = this.state;
-		const { data } = this.props;
-		const showLayers = !_.isEmpty(data) && !_.isEmpty(data.state) && !_.isEmpty(data.district);
-		return (
-			<div className="map-area">
-				{/* Map */}
-				<Naksha
-					viewPort={{
-						latitude: 23.17182424768975,
-						longitude: 81.52421299825329,
-						zoom: 3.4494111278786177,
-						bearing: 0,
-						pitch: 0,
-					}}
-					loadToC={true}
-					showToC={false}
-					mapboxApiAccessToken="pk.eyJ1IjoiZGVlcGt0IiwiYSI6ImNrYWRuZHdkdjBiOHYydG1iY3RyaW52ancifQ.7jlcNtPLOyIBA1GdOzLbfg"
-					nakshaApiEndpoint="http://49.206.244.232/naksha-api/api"
-					geoserver={{
-						endpoint: 'http://49.206.244.232/naksha-api/api/geoserver',
-						store: 'ibp',
-						workspace: 'biodiv',
-					}}
-					externalLayers={layerData}
-				/>
-				{/* Layers */}
-				{showLayers && (
-					<div className="layer-selector">
-						<h4>Layers</h4>
-						<div className="layer-selector-content">
-							<div className="inputGroup">
-								<input
-									id="STATE"
-									name="radio"
-									type="radio"
-									checked={layerType === STATE}
-									onChange={this.handleLayerChange}
-								/>
-								<label for="STATE">State</label>
-							</div>
-							<div className="inputGroup">
-								<input
-									id="DISTRICT"
-									name="radio"
-									type="radio"
-									checked={layerType === DISTRICT}
-									onChange={this.handleLayerChange}
-								/>
-								<label for="DISTRICT">District</label>
-							</div>
+	return (
+		<div className="map-area">
+			{/* Map */}
+			<Naksha
+				viewPort={{
+					latitude: 23.17182424768975,
+					longitude: 81.52421299825329,
+					zoom: 3.4494111278786177,
+					bearing: 0,
+					pitch: 0,
+				}}
+				loadToC={true}
+				showToC={false}
+				mapboxApiAccessToken="pk.eyJ1IjoiZGVlcGt0IiwiYSI6ImNrYWRuZHdkdjBiOHYydG1iY3RyaW52ancifQ.7jlcNtPLOyIBA1GdOzLbfg"
+				nakshaApiEndpoint="http://49.206.244.232/naksha-api/api"
+				geoserver={{
+					endpoint: 'http://49.206.244.232/naksha-api/api/geoserver',
+					store: 'ibp',
+					workspace: 'biodiv',
+				}}
+				externalLayers={layerData}
+			/>
+			{/* Layers */}
+			{showLayers && (
+				<div className="layer-selector">
+					<h4>Layers</h4>
+					<div className="layer-selector-content">
+						<div className="inputGroup">
+							<input
+								id="STATE"
+								name="radio"
+								type="radio"
+								checked={layerType === STATE}
+								onChange={handleLayerChange}
+							/>
+							<label for="STATE">State</label>
+						</div>
+						<div className="inputGroup">
+							<input
+								id="DISTRICT"
+								name="radio"
+								type="radio"
+								checked={layerType === DISTRICT}
+								onChange={handleLayerChange}
+							/>
+							<label for="DISTRICT">District</label>
 						</div>
 					</div>
-				)}
-				{/* Legend */}
-				{legends && (
-					<div className="legend">
-						{_.map(legends, (d, index) => {
-							return (
-								<div key={index}>
-									<span
-										style={{
-											backgroundColor: d.color,
-										}}
-									/>
-									{d.value}
-								</div>
-							)
-						})}
-					</div>
-				)}
-			</div>
-		)
-	}
-}
+				</div>
+			)}
+			{/* Legend */}
+			{legends && (
+				<div className="legend">
+					{_.map(legends, (d, index) => {
+						return (
+							<div key={index}>
+								<span
+									style={{
+										backgroundColor: d.color,
+									}}
+								/>
+								{d.value}
+							</div>
+						);
+					})}
+				</div>
+			)}
+		</div>
+	);
+};
 
 export default Map;
