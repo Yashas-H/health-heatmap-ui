@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect } from 'react';
 export const LayerContext = createContext();
 const LayerContextProvider = (props) => {
 	const [selectedLayers, setSelectedLayers] = useState([]);
+	const [layerLoading, setLayerLoading] = useState(false);
 
 	useEffect(() => {
 	}, []);
@@ -12,6 +13,8 @@ const LayerContextProvider = (props) => {
 			value={{
 				selectedLayers: selectedLayers,
 				setSelectedLayers: setSelectedLayers,
+				layerLoading: layerLoading,
+				setLayerLoading: setLayerLoading,
 			}}
 		>
 			{props.children}

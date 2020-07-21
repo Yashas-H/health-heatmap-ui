@@ -52,9 +52,9 @@ const Map = ({ data }) => {
 		);
 
 		// Calculate color for each entity based on the value
-		layer.id = data.indicatorId + type;
-		layer.styles.colors.id = data.indicatorId + type;
-		layer.styles.colors.source = data.indicatorId + type;
+		layer.id = data.indicatorId;
+		layer.styles.colors.id = data.indicatorId;
+		layer.styles.colors.source = data.indicatorId;
 		layer.styles.colors.paint['fill-color'].stops = [];
 		_.each(apiData, (entity, name) => {
 			layer.styles.colors.paint['fill-color'].stops.push([

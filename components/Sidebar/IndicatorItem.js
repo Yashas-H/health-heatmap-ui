@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Checkbox, Text, Icon, Stack, Box } from '@chakra-ui/core';
 import Highlight from 'react-highlighter';
 import _ from 'underscore';
 
+import { LayerContext } from '../../context/Layer';
+
 function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q }) {
+	const { selectedLayers, layerLoading } = useContext(LayerContext);
 	const InfoIcon = () => {
 		return (
 			<Icon
@@ -25,9 +28,14 @@ function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q })
 					<Checkbox
 						variantColor="blue"
 						fontSize="sm"
-						defaultIsChecked={indicator.checked}
+						isChecked={
+							_.find(
+								selectedLayers,
+								(l) => indicator.indicator_universal_name + indicator.source === l.id
+							) !== undefined || layerLoading === indicator.indicator_universal_name + indicator.source
+						}
 						onChange={(e) => {
-							indicator.checked = event.target.checked;
+							// indicator.checked = event.target.checked;
 							onSelectIndicator(indicator, event.target.checked);
 						}}
 						py={1}
@@ -51,9 +59,15 @@ function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q })
 								<Checkbox
 									variantColor="blue"
 									fontSize="sm"
-									defaultIsChecked={indicator.sources[i].checked}
+									isChecked={
+										_.find(
+											selectedLayers,
+											(l) => indicator.indicator_universal_name + source.name === l.id
+										) !== undefined ||
+										layerLoading === indicator.indicator_universal_name + source.name
+									}
 									onChange={(e) => {
-										indicator.sources[i].checked = event.target.checked;
+										// indicator.sources[i].checked = event.target.checked;
 										onSelectIndicator({ ...indicator, source: source.name }, event.target.checked);
 									}}
 									py={1}

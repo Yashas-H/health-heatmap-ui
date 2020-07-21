@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import _ from 'underscore';
 import Select from 'react-select';
@@ -12,6 +12,7 @@ import request from 'superagent';
 
 import AppConstant from '../../constant/AppConstant';
 import Layout from '../../components/Layout';
+import { LayerContext } from '../../context/Layer';
 const key = 'home';
 
 const indicatorSelectStyles = {
@@ -24,9 +25,10 @@ const indicatorSelectStyles = {
 
 export function HomePage({ username, loading, error, repos, onSubmitForm, onChangeUsername }) {
 	// States
-	const [loadedData, setLoadedData] = useState({}); // TODO: Move to Redux
+	const [loadedData, setLoadedData] = useState({});
 	const [data, setData] = useState({});
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+	const { setLayerLoading } = useContext(LayerContext);
 
 	const loadData = (indicator, checked) => {
 		// If Unchecked show the first indicator data if exists
@@ -48,7 +50,7 @@ export function HomePage({ username, loading, error, repos, onSubmitForm, onChan
 			setData(loadedData[indicatorId]);
 			return;
 		}
-
+		setLayerLoading(indicator.indicator_universal_name + indicator.source)
 		// Get DATA
 		request
 			.post(`${AppConstant.config.appBaseUrl}/data`)
