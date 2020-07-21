@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import ReactMapGL, { Popup } from 'react-map-gl';
-import request from 'superagent';
+import React, { useState, useEffect, useContext } from 'react';
 import chroma from 'chroma-js';
-
 import _ from 'underscore';
 import Naksha from 'naksha-component-react-restructured';
 
+import { LayerContext } from '../../context/Layer';
 import stateMap from './state.json';
 import distMap from './district.json';
 
@@ -15,10 +13,9 @@ const STATE = 'STATE';
 const Map = ({ data }) => {
 	const [legends, setLegends] = useState(false);
 	const [layerType, setLayerType] = useState(false);
-	const [layerData, setLayerData] = useState([]);
 	const [prevData, setPrevData] = useState({});
-
-	const showLayers = !_.isEmpty(data) && !_.isEmpty(data.state) && !_.isEmpty(data.district);
+	const [showLayerSwitch, setShowLayerSwitch] = useState(false);
+	const { selectedLayers, setSelectedLayers } = useContext(LayerContext);
 
 	useEffect(() => {
 		if (_.isEmpty(data) && _.isEmpty(data.state) && _.isEmpty(data.district)) {
@@ -26,20 +23,19 @@ const Map = ({ data }) => {
 		}
 		if (data.indicatorId != prevData.indicatorId) updateMap();
 		setPrevData(data);
+		setShowLayerSwitch(!_.isEmpty(data) && !_.isEmpty(data.state) && !_.isEmpty(data.district) ? true : false);
 	}, [data]);
 
-	const updateMap = () => {
-		let type = layerType ? layerType : DISTRICT;
+	const updateMap = (forceType) => {
+		let type = forceType ? forceType : DISTRICT;
+
 		const chromaScale = data.legendType === 'POSITIVE' ? 'YlGn' : 'OrRd';
 		if (!data) return;
 
-		if (!layerType && !_.isEmpty(data.state)) {
+		if (!forceType && !_.isEmpty(data.state)) {
 			type = STATE;
-			setLayerType(STATE);
-		} else if (!layerType) {
-			setLayerType(DISTRICT);
 		}
-
+		setLayerType(type);
 		// Parse data
 		const apiData = type === DISTRICT ? data.district : data.state;
 		let layer = type === DISTRICT ? distMap : stateMap;
@@ -56,9 +52,9 @@ const Map = ({ data }) => {
 		);
 
 		// Calculate color for each entity based on the value
-		layer.id = data.indicatorId;
-		layer.styles.colors.id = data.indicatorId;
-		layer.styles.colors.source = data.indicatorId;
+		layer.id = data.indicatorId + type;
+		layer.styles.colors.id = data.indicatorId + type;
+		layer.styles.colors.source = data.indicatorId + type;
 		layer.styles.colors.paint['fill-color'].stops = [];
 		_.each(apiData, (entity, name) => {
 			layer.styles.colors.paint['fill-color'].stops.push([
@@ -76,9 +72,9 @@ const Map = ({ data }) => {
 			};
 		});
 		// Send to Naksha
-		let preLayerData = layerData;
-		preLayerData.push({...layer});
-		setLayerData(preLayerData);
+		let newlayerData = selectedLayers;
+		newlayerData.push({ ...layer });
+		setSelectedLayers(newlayerData);
 		setLegends(l.reverse());
 	};
 
@@ -99,9 +95,9 @@ const Map = ({ data }) => {
 
 	const handleLayerChange = (e) => {
 		if (e.target.checked) {
-			const layerType = e.target.id === STATE ? STATE : DISTRICT;
-			this.setState({ layerType: layerType });
-			this.updateMap(this.props.data, layerType);
+			const type = e.target.id === STATE ? STATE : DISTRICT;
+			setLayerType(type);
+			updateMap(type);
 		}
 	};
 
@@ -125,10 +121,10 @@ const Map = ({ data }) => {
 					store: 'ibp',
 					workspace: 'biodiv',
 				}}
-				externalLayers={layerData}
+				externalLayers={selectedLayers}
 			/>
-			{/* Layers */}
-			{showLayers && (
+			{/* Layers Switch */}
+			{showLayerSwitch && (
 				<div className="layer-selector">
 					<h4>Layers</h4>
 					<div className="layer-selector-content">
