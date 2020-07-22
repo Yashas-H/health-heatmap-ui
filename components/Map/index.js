@@ -13,13 +13,17 @@ const STATE = 'STATE';
 const Map = () => {
 	const [legends, setLegends] = useState(false);
 	const [layerType, setLayerType] = useState(false);
-	const [prevData, setPrevData] = useState({});
+	const [externalLayers, setExternalLayers] = useState([]);
 	const [showLayerSwitch, setShowLayerSwitch] = useState(false);
 	const { setSelectedLayers, selectedLayers, currentIndicatorData } = useContext(LayerContext);
 
 	useEffect(() => {
 		if (!_.isEmpty(currentIndicatorData)) updateMap();
 	}, [currentIndicatorData]);
+
+	useEffect(() => {
+		console.log('externalLayers', externalLayers);
+	}, [externalLayers]);
 
 	const updateMap = (forceType) => {
 		let data = currentIndicatorData;
@@ -65,10 +69,18 @@ const Map = () => {
 				value: parseInt(min + Math.ceil(i * step)),
 			};
 		});
-		// Send to Naksha
-		let newlayerData = selectedLayers;
+
+		layer.indicator = {
+			id: data.id,
+			indicatorName: data.indicatorName,
+			legendType: data.legendType,
+			legends: l,
+		};
+
+		let newlayerData = [...externalLayers];
 		newlayerData.push({ ...layer });
-		setSelectedLayers(newlayerData);
+		setExternalLayers(newlayerData);
+		setSelectedLayers({ ...selectedLayers, [data.id]: layer });
 		setLegends(l.reverse());
 	};
 
@@ -115,7 +127,7 @@ const Map = () => {
 					store: 'ibp',
 					workspace: 'biodiv',
 				}}
-				externalLayers={selectedLayers}
+				externalLayers={externalLayers}
 			/>
 			{/* Layers Switch */}
 			{showLayerSwitch && (

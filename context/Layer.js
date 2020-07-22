@@ -1,17 +1,18 @@
 import React, { createContext, useState, useEffect } from 'react';
 import request from 'superagent';
-import _ from "underscore";
+import _ from 'underscore';
 
 import AppConstant from '../constant/AppConstant';
 
 export const LayerContext = createContext();
 const LayerContextProvider = (props) => {
-	const [selectedLayers, setSelectedLayers] = useState([]);
-    const [layerLoading, setLayerLoading] = useState(false);
-    const [currentIndicatorData, setCurrentIndicatorData] = useState({});
-    const [loadedData, setLoadedData] = useState({});
-    
-	useEffect(() => {}, []);
+	const [selectedLayers, setSelectedLayers] = useState({});
+	const [currentIndicatorData, setCurrentIndicatorData] = useState({});
+	const [loadedData, setLoadedData] = useState({});
+
+	useEffect(() => {
+		// console.log('selectedLayers', selectedLayers);
+	}, [selectedLayers]);
 
 	const loadIndicatorData = (indicator) => {
 		// Get DATA
@@ -35,7 +36,7 @@ const LayerContextProvider = (props) => {
 					state: stateData,
 					indicatorName: indicator.indicator_universal_name,
 					legendType: indicator.indicator_positive_negative,
-					id:indicator.id,
+					id: indicator.id,
 				});
 				setLoadedData({
 					...loadedData,
@@ -44,7 +45,7 @@ const LayerContextProvider = (props) => {
 						state: stateData,
 						indicatorName: indicator.indicator_universal_name,
 						legendType: indicator.indicator_positive_negative,
-						id:indicator.id,
+						id: indicator.id,
 					},
 				});
 			})
@@ -58,8 +59,6 @@ const LayerContextProvider = (props) => {
 			value={{
 				selectedLayers: selectedLayers,
 				setSelectedLayers: setSelectedLayers,
-				layerLoading: layerLoading,
-				setLayerLoading: setLayerLoading,
 				loadIndicatorData: loadIndicatorData,
 				currentIndicatorData: currentIndicatorData,
 			}}

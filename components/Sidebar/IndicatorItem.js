@@ -6,7 +6,7 @@ import _ from 'underscore';
 import { LayerContext } from '../../context/Layer';
 
 function IndicatorItem({ indicator, showMetadata, q }) {
-	const { selectedLayers, layerLoading, loadIndicatorData, setLayerLoading } = useContext(LayerContext);
+	const { selectedLayers, setSelectedLayers, loadIndicatorData } = useContext(LayerContext);
 
 	const InfoIcon = () => {
 		return (
@@ -23,7 +23,7 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 	};
 
 	const selectIndicator = (i) => {
-		setLayerLoading(i.id);
+		setSelectedLayers({ ...selectedLayers, [i.id]: true });
 		const timer = setTimeout(() => {
 			loadIndicatorData(i);
 		}, 600);
@@ -38,10 +38,7 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 					<Checkbox
 						variantColor="blue"
 						fontSize="sm"
-						isChecked={
-							_.find(selectedLayers, (l) => indicator.id === l.id) !== undefined ||
-							layerLoading === indicator.id
-						}
+						isChecked={selectedLayers[indicator.id]}
 						onChange={(e) => {
 							if (event.target.checked) selectIndicator(indicator);
 						}}
@@ -66,10 +63,7 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 								<Checkbox
 									variantColor="blue"
 									fontSize="sm"
-									isChecked={
-										_.find(selectedLayers, (l) => source.id === l.id) !== undefined ||
-										layerLoading === source.id
-									}
+									isChecked={selectedLayers[source.id]}
 									onChange={(e) => {
 										if (event.target.checked)
 											selectIndicator({ ...indicator, id: source.id, source: source.name });
