@@ -78,7 +78,7 @@ function DataGrid({ IndicatorData, type }) {
 	}
 	const columns = type === 'state' ? columnsState : columnsDist;
 	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
-
+	if (IndicatorData.length <= 0) return null;
 	return (
 		<Box className="table-box" mb="100px">
 			<table {...getTableProps()} style={{ fontSize: '14px', marginTop: '12px', width: '66%' }}>

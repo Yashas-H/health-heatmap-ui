@@ -6,7 +6,7 @@ import Highlight from 'react-highlighter';
 
 import IndicatorItem from './IndicatorItem';
 
-function AccordionContent({ subgroup, name, openAll, setOpenAll, onSelectIndicator, q, showMetadata }) {
+function AccordionContent({ subgroup, name, openAll, setOpenAll, q, showMetadata }) {
 	const [active, setActive] = useState(false);
 	const chevron = active ? <ChevronDown /> : <ChevronRight />;
 
@@ -41,7 +41,6 @@ function AccordionContent({ subgroup, name, openAll, setOpenAll, onSelectIndicat
 								indicator={indicator}
 								index={index}
 								key={index}
-								onSelectIndicator={onSelectIndicator}
 								q={q}
 								showMetadata={showMetadata}
 							/>

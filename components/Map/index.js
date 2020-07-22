@@ -10,20 +10,16 @@ import distMap from './district.json';
 const DISTRICT = 'DISTRICT';
 const STATE = 'STATE';
 
-const Map = ({ data }) => {
+const Map = () => {
 	const [legends, setLegends] = useState(false);
 	const [layerType, setLayerType] = useState(false);
 	const [prevData, setPrevData] = useState({});
 	const [showLayerSwitch, setShowLayerSwitch] = useState(false);
-	const { selectedLayers, setSelectedLayers } = useContext(LayerContext);
+	const { setSelectedLayers, selectedLayers, data } = useContext(LayerContext);
 
 	useEffect(() => {
-		if (_.isEmpty(data) && _.isEmpty(data.state) && _.isEmpty(data.district)) {
-			return;
-		}
-		if (data.indicatorId != prevData.indicatorId) updateMap();
-		setPrevData(data);
-		setShowLayerSwitch(!_.isEmpty(data) && !_.isEmpty(data.state) && !_.isEmpty(data.district) ? true : false);
+		console.log('MAP');
+		if (!_.isEmpty(data)) updateMap();
 	}, [data]);
 
 	const updateMap = (forceType) => {

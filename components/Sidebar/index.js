@@ -21,7 +21,7 @@ const filterIndicators = (groups, q) => {
 	});
 };
 
-function Sidebar({ onSelectIndicator }) {
+function Sidebar() {
 	const [indicators, setIndicators] = useState(false);
 	const [filteredIndicators, setFilteredIndicators] = useState(false);
 	const [metadata, setMetadata] = useState(false);
@@ -122,8 +122,6 @@ function Sidebar({ onSelectIndicator }) {
 									key={index}
 									group={group}
 									index={index}
-									q={q}
-									onSelectIndicator={onSelectIndicator}
 									q={q}
 									showMetadata={showMetadata}
 									openAll={openAll}

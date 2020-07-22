@@ -5,8 +5,8 @@ import _ from 'underscore';
 
 import { LayerContext } from '../../context/Layer';
 
-function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q }) {
-	const { selectedLayers, layerLoading } = useContext(LayerContext);
+function IndicatorItem({ indicator, showMetadata, q }) {
+	const { selectedLayers, layerLoading, loadIndicatorData } = useContext(LayerContext);
 	const InfoIcon = () => {
 		return (
 			<Icon
@@ -36,7 +36,7 @@ function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q })
 						}
 						onChange={(e) => {
 							// indicator.checked = event.target.checked;
-							onSelectIndicator(indicator, event.target.checked);
+							if (event.target.checked) loadIndicatorData(indicator);
 						}}
 						py={1}
 					>
@@ -68,7 +68,7 @@ function IndicatorItem({ indicator, index, onSelectIndicator, showMetadata, q })
 									}
 									onChange={(e) => {
 										// indicator.sources[i].checked = event.target.checked;
-										onSelectIndicator({ ...indicator, source: source.name }, event.target.checked);
+										if (event.target.checked) loadIndicatorData({...indicator, source:source.name});
 									}}
 									py={1}
 								>
