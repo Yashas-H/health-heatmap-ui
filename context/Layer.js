@@ -14,8 +14,6 @@ const LayerContextProvider = (props) => {
 	useEffect(() => {}, []);
 
 	const loadIndicatorData = (indicator) => {
-		const indicatorId = indicator.indicator_universal_name + indicator.source;
-		setLayerLoading(indicator.indicator_universal_name + indicator.source);
 		// Get DATA
 		request
 			.post(`${AppConstant.config.appBaseUrl}/data`)
@@ -37,16 +35,16 @@ const LayerContextProvider = (props) => {
 					state: stateData,
 					indicatorName: indicator.indicator_universal_name,
 					legendType: indicator.indicator_positive_negative,
-					indicatorId,
+					id:indicator.id,
 				});
 				setLoadedData({
 					...loadedData,
-					[indicatorId]: {
+					[indicator.id]: {
 						district: districtData,
 						state: stateData,
 						indicatorName: indicator.indicator_universal_name,
 						legendType: indicator.indicator_positive_negative,
-						indicatorId,
+						id:indicator.id,
 					},
 				});
 			})

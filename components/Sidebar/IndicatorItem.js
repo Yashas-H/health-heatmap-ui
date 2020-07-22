@@ -6,7 +6,8 @@ import _ from 'underscore';
 import { LayerContext } from '../../context/Layer';
 
 function IndicatorItem({ indicator, showMetadata, q }) {
-	const { selectedLayers, layerLoading, loadIndicatorData } = useContext(LayerContext);
+	const { selectedLayers, layerLoading, loadIndicatorData, setLayerLoading } = useContext(LayerContext);
+
 	const InfoIcon = () => {
 		return (
 			<Icon
@@ -20,6 +21,15 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 			/>
 		);
 	};
+
+	const selectIndicator = (i) => {
+		setLayerLoading(i.id);
+		const timer = setTimeout(() => {
+			loadIndicatorData(i);
+		}, 300);
+		return () => clearTimeout(timer);
+	};
+
 	return (
 		<Stack className="indicator-item">
 			{!indicator.sources ? (
@@ -29,14 +39,11 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 						variantColor="blue"
 						fontSize="sm"
 						isChecked={
-							_.find(
-								selectedLayers,
-								(l) => indicator.indicator_universal_name + indicator.source === l.id
-							) !== undefined || layerLoading === indicator.indicator_universal_name + indicator.source
+							_.find(selectedLayers, (l) => indicator.id === l.id) !== undefined ||
+							layerLoading === indicator.id
 						}
 						onChange={(e) => {
-							// indicator.checked = event.target.checked;
-							if (event.target.checked) loadIndicatorData(indicator);
+							if (event.target.checked) selectIndicator(indicator);
 						}}
 						py={1}
 					>
@@ -60,15 +67,12 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 									variantColor="blue"
 									fontSize="sm"
 									isChecked={
-										_.find(
-											selectedLayers,
-											(l) => indicator.indicator_universal_name + source.name === l.id
-										) !== undefined ||
-										layerLoading === indicator.indicator_universal_name + source.name
+										_.find(selectedLayers, (l) => source.id === l.id) !== undefined ||
+										layerLoading === source.id
 									}
 									onChange={(e) => {
-										// indicator.sources[i].checked = event.target.checked;
-										if (event.target.checked) loadIndicatorData({...indicator, source:source.name});
+										if (event.target.checked)
+											selectIndicator({ ...indicator, id: source.id, source: source.name });
 									}}
 									py={1}
 								>

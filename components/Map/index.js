@@ -15,18 +15,16 @@ const Map = () => {
 	const [layerType, setLayerType] = useState(false);
 	const [prevData, setPrevData] = useState({});
 	const [showLayerSwitch, setShowLayerSwitch] = useState(false);
-	const { setSelectedLayers, selectedLayers, data } = useContext(LayerContext);
+	const { setSelectedLayers, selectedLayers, currentIndicatorData } = useContext(LayerContext);
 
 	useEffect(() => {
-		console.log('MAP');
-		if (!_.isEmpty(data)) updateMap();
-	}, [data]);
+		if (!_.isEmpty(currentIndicatorData)) updateMap();
+	}, [currentIndicatorData]);
 
 	const updateMap = (forceType) => {
+		let data = currentIndicatorData;
 		let type = forceType ? forceType : DISTRICT;
-
 		const chromaScale = data.legendType === 'POSITIVE' ? 'YlGn' : 'OrRd';
-		if (!data) return;
 
 		if (!forceType && !_.isEmpty(data.state)) {
 			type = STATE;
@@ -48,9 +46,9 @@ const Map = () => {
 		);
 
 		// Calculate color for each entity based on the value
-		layer.id = data.indicatorId;
-		layer.styles.colors.id = data.indicatorId;
-		layer.styles.colors.source = data.indicatorId;
+		layer.id = data.id;
+		layer.styles.colors.id = data.id;
+		layer.styles.colors.source = data.id;
 		layer.styles.colors.paint['fill-color'].stops = [];
 		_.each(apiData, (entity, name) => {
 			layer.styles.colors.paint['fill-color'].stops.push([

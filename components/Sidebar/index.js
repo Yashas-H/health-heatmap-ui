@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import request from 'superagent';
 import _ from 'underscore';
+import { v4 as uuidv4 } from 'uuid';
 import { Box, Skeleton, Stack } from '@chakra-ui/core';
 
 import AppConstant from '../../constant/AppConstant';
@@ -64,9 +65,10 @@ function Sidebar() {
 								...dupe[0],
 								sources: _.map(dupe, (i) => ({
 									name: i.source,
+									id: uuidv4(),
 								})),
 							};
-						return dupe[0];
+						return { ...dupe[0], id: uuidv4() };
 					});
 					groupsWithSubs.push({
 						name: key,
