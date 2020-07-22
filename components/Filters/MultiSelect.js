@@ -1,40 +1,22 @@
 import React, { useState } from 'react';
 import _ from 'underscore';
+import { Checkbox, CheckboxGroup, Stack } from '@chakra-ui/core';
 
-function MultiSelect({filters, title}) {
-  const [panel, setPanel] = useState({
-    active: false,
-  });
-  return (
-    <div className="filter-block-container">
-        <h2 className="filter-type-title">
-          <input
-              type="checkbox"
-              className="select-all-filter-checkbox"
-              id={`${title}indicatorField`}
-            />
-            <label className="label-inline" htmlFor={`${title}indicatorField`}>
-              <span className="filter-item-title">{title}</span>
-            </label>
-        </h2>
-        <ul className="filter-list">
-          {
-            _.map(filters, (filter, index) => {
-              return <li key={index}>
-                      <input
-                        type="checkbox"
-                        className="filter-checkbox"
-                        id={`${title}indicatorField${index}`}
-                      />
-                      <label className="label-inline" htmlFor={`${title}indicatorField${index}`}>
-                        <span className="filter-item-title">{filter}</span>
-                      </label>
-                    </li>
-            })
-          }
-        </ul>
-    </div>
-  );
+function MultiSelect({ filters, title }) {
+	return (
+		<div className="filter-block-container">
+			<h2 className="filter-type-title">{title}</h2>
+			<Stack spacing={1}>
+				{_.map(filters, (filter, index) => {
+					return (
+						<Checkbox key={index} size="md" variantColor="blue" defaultIsChecked>
+							{filter}
+						</Checkbox>
+					);
+				})}
+			</Stack>
+		</div>
+	);
 }
 
 export default MultiSelect;

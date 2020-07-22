@@ -6,13 +6,12 @@ import { Grid, Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/c
 import Sidebar from '../../components/Sidebar';
 import Map from '../../components/Map';
 import DataGrid from '../../components/DataGrid';
-import Filters from '../../components/Filters';
 
 import Layout from '../../components/Layout';
 import { LayerContext } from '../../context/Layer';
 
 export function HomePage({ username, loading, error, repos, onSubmitForm, onChangeUsername }) {
-	const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+	// const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 	const { currentIndicatorData } = useContext(LayerContext);
 
 	return (
@@ -23,13 +22,12 @@ export function HomePage({ username, loading, error, repos, onSubmitForm, onChan
 					<meta name="description" content="Health Heat Map" />
 				</Helmet>
 				<div>
-					<Grid gridTemplateColumns={'33% 1fr'} gap={0}>
+					<Grid gridTemplateColumns={'30% 1fr'} gap={0}>
 						<Box>
 							<Sidebar />
 						</Box>
 
 						<Box className="vis-right-column">
-							{selectedTabIndex === 0 && <Filters />}
 							<div className="visualization-area">
 								{/* Visualization Area */}
 								<Tabs>

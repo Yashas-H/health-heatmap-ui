@@ -3,6 +3,7 @@ import chroma from 'chroma-js';
 import _ from 'underscore';
 import Naksha from 'naksha-component-react-restructured';
 
+import Filters from '../Filters';
 import { LayerContext } from '../../context/Layer';
 import stateMap from './state.json';
 import distMap from './district.json';
@@ -113,7 +114,7 @@ const Map = () => {
 			<Naksha
 				viewPort={{
 					latitude: 23.17182424768975,
-					longitude: 81.52421299825329,
+					longitude: 91.52421299825329,
 					zoom: 3.4494111278786177,
 					bearing: 0,
 					pitch: 0,
@@ -174,6 +175,8 @@ const Map = () => {
 					})}
 				</div>
 			)}
+			{/* Filters */}
+			<Filters />
 		</div>
 	);
 };

@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import Draggable from 'react-draggable';
+import React, { useState, useEffect } from 'react';
 import _ from 'underscore';
-import { X } from 'react-feather';
-import classNames from 'classnames';
+import { Box, IconButton, Stack, CloseButton } from '@chakra-ui/core';
 
-import states from '../../data/states.json';
+import { IconFilter } from '../Icons';
 import MultiSelect from './MultiSelect';
 import SingleSelect from './SingleSelect';
 
@@ -13,28 +11,45 @@ const caste = ['SC', 'ST', 'OBC', 'General', 'Others'];
 const gender = ['Male', 'Female', 'Other'];
 
 function Filters() {
-  const [panel, setPanel] = useState({
-    active: false,
-  });
+	const [active, setActive] = useState(false);
 
-  return (
-    <Draggable handle=".handle" position={null}>
-      <div className={classNames('filters-panel', panel.active ? '':'minimized')}>
-        <h2 className="filter-title handle" onClick={e=>{if(!panel.active) setPanel({...panel, active:true})}}>
-          Filters{' '}
-          <span className={classNames('close-btn', panel.active ? '':'hidden')}>
-            <X onClick={e=>setPanel({...panel, active:!panel.active})}/>
-          </span>
-        </h2>
-        <div className={classNames('filters-block', panel.active ? '':'hidden')}>
-          <SingleSelect title='Settlement' filters={settlement}/>
-          <SingleSelect title='Caste' filters={caste}/>
-          <SingleSelect title='Gender' filters={gender}/>
-          <MultiSelect title='State/District' filters={_.map(states, state => state.name)}/>
-        </div>
-      </div>
-    </Draggable>
-  );
+	useEffect(() => {}, []);
+
+	return (
+		<Box className="float-bar-container">
+			{active ? (
+				<Box className="active">
+					<Stack
+						spacing={8}
+						className="header-title"
+						isInline
+						justifyContent="space-between"
+						alignItems="center"
+					>
+						<Stack isInline>
+							<IconFilter display="inline" />
+							<Box ml="10px">Filters</Box>
+						</Stack>
+						<CloseButton onClick={(e) => setActive(false)} />
+					</Stack>
+					<Box>
+						<MultiSelect title="Settlement" filters={settlement} />
+						<MultiSelect title="Caste" filters={caste} />
+						<MultiSelect title="Gender" filters={gender} />
+					</Box>
+				</Box>
+			) : (
+				<IconButton
+					className="icon"
+					icon={IconFilter}
+					size="sm"
+					color="#2a69ac"
+					background="#fff"
+					onClick={(e) => setActive(true)}
+				/>
+			)}
+		</Box>
+	);
 }
 
 export default Filters;
