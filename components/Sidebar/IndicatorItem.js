@@ -26,7 +26,7 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 		setLayerLoading(i.id);
 		const timer = setTimeout(() => {
 			loadIndicatorData(i);
-		}, 300);
+		}, 600);
 		return () => clearTimeout(timer);
 	};
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import _ from 'underscore';
 import { Grid, Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/core';
@@ -9,9 +9,12 @@ import DataGrid from '../../components/DataGrid';
 import Filters from '../../components/Filters';
 
 import Layout from '../../components/Layout';
+import { LayerContext } from '../../context/Layer';
 
 export function HomePage({ username, loading, error, repos, onSubmitForm, onChangeUsername }) {
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+	const { currentIndicatorData } = useContext(LayerContext);
+
 	return (
 		<Layout>
 			<article className="main-container">
@@ -32,16 +35,18 @@ export function HomePage({ username, loading, error, repos, onSubmitForm, onChan
 								<Tabs>
 									<TabList>
 										<Tab>Map</Tab>
-										<Tab>Table</Tab>
+										{!_.isEmpty(currentIndicatorData) && <Tab>Table</Tab>}
 									</TabList>
 
 									<TabPanels>
 										<TabPanel>
 											{/* Map Component */}
-											<Map/>
+											<Map />
 										</TabPanel>
 										<TabPanel>
-											<DataGrid IndicatorData={[]} />
+											{!_.isEmpty(currentIndicatorData) && (
+												<DataGrid IndicatorData={currentIndicatorData} />
+											)}
 										</TabPanel>
 									</TabPanels>
 								</Tabs>

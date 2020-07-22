@@ -2,8 +2,9 @@ import { useTable } from 'react-table';
 import _ from 'underscore';
 import { Box } from '@chakra-ui/core';
 
-function DataGrid({ IndicatorData, type }) {
+function DataGrid({ IndicatorData }) {
 	let data = [];
+	const type = _.isEmpty(IndicatorData.district) ? 'state' : 'district';
 
 	const columnsState = React.useMemo(
 		() => [
@@ -54,7 +55,7 @@ function DataGrid({ IndicatorData, type }) {
 
 	switch (type) {
 		case 'state':
-			data = _.map(IndicatorData, (item, name) => {
+			data = _.map(IndicatorData[type], (item, name) => {
 				return {
 					region: name,
 					value: item[0].value,
@@ -63,7 +64,7 @@ function DataGrid({ IndicatorData, type }) {
 			});
 			break;
 		case 'district':
-			data = _.map(IndicatorData, (item, name) => {
+			data = _.map(IndicatorData[type], (item, name) => {
 				return {
 					region: name,
 					value: item[0].value,
