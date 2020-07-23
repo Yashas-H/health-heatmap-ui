@@ -115,6 +115,7 @@
 				padding: 2px 12px;
 				font-weight: normal;
 				cursor: pointer;
+				padding-right: 0;
 				svg {
 					color: #9c9c9c;
 					width: 16px;
@@ -143,4 +144,16 @@
 			}
 		}
 	}
+}
+.count-badge {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	font-size: 12px;
+	line-height: 18px;
+	text-align: center;
+	/* border: 1px solid #797979; */
+	color: #505050;
+	// font-weight: 300;
+	background: #e6e6e6;
 }

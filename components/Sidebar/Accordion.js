@@ -3,7 +3,7 @@ import { ChevronRight, ChevronDown } from 'react-feather';
 import _ from 'underscore';
 
 import AccordionContent from './AccordionContent';
-import { Box, Text } from '@chakra-ui/core';
+import { Box, Text, Stack } from '@chakra-ui/core';
 
 function Accordion({ group, openAll, setOpenAll, q, showMetadata }) {
 	const [active, setActive] = useState(false);
@@ -23,13 +23,13 @@ function Accordion({ group, openAll, setOpenAll, q, showMetadata }) {
 						setActive(!active);
 					}}
 				>
-					<Text>
-						<span>{chevron}</span>
-						{group.name}{' '}
-						<Text as="sup" fontWeight="300">
-							{group.count}
-						</Text>
-					</Text>
+					<Stack isInline spacing={2} mt="5px" justifyContent="space-between">
+						<Stack isInline>
+							<span className="sub-group-chevy">{chevron}</span>
+							<Text>{group.name} </Text>
+						</Stack>
+						<Text className="count-badge">{group.count}</Text>
+					</Stack>
 				</div>
 				<Box display={active || q ? 'block' : 'none'}>
 					{_.map(group.subs, (sub, key) => (

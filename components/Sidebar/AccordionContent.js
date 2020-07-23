@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, ChevronDown } from 'react-feather';
-import { Stack, Text } from '@chakra-ui/core';
+import { Stack, Text, Badge } from '@chakra-ui/core';
 import _ from 'underscore';
 import Highlight from 'react-highlighter';
 
@@ -25,14 +25,14 @@ function AccordionContent({ subgroup, name, openAll, setOpenAll, q, showMetadata
 						}}
 						className="sub-group-header"
 					>
-						<Stack isInline spacing={2} mt="5px">
-							<span className="sub-group-chevy">{chevron}</span>
-							<Text>
-								<Highlight search={q}>{name}</Highlight>{' '}
-								<Text as="sup" fontWeight="300">
-									{subgroup.length}
+						<Stack isInline spacing={2} mt="5px" justifyContent="space-between">
+							<Stack isInline>
+								<span className="sub-group-chevy">{chevron}</span>
+								<Text>
+								{' '}<Highlight search={q}>{name}</Highlight>
 								</Text>
-							</Text>
+							</Stack>
+							<Text className="count-badge">{subgroup.length}</Text>
 						</Stack>
 					</div>
 					<Stack className={`indicators-list`} spacing={10} display={active || q ? 'block' : 'none'}>
