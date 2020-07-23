@@ -18,7 +18,7 @@ function Layer({ layer }) {
 					</Stack>
 				</Flex>
 				<Flex size="70%" align="left" justify="center" mx="14px">
-					<Slider defaultValue={30}>
+					<Slider defaultValue={100}>
 						<SliderTrack />
 						<SliderFilledTrack />
 						<SliderThumb />

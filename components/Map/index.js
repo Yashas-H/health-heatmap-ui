@@ -179,12 +179,11 @@ const Map = () => {
 					})}
 				</div>
 			)}
+			{/* Layers */}
+			{!_.isEmpty(selectedLayers) && <Layers />}
 
 			{/* Filters */}
 			{!_.isEmpty(selectedLayers) && <Filters />}
-
-			{/* Layers */}
-			{!_.isEmpty(selectedLayers) && <Layers />}
 		</div>
 	);
 };

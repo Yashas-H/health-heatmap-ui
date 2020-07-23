@@ -15,6 +15,9 @@ function Layers() {
 		<Box className="layer-container" fontSize="12px" fontWeight="300">
 			{active ? (
 				<Box>
+					<Box className="layer-close" onClick={(e) => setActive(false)}>
+						<ArrowDown size="18px"/>
+					</Box>
 					<Stack>
 						{_.map(selectedLayers, (layer) => (
 							<Layer layer={layer} />
@@ -22,19 +25,19 @@ function Layers() {
 					</Stack>
 				</Box>
 			) : (
-				<Stack
-					spacing={2}
-					className="header-title"
-					isInline
-					justifyContent="space-between"
-					cursor="pointer"
-					onClick={(e) => setActive(true)}
-				>
-					<Stack isInline>
-						<Box ml="10px">LAYERS</Box>
+				<Box>
+					<Stack
+						spacing={2}
+						className="header-title"
+						isInline
+						cursor="pointer"
+						padding="10px"
+						onClick={(e) => setActive(true)}
+					>
+						<ArrowUp size="18px" />
+						<Box ml="5px">INDICATORS</Box>
 					</Stack>
-					<ArrowUp size="18px" />
-				</Stack>
+				</Box>
 			)}
 		</Box>
 	);

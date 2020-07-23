@@ -7,3 +7,13 @@
 	background: #fff;
 	border-radius: 3px;
 }
+
+.layer-close {
+	position: relative;
+	top: -27px;
+	background: #ffffffba;
+	padding: 6px;
+	border-radius: 5px 5px 0 0;
+	cursor: pointer;
+	width: fit-content;
+}
