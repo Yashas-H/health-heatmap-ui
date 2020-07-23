@@ -16,7 +16,7 @@ function Filters() {
 	useEffect(() => {}, []);
 
 	return (
-		<Box className="float-bar-container">
+		<Box className="filter-container">
 			{active ? (
 				<Box className="active">
 					<Stack

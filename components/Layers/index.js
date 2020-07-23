@@ -1,16 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import _ from 'underscore';
-import { Box, Text } from '@chakra-ui/core';
-import Draggable from 'react-draggable';
+import { ArrowDown, ArrowUp } from 'react-feather';
+import { Box, Stack, Text } from '@chakra-ui/core';
 
+import { LayerContext } from '../../context/Layer';
+import Layer from './Layer';
 function Layers() {
+	const [active, setActive] = useState(true);
+	const { selectedLayers, setSelectedLayers } = useContext(LayerContext);
 
 	useEffect(() => {}, []);
 
 	return (
-		<Draggable handle=".handle" position={null}>
-			<Box>Layers</Box>
-		</Draggable>
+		<Box className="layer-container" fontSize="12px" fontWeight="300">
+			{active ? (
+				<Box onClick={(e) => setActive(false)}>
+					<Stack>
+						{_.map(selectedLayers, (layer) => (
+							<Layer layer={layer} />
+						))}
+					</Stack>
+				</Box>
+			) : (
+				<Stack
+					spacing={2}
+					className="header-title"
+					isInline
+					justifyContent="space-between"
+					cursor="pointer"
+					onClick={(e) => setActive(true)}
+				>
+					<Stack isInline>
+						<Box ml="10px">LAYERS</Box>
+					</Stack>
+					<ArrowUp size="18px" />
+				</Stack>
+			)}
+		</Box>
 	);
 }
 

@@ -3,8 +3,9 @@ import chroma from 'chroma-js';
 import _ from 'underscore';
 import Naksha from 'naksha-component-react-restructured';
 
-import Filters from '../Filters';
 import { LayerContext } from '../../context/Layer';
+import Filters from '../Filters';
+import Layers from '../Layers';
 import stateMap from './state.json';
 import distMap from './district.json';
 
@@ -22,8 +23,7 @@ const Map = () => {
 		if (!_.isEmpty(currentIndicatorData)) updateMap();
 	}, [currentIndicatorData]);
 
-	useEffect(() => {
-	}, [externalLayers]);
+	useEffect(() => {}, [externalLayers]);
 
 	useEffect(() => {
 		const selected = _.map(selectedLayers, (l, key) => ({ ...selectedLayers[key] }));
@@ -161,6 +161,7 @@ const Map = () => {
 					</div>
 				</div>
 			)}
+
 			{/* Legend */}
 			{legends && (
 				<div className="legend">
@@ -178,8 +179,12 @@ const Map = () => {
 					})}
 				</div>
 			)}
+
 			{/* Filters */}
 			{!_.isEmpty(selectedLayers) && <Filters />}
+
+			{/* Layers */}
+			{!_.isEmpty(selectedLayers) && <Layers />}
 		</div>
 	);
 };

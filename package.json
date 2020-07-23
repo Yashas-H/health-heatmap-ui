@@ -17,7 +17,6 @@
     "next": "9.4.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-draggable": "^4.4.3",
     "react-feather": "^2.0.8",
     "react-helmet": "^6.1.0",
     "react-highlighter": "^0.4.3",

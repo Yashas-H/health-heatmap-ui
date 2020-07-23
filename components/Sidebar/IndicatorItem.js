@@ -23,7 +23,6 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 	};
 
 	const selectIndicator = (i) => {
-		// setSelectedLayers({ ...selectedLayers, [i.id]: true });
 		const timer = setTimeout(() => {
 			loadIndicatorData(i);
 		}, 600);
