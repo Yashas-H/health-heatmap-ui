@@ -23,8 +23,12 @@ const Map = () => {
 	}, [currentIndicatorData]);
 
 	useEffect(() => {
-		console.log('externalLayers', externalLayers);
 	}, [externalLayers]);
+
+	useEffect(() => {
+		const selected = _.map(selectedLayers, (l, key) => ({ ...selectedLayers[key] }));
+		setExternalLayers(selected);
+	}, [selectedLayers]);
 
 	const updateMap = (forceType) => {
 		let data = currentIndicatorData;
@@ -75,14 +79,13 @@ const Map = () => {
 			id: data.id,
 			indicatorName: data.indicatorName,
 			legendType: data.legendType,
-			legends: l,
+			legends: l.reverse(),
 		};
 
 		let newlayerData = [...externalLayers];
 		newlayerData.push({ ...layer });
-		setExternalLayers(newlayerData);
-		setSelectedLayers({ ...selectedLayers, [data.id]: layer });
-		setLegends(l.reverse());
+		// setExternalLayers(newlayerData);
+		setSelectedLayers(JSON.parse(JSON.stringify({ ...selectedLayers, [data.id]: layer })));
 	};
 
 	// Handle pop-up on hover over layer
@@ -176,7 +179,7 @@ const Map = () => {
 				</div>
 			)}
 			{/* Filters */}
-			<Filters />
+			{!_.isEmpty(selectedLayers) && <Filters />}
 		</div>
 	);
 };

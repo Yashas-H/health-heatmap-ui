@@ -23,11 +23,16 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 	};
 
 	const selectIndicator = (i) => {
-		setSelectedLayers({ ...selectedLayers, [i.id]: true });
+		// setSelectedLayers({ ...selectedLayers, [i.id]: true });
 		const timer = setTimeout(() => {
 			loadIndicatorData(i);
 		}, 600);
 		return () => clearTimeout(timer);
+	};
+
+	const deSelectIndicator = (indicatorId) => {
+		const filtredLayers = _.omit(selectedLayers, indicatorId);
+		setSelectedLayers({ ...filtredLayers });
 	};
 
 	return (
@@ -41,6 +46,7 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 						isChecked={selectedLayers[indicator.id]}
 						onChange={(e) => {
 							if (event.target.checked) selectIndicator(indicator);
+							else deSelectIndicator(indicator.id);
 						}}
 						py={1}
 					>
@@ -67,6 +73,7 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 									onChange={(e) => {
 										if (event.target.checked)
 											selectIndicator({ ...indicator, id: source.id, source: source.name });
+										else deSelectIndicator(source.id);
 									}}
 									py={1}
 								>
