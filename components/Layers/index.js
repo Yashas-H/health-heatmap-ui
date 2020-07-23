@@ -14,7 +14,7 @@ function Layers() {
 	return (
 		<Box className="layer-container" fontSize="12px" fontWeight="300">
 			{active ? (
-				<Box onClick={(e) => setActive(false)}>
+				<Box>
 					<Stack>
 						{_.map(selectedLayers, (layer) => (
 							<Layer layer={layer} />

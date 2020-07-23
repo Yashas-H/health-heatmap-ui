@@ -1,26 +1,13 @@
 import React, { useContext } from 'react';
 import { Checkbox, Text, Icon, Stack, Box } from '@chakra-ui/core';
 import Highlight from 'react-highlighter';
+import { Info } from 'react-feather';
 import _ from 'underscore';
 
 import { LayerContext } from '../../context/Layer';
 
 function IndicatorItem({ indicator, showMetadata, q }) {
 	const { selectedLayers, setSelectedLayers, loadIndicatorData } = useContext(LayerContext);
-
-	const InfoIcon = () => {
-		return (
-			<Icon
-				name="info"
-				size="18px"
-				color="grey"
-				cursor="pointer"
-				mr="8px"
-				onClick={(e) => showMetadata(indicator)}
-				alignContent="top"
-			/>
-		);
-	};
 
 	const selectIndicator = (i) => {
 		const timer = setTimeout(() => {
@@ -37,8 +24,10 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 	return (
 		<Stack className="indicator-item">
 			{!indicator.sources ? (
-				<Stack isInline spacing="12px" align="center" my="3px">
-					<InfoIcon />
+				<Stack isInline spacing="3px" align="center" my="3px">
+					<Box>
+						<Info size={'18px'} cursor="pointer" onClick={(e) => showMetadata(indicator)} color="#717171" />
+					</Box>
 					<Checkbox
 						variantColor="blue"
 						fontSize="sm"
@@ -56,15 +45,22 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 				</Stack>
 			) : (
 				<Box>
-					<Stack isInline spacing={1} align="center" my="3px">
-						<InfoIcon showMetadata={showMetadata} />
+					<Stack isInline spacing="3px" align="center" my="3px">
+						<Box>
+							<Info
+								size={'18px'}
+								cursor="pointer"
+								onClick={(e) => showMetadata(indicator)}
+								color="#717171"
+							/>
+						</Box>
 						<Text fontSize="sm">
 							<Highlight search={q}>{indicator.indicator_universal_name}</Highlight>
 						</Text>
 					</Stack>
 					{_.map(indicator.sources, (source, i) => {
 						return (
-							<Stack ml="24px" key={i}>
+							<Stack ml="22px" key={i}>
 								<Checkbox
 									variantColor="blue"
 									fontSize="sm"
