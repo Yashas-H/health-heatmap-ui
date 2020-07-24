@@ -1,21 +1,37 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Eye, EyeOff, Info, X } from 'react-feather';
+import React, { useState, useContext, useEffect, useRef } from 'react';
+import { Eye, EyeOff, Info, X, Layers } from 'react-feather';
 import _ from 'underscore';
-import { Box, Stack, Text, Flex } from '@chakra-ui/core';
+import { Box, Stack, Text, Flex, Select } from '@chakra-ui/core';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb } from '@chakra-ui/core';
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+	PopoverHeader,
+	PopoverBody,
+	PopoverArrow,
+	PopoverCloseButton,
+} from '@chakra-ui/core';
+import { List, ListItem, ListIcon } from '@chakra-ui/core';
 
+import formatMapData from '../../helper/formatMapData';
 import { LayerContext } from '../../context/Layer';
 
 function Layer({ layer }) {
 	const { setSelectedLayers, selectedLayers, setShowMetadata } = useContext(LayerContext);
 	const [opacity, setOpacity] = useState(100);
-
-	const removeIndicator = (indicatorId) => {
-		const filtredLayers = _.omit(selectedLayers, indicatorId);
-		setSelectedLayers({ ...filtredLayers });
-	};
+	const [layers, setLayers] = useState(false);
+	const [selectedLayer, setSelectedLayer] = useState(false);
+	const initRef = useRef();
 
 	let delayTimer;
+
+	useEffect(() => {
+		if (!_.isEmpty(layer.indicator.data.state) && !_.isEmpty(layer.indicator.data.district)) {
+			setLayers(['State', 'District']);
+			setSelectedLayer('State');
+		}
+	}, []);
 
 	useEffect(() => {
 		const layers = { ...selectedLayers };
@@ -23,13 +39,28 @@ function Layer({ layer }) {
 		setSelectedLayers(layers);
 	}, [opacity]);
 
+	const removeIndicator = (indicatorId) => {
+		const filtredLayers = _.omit(selectedLayers, indicatorId);
+		setSelectedLayers({ ...filtredLayers });
+	};
+
 	const onSliderChange = (value) => {
 		clearTimeout(delayTimer);
 		delayTimer = setTimeout(() => {
 			setOpacity(value);
 		}, 500);
 	};
-	
+
+	const onLayerChange = (value) => {
+		setSelectedLayer(value);
+		const layersData = { ...selectedLayers };
+		layersData[layer.indicator.id] = {
+			...layersData[layer.indicator.id],
+			...formatMapData(layer.indicator.data, value.toUpperCase(), opacity),
+		};
+		setSelectedLayers(layersData);
+	};
+
 	return (
 		<Box className="layer-item" mb="12px" padding="10px">
 			<Text fontWeight="bold" fontSize="13px">
@@ -58,6 +89,46 @@ function Layer({ layer }) {
 				</Flex>
 				<Box>
 					<Stack isInline spacing={3} shouldWrapChildren={true} color="#717171">
+						{layers && (
+							<Popover initialFocusRef={initRef}>
+								{({ isOpen, onClose }) => (
+									<>
+										<PopoverTrigger>
+											<Layers size={'20px'} cursor="pointer" />
+										</PopoverTrigger>
+										<PopoverContent zIndex={4} width="150px">
+											<PopoverArrow />
+											{/* <PopoverCloseButton /> */}
+											{/* <PopoverHeader>Layers</PopoverHeader> */}
+											<PopoverBody fontSize="14px">
+												<List spacing={1}>
+													{_.map(layers, (l) => {
+														return (
+															<ListItem
+																cursor="pointer"
+																onClick={(e) => {
+																	onClose();
+																	onLayerChange(l);
+																}}
+																ref={initRef}
+															>
+																<ListIcon
+																	icon="check-circle"
+																	color={
+																		selectedLayer === l ? 'green.500' : '#ffffff00'
+																	}
+																/>
+																{l}
+															</ListItem>
+														);
+													})}
+												</List>
+											</PopoverBody>
+										</PopoverContent>
+									</>
+								)}
+							</Popover>
+						)}
 						<Info
 							size={'20px'}
 							cursor="pointer"

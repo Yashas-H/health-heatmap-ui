@@ -24,7 +24,7 @@ function Layers() {
 				</Box>
 			) : (
 				<Box>
-					<Stack
+					<Box
 						spacing={2}
 						className="header-title"
 						isInline
@@ -32,9 +32,16 @@ function Layers() {
 						padding="10px"
 						onClick={(e) => setActive(true)}
 					>
-						<ArrowUp size="18px" />
-						<Box ml="5px">INDICATORS</Box>
-					</Stack>
+						<Stack isInline spacing={2} mt="5px" justifyContent="space-between">
+							<Stack isInline>
+								<ArrowUp size="18px" />
+								<Text ml="6px">
+									INDICATORS
+								</Text>
+							</Stack>
+							<Text className="count-badge">{_.keys(selectedLayers).length}</Text>
+						</Stack>
+					</Box>
 				</Box>
 			)}
 		</Box>

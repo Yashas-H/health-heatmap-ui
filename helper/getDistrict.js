@@ -50,5 +50,4 @@ export default function getDistrict(name, similarName) {
       console.log(name, d)
     }
   })
-  
 }
