@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import _ from 'underscore';
 import request from 'superagent';
 import {
@@ -21,18 +21,20 @@ import {
 } from '@chakra-ui/core';
 
 import AppConstant from '../../constant/AppConstant';
+import { LayerContext } from '../../context/Layer';
 
-function MetadatPopUp({ indicator, setMetadataOnClose }) {
+function MetadatPopUp() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [metadata, setMetadata] = useState();
+	const { showMetadata, setShowMetadata } = useContext(LayerContext);
 
 	useEffect(() => {
-		if (indicator) {
+		if (showMetadata) {
 			onOpen();
 			setMetadata(false);
 			// Get Indicator metadata
 			request
-				.get(`${AppConstant.config.appBaseUrl}/indicators/${encodeURI(indicator.indicator_universal_name)}`)
+				.get(`${AppConstant.config.appBaseUrl}/indicators/${encodeURI(showMetadata.indicator_universal_name)}`)
 				.then((res) => {
 					setMetadata(res.body);
 				})
@@ -40,7 +42,7 @@ function MetadatPopUp({ indicator, setMetadataOnClose }) {
 					console.log('Error loading Data', err);
 				});
 		}
-	}, [indicator]);
+	}, [showMetadata]);
 
 	const LoadingSkeleton = () => {
 		return _.map(_.range(5), (i) => {
@@ -58,7 +60,7 @@ function MetadatPopUp({ indicator, setMetadataOnClose }) {
 			isOpen={isOpen}
 			placement="right"
 			onClose={(e) => {
-				setMetadataOnClose(false);
+				setShowMetadata(false);
 				onClose();
 			}}
 		>
@@ -75,7 +77,7 @@ function MetadatPopUp({ indicator, setMetadataOnClose }) {
 							Indicator Name
 						</Text>
 						<Text fontSize={14} fontWeight="bold">
-							{indicator.indicator_universal_name}
+							{showMetadata.indicator_universal_name}
 						</Text>
 					</Text>
 					{metadata ? (

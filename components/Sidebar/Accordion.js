@@ -5,7 +5,7 @@ import _ from 'underscore';
 import AccordionContent from './AccordionContent';
 import { Box, Text, Stack } from '@chakra-ui/core';
 
-function Accordion({ group, openAll, setOpenAll, q, showMetadata }) {
+function Accordion({ group, openAll, setOpenAll, q }) {
 	const [active, setActive] = useState(false);
 	const chevron = active ? <ChevronDown /> : <ChevronRight />;
 
@@ -39,7 +39,6 @@ function Accordion({ group, openAll, setOpenAll, q, showMetadata }) {
 								name={key}
 								key={key}
 								q={q}
-								showMetadata={showMetadata}
 								openAll={openAll}
 								setOpenAll={setOpenAll}
 							/>

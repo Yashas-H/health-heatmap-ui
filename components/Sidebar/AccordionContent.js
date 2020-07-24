@@ -6,7 +6,7 @@ import Highlight from 'react-highlighter';
 
 import IndicatorItem from './IndicatorItem';
 
-function AccordionContent({ subgroup, name, openAll, setOpenAll, q, showMetadata }) {
+function AccordionContent({ subgroup, name, openAll, setOpenAll, q }) {
 	const [active, setActive] = useState(false);
 	const chevron = active ? <ChevronDown /> : <ChevronRight />;
 
@@ -29,7 +29,8 @@ function AccordionContent({ subgroup, name, openAll, setOpenAll, q, showMetadata
 							<Stack isInline>
 								<span className="sub-group-chevy">{chevron}</span>
 								<Text>
-								{' '}<Highlight search={q}>{name}</Highlight>
+									{' '}
+									<Highlight search={q}>{name}</Highlight>
 								</Text>
 							</Stack>
 							<Text className="count-badge">{subgroup.length}</Text>
@@ -37,13 +38,7 @@ function AccordionContent({ subgroup, name, openAll, setOpenAll, q, showMetadata
 					</div>
 					<Stack className={`indicators-list`} spacing={10} display={active || q ? 'block' : 'none'}>
 						{_.map(subgroup, (indicator, index) => (
-							<IndicatorItem
-								indicator={indicator}
-								index={index}
-								key={index}
-								q={q}
-								showMetadata={showMetadata}
-							/>
+							<IndicatorItem indicator={indicator} index={index} key={index} q={q} />
 						))}
 					</Stack>
 				</li>

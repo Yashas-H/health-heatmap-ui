@@ -6,8 +6,8 @@ import _ from 'underscore';
 
 import { LayerContext } from '../../context/Layer';
 
-function IndicatorItem({ indicator, showMetadata, q }) {
-	const { selectedLayers, setSelectedLayers, loadIndicatorData } = useContext(LayerContext);
+function IndicatorItem({ indicator, q }) {
+	const { selectedLayers, setSelectedLayers, loadIndicatorData, setShowMetadata } = useContext(LayerContext);
 
 	const selectIndicator = (i) => {
 		const timer = setTimeout(() => {
@@ -26,7 +26,7 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 			{!indicator.sources ? (
 				<Stack isInline spacing="3px" align="center" my="3px">
 					<Box>
-						<Info size={'18px'} cursor="pointer" onClick={(e) => showMetadata(indicator)} color="#717171" />
+						<Info size={'18px'} cursor="pointer" onClick={(e) => setShowMetadata(indicator)} color="#717171" />
 					</Box>
 					<Checkbox
 						variantColor="blue"
@@ -50,7 +50,7 @@ function IndicatorItem({ indicator, showMetadata, q }) {
 							<Info
 								size={'18px'}
 								cursor="pointer"
-								onClick={(e) => showMetadata(indicator)}
+								onClick={(e) => setShowMetadata(indicator)}
 								color="#717171"
 							/>
 						</Box>

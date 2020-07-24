@@ -25,7 +25,6 @@ const filterIndicators = (groups, q) => {
 function Sidebar() {
 	const [indicators, setIndicators] = useState(false);
 	const [filteredIndicators, setFilteredIndicators] = useState(false);
-	const [metadata, setMetadata] = useState(false);
 	const [q, setQ] = useState('');
 	const [openAll, setOpenAll] = useState(false);
 
@@ -94,11 +93,7 @@ function Sidebar() {
 			);
 		});
 	};
-
-	const showMetadata = (ind) => {
-		setMetadata(ind);
-	};
-
+	
 	return (
 		<div>
 			<Box className="sidebar-container" pb="50px">
@@ -125,7 +120,6 @@ function Sidebar() {
 									group={group}
 									index={index}
 									q={q}
-									showMetadata={showMetadata}
 									openAll={openAll}
 									setOpenAll={setOpenAll}
 								/>
@@ -135,7 +129,7 @@ function Sidebar() {
 				) : (
 					<LoadingSkeleton />
 				)}
-				<MetadataPopUp indicator={metadata} showMetadata={showMetadata} setMetadataOnClose={setMetadata} />
+				<MetadataPopUp/>
 			</Box>
 		</div>
 	);

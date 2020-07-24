@@ -16,7 +16,7 @@ function Layers() {
 			{active ? (
 				<Box>
 					<Box className="layer-close" onClick={(e) => setActive(false)}>
-						<ArrowDown size="18px"/>
+						<ArrowDown size="18px" />
 					</Box>
 					<Stack>
 						{_.map(selectedLayers, (layer) => (

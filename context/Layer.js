@@ -9,6 +9,7 @@ const LayerContextProvider = (props) => {
 	const [selectedLayers, setSelectedLayers] = useState({});
 	const [currentIndicatorData, setCurrentIndicatorData] = useState({});
 	const [loadedData, setLoadedData] = useState({});
+	const [showMetadata, setShowMetadata] = useState({});
 
 	useEffect(() => {
 		// console.log('selectedLayers', selectedLayers);
@@ -61,6 +62,8 @@ const LayerContextProvider = (props) => {
 				setSelectedLayers: setSelectedLayers,
 				loadIndicatorData: loadIndicatorData,
 				currentIndicatorData: currentIndicatorData,
+				showMetadata: showMetadata,
+				setShowMetadata: setShowMetadata,
 			}}
 		>
 			{props.children}
