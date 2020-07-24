@@ -9,7 +9,7 @@ const LayerContextProvider = (props) => {
 	const [selectedLayers, setSelectedLayers] = useState({});
 	const [currentIndicatorData, setCurrentIndicatorData] = useState({});
 	const [loadedData, setLoadedData] = useState({});
-	const [showMetadata, setShowMetadata] = useState({});
+	const [showMetadata, setShowMetadata] = useState(false);
 
 	useEffect(() => {
 		// console.log('selectedLayers', selectedLayers);
@@ -37,6 +37,7 @@ const LayerContextProvider = (props) => {
 					state: stateData,
 					indicatorName: indicator.indicator_universal_name,
 					legendType: indicator.indicator_positive_negative,
+					source: indicator.source,
 					id: indicator.id,
 				});
 				setLoadedData({

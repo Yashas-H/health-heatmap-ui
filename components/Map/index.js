@@ -23,8 +23,6 @@ const Map = () => {
 		if (!_.isEmpty(currentIndicatorData)) updateMap();
 	}, [currentIndicatorData]);
 
-	useEffect(() => {}, [externalLayers]);
-
 	useEffect(() => {
 		const selected = _.map(selectedLayers, (l, key) => ({ ...selectedLayers[key] }));
 		setExternalLayers(selected);
@@ -66,8 +64,8 @@ const Map = () => {
 			]);
 		});
 
-		const step = (max - min) / 9;
-		const legendColors = chroma.scale(chromaScale).colors(10);
+		const step = (max - min) / 5;
+		const legendColors = chroma.scale(chromaScale).colors(6);
 		const l = _.map(legendColors, (color, i) => {
 			return {
 				color: color,
@@ -79,11 +77,12 @@ const Map = () => {
 			id: data.id,
 			indicatorName: data.indicatorName,
 			legendType: data.legendType,
+			source:data.source,
 			legends: l.reverse(),
 		};
 
 		let newlayerData = [...externalLayers];
-		newlayerData.push({ ...layer });
+		newlayerData.unshift({ ...layer });
 		// setExternalLayers(newlayerData);
 		setSelectedLayers(JSON.parse(JSON.stringify({ ...selectedLayers, [data.id]: layer })));
 	};

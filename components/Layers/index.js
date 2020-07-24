@@ -18,10 +18,8 @@ function Layers() {
 					<Box className="layer-close" onClick={(e) => setActive(false)}>
 						<ArrowDown size="18px" />
 					</Box>
-					<Stack>
-						{_.map(selectedLayers, (layer) => (
-							<Layer layer={layer} />
-						))}
+					<Stack marginTop="-28px" className="layer-stack">
+						{_.map(selectedLayers, (layer) => <Layer key={layer.indicator.id} layer={layer} />).reverse()}
 					</Stack>
 				</Box>
 			) : (
