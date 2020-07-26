@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Eye, EyeOff, Info, X, Layers } from 'react-feather';
 import _ from 'underscore';
-import { Box, Stack, Text, Flex, Select } from '@chakra-ui/core';
+import { Box, Stack, Text, Flex, Icon } from '@chakra-ui/core';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb } from '@chakra-ui/core';
 import {
 	Popover,
@@ -17,7 +17,7 @@ import { List, ListItem, ListIcon } from '@chakra-ui/core';
 import formatMapData from '../../helper/formatMapData';
 import { LayerContext } from '../../context/Layer';
 
-function Layer({ layer }) {
+function Layer({ layer, dragHandleProps }) {
 	const { setSelectedLayers, selectedLayers, setShowMetadata } = useContext(LayerContext);
 	const [opacity, setOpacity] = useState(100);
 	const [layers, setLayers] = useState(false);
@@ -63,12 +63,17 @@ function Layer({ layer }) {
 
 	return (
 		<Box className="layer-item" mb="12px" padding="10px">
-			<Text fontWeight="bold" fontSize="13px">
-				{layer.indicator.indicatorName}
-			</Text>
-			<Text fontWeight="300" fontSize="12px">
-				Source: {layer.indicator.source}
-			</Text>
+			<Stack isInline alignItems="center" {...dragHandleProps}>
+				<Icon name="drag-handle" size="16px" color="#7f7e7e"/>
+				<Box>
+					<Text fontWeight="bold" fontSize="13px">
+						{layer.indicator.indicatorName}
+					</Text>
+					<Text fontWeight="300" fontSize="12px">
+						Source: {layer.indicator.source}
+					</Text>
+				</Box>
+			</Stack>
 
 			<Flex align="center">
 				<Flex align="flex-end">
@@ -84,7 +89,9 @@ function Layer({ layer }) {
 					<Slider defaultValue={opacity} onChange={onSliderChange}>
 						<SliderTrack />
 						<SliderFilledTrack />
-						<SliderThumb />
+						<SliderThumb>
+							<Box backgroundColor="blue.500" borderWidth="4px" rounded="6px" borderColor="blue.500" />
+						</SliderThumb>
 					</Slider>
 				</Flex>
 				<Box>

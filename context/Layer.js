@@ -54,7 +54,7 @@ const LayerContextProvider = (props) => {
 				setLayersLoading(JSON.parse(JSON.stringify(_.filter(layersLoading, (l) => indicator.id !== l.id))));
 			})
 			.catch((err) => {
-				setLayersLoading(_.filter(layersLoading, (l) => indicator.id !== l.id));
+				setLayersLoading(JSON.parse(JSON.stringify(_.filter(layersLoading, (l) => indicator.id !== l.id))));
 				console.log('Error loading Data', err);
 			});
 	};

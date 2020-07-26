@@ -4,10 +4,11 @@ import { ArrowDown, ArrowUp } from 'react-feather';
 import { Box, Stack, Text, Skeleton } from '@chakra-ui/core';
 
 import { LayerContext } from '../../context/Layer';
-import Layer from './Layer';
+import LayerStack from './Stack';
+
 function Layers() {
 	const [active, setActive] = useState(true);
-	const { selectedLayers, layersLoading } = useContext(LayerContext);
+	const { selectedLayers, setSelectedLayers, layersLoading } = useContext(LayerContext);
 
 	useEffect(() => {}, []);
 
@@ -28,6 +29,13 @@ function Layers() {
 		);
 	};
 
+	const onLayerOrderChange = (newOrder) => {
+		let newList = {};
+		_.each(newOrder, (item) => {
+			newList[item.__id] = item;
+		});
+		setSelectedLayers({ ...newList });
+	};
 	return (
 		<Box className="layer-container" fontSize="12px" fontWeight="300">
 			{active ? (
@@ -53,11 +61,7 @@ function Layers() {
 								</Stack>
 							)).reverse()}
 						</Stack>
-						<Stack>
-							{_.map(selectedLayers, (layer) => (
-								<Layer key={layer.indicator.id} layer={layer} />
-							)).reverse()}
-						</Stack>
+						<LayerStack layers={selectedLayers} updateLayerOrder={onLayerOrderChange} />
 					</Stack>
 				</Box>
 			) : (

@@ -18,7 +18,7 @@ const Map = () => {
 
 	useEffect(() => {
 		const selected = _.map(selectedLayers, (l, key) => ({ ..._.omit(selectedLayers[key], 'indicator') }));
-		setExternalLayers(selected);
+		setExternalLayers(selected.reverse());
 	}, [selectedLayers]);
 
 	const updateMap = () => {
@@ -29,7 +29,7 @@ const Map = () => {
 		let newlayerData = [...externalLayers];
 		newlayerData.unshift({ ...layer });
 		// setExternalLayers(newlayerData);
-		setSelectedLayers(JSON.parse(JSON.stringify({ ...selectedLayers, [data.id]: layer })));
+		setSelectedLayers(JSON.parse(JSON.stringify({ [data.id]: layer, ...selectedLayers })));
 	};
 
 	// Handle pop-up on hover over layer

@@ -16,6 +16,7 @@
     "naksha-component-react-restructured": "^1.7.1",
     "next": "9.4.4",
     "react": "16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "16.13.1",
     "react-feather": "^2.0.8",
     "react-helmet": "^6.1.0",
