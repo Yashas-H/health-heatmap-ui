@@ -62,9 +62,9 @@ function Layer({ layer, dragHandleProps }) {
 	};
 
 	return (
-		<Box className="layer-item" mb="12px" padding="10px">
-			<Stack isInline alignItems="center" {...dragHandleProps}>
-				<Icon name="drag-handle" size="16px" color="#7f7e7e"/>
+		<Box className="layer-item" padding="10px">
+			<Stack isInline {...dragHandleProps}>
+				<Icon name="drag-handle" size="16px" color="#7f7e7e" mt="6px"/>
 				<Box>
 					<Text fontWeight="bold" fontSize="13px">
 						{layer.indicator.indicatorName}

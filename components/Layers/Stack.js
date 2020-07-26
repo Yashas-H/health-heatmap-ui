@@ -22,6 +22,7 @@ const reorder = (list, startIndex, endIndex) => {
 const getItemStyle = (isDragging, draggableStyle) => ({
 	// change background colour if dragging
 	background: isDragging ? '#0000007a' : 'white',
+	borderBottom: '1px solid #dedede',
 	// styles we need to apply on draggables
 	...draggableStyle,
 });
@@ -67,7 +68,7 @@ function LayerStack({ layers, updateLayerOrder }) {
 											{...provided.draggableProps}
 											style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
 										>
-												<Layer layer={item} dragHandleProps={{...provided.dragHandleProps}}/>
+											<Layer layer={item} dragHandleProps={{ ...provided.dragHandleProps }} />
 										</div>
 									)}
 								</Draggable>
