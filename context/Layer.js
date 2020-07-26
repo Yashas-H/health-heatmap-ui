@@ -10,13 +10,14 @@ const LayerContextProvider = (props) => {
 	const [currentIndicatorData, setCurrentIndicatorData] = useState({});
 	const [loadedData, setLoadedData] = useState({});
 	const [showMetadata, setShowMetadata] = useState(false);
-
+	const [layersLoading, setLayersLoading] = useState([]);
 	useEffect(() => {
 		// console.log('selectedLayers', selectedLayers);
 	}, [selectedLayers]);
 
 	const loadIndicatorData = (indicator) => {
 		// Get DATA
+		setLayersLoading([...layersLoading, indicator]);
 		request
 			.post(`${AppConstant.config.appBaseUrl}/data`)
 			.send({
@@ -50,8 +51,10 @@ const LayerContextProvider = (props) => {
 						id: indicator.id,
 					},
 				});
+				setLayersLoading(JSON.parse(JSON.stringify(_.filter(layersLoading, (l) => indicator.id !== l.id))));
 			})
 			.catch((err) => {
+				setLayersLoading(_.filter(layersLoading, (l) => indicator.id !== l.id));
 				console.log('Error loading Data', err);
 			});
 	};
@@ -65,6 +68,8 @@ const LayerContextProvider = (props) => {
 				currentIndicatorData: currentIndicatorData,
 				showMetadata: showMetadata,
 				setShowMetadata: setShowMetadata,
+				layersLoading: layersLoading,
+				setLayersLoading: setLayersLoading,
 			}}
 		>
 			{props.children}

@@ -9,9 +9,8 @@ import Layers from '../Layers';
 import formatMapData from '../../helper/formatMapData';
 
 const Map = () => {
-	const [layerType, setLayerType] = useState(false);
 	const [externalLayers, setExternalLayers] = useState([]);
-	const { setSelectedLayers, selectedLayers, currentIndicatorData } = useContext(LayerContext);
+	const { setSelectedLayers, selectedLayers, currentIndicatorData, layersLoading } = useContext(LayerContext);
 
 	useEffect(() => {
 		if (!_.isEmpty(currentIndicatorData)) updateMap();
@@ -72,7 +71,7 @@ const Map = () => {
 			/>
 
 			{/* Layers */}
-			{!_.isEmpty(selectedLayers) && <Layers />}
+			{(!_.isEmpty(selectedLayers) || !_.isEmpty(layersLoading)) && <Layers />}
 
 			{/* Filters */}
 			{!_.isEmpty(selectedLayers) && <Filters />}
