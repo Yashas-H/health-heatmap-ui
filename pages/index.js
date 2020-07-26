@@ -1,25 +1,27 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { Button } from "@chakra-ui/core";
 
 import Layout from '../components/Layout';
 
 export default function Home() {
 	return (
 		<Layout>
+			<Head>
+				<title>Health Heatmap - Home</title>
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+			<div className="hero">
+				<h1 className="title">
+					<p>Health Heatmap</p>
+				</h1>
+				<p className="description">FOR INDIA'S DATA-DRIVEN DECISION MAKING</p>
+				<Link href="/map">
+					<Button variantColor="white" margin="auto" display="block" variant="outline" mt="30px">Explore Data</Button>
+				</Link>
+			</div>
 			<div className="container">
-				<Head>
-					<title>Health Heatmap - Home</title>
-					<link rel="icon" href="/favicon.ico" />
-				</Head>
-
 				<main>
-					<h1 className="title">
-						<Link href="/map">
-							<a href="#">Health Heatmap</a>
-						</Link>
-					</h1>
-					<p className="description">FOR INDIA'S DATA-DRIVEN DECISION MAKING</p>
-
 					<div className="grid">
 						<a href="https://nextjs.org/docs" className="card">
 							<h3>Documentation &rarr;</h3>
@@ -47,10 +49,7 @@ export default function Home() {
 				</main>
 
 				<footer>
-					<a
-						href="https://www.metastringfoundation.org/"
-						target="_blank"
-					>
+					<a href="https://www.metastringfoundation.org/" target="_blank">
 						Powered by Metastring
 					</a>
 				</footer>
@@ -96,33 +95,6 @@ export default function Home() {
 					a {
 						color: inherit;
 						text-decoration: none;
-					}
-
-					.title a {
-						color: #0070f3;
-						text-decoration: none;
-					}
-
-					.title a:hover,
-					.title a:focus,
-					.title a:active {
-						text-decoration: underline;
-					}
-
-					.title {
-						margin: 0;
-						line-height: 1.15;
-						font-size: 4rem;
-					}
-
-					.title,
-					.description {
-						text-align: center;
-					}
-
-					.description {
-						line-height: 1.5;
-						font-size: 1.5rem;
 					}
 
 					code {
