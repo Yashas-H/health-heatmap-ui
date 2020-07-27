@@ -24,7 +24,7 @@ module.exports = {
       host : '49.206.244.232',
       ref  : 'origin/master',
       repo : 'git@github.com:Metastring/health-heatmap-ui.git',
-      path : '/var/www//health-heatmap',
+      path : '/var/www//health-heatmap-ui',
       'pre-deploy-local': '',
       'post-deploy' : 'yarn && yarn next build && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
