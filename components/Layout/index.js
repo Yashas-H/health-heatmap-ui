@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 
-import { useColorMode, Button } from '@chakra-ui/core';
 import Header from './Header';
 
 export default ({ page, children }) => {
-	// const { colorMode, toggleColorMode } = useColorMode();
 	return (
 		<div>
 			<Head>
@@ -24,7 +22,6 @@ export default ({ page, children }) => {
 
 			<header>
 				<Header />
-				{/* <Button onClick={toggleColorMode}>Toggle {colorMode === 'light' ? 'Dark' : 'Light'}</Button> */}
 			</header>
 			{children}
 			{/* <footer className="footer">
