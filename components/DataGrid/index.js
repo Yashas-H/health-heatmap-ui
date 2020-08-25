@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import _ from 'underscore';
 import { Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/core';
 
 import Grid from './Grid';
 
-function DataGrid({ indicatorsLoaded }) {
+function DataGrid({ indicatorsLoaded, selectedLayers }) {
+	const [tabIndex, setTabIndex] = useState(0);
+
+	useEffect(() => {
+		setTabIndex(_.indexOf(_.keys(indicatorsLoaded), _.keys(selectedLayers)[0]));
+	}, [selectedLayers]);
+
+	const handleTabsChange = (index) => {
+		setTabIndex(index);
+	};
+
 	const DataTab = React.forwardRef((props, ref) => {
 		// `isSelected` is passed to all children of `TabList`.
 		return (
@@ -16,7 +26,7 @@ function DataGrid({ indicatorsLoaded }) {
 		);
 	});
 	return (
-		<Tabs variant="enclosed" size="sm" mt="10px" mr="15px">
+		<Tabs variant="enclosed" index={tabIndex} onChange={handleTabsChange} size="sm" mt="10px" mr="15px">
 			<TabList>
 				{_.map(indicatorsLoaded, (indicator, key) => (
 					<DataTab key={key}>{indicator.indicatorName}</DataTab>
