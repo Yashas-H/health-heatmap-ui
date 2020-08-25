@@ -70,6 +70,7 @@ const LayerContextProvider = (props) => {
 				setShowMetadata: setShowMetadata,
 				layersLoading: layersLoading,
 				setLayersLoading: setLayersLoading,
+				loadedData:loadedData
 			}}
 		>
 			{props.children}
