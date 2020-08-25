@@ -55,14 +55,34 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 
 	const onLayerChange = (value) => {
 		setSelectedLayer(value);
-		const layersData = { ...selectedLayers };
+		const layersData = JSON.parse(JSON.stringify(selectedLayers));
 		console.log('layersData', layersData);
 		console.log('layer.indicator.id', layer.indicator.id);
 		layersData[layer.indicator.id] = {
 			...layersData[layer.indicator.id],
 			...formatMapData(layer.indicator.data, value.toUpperCase(), opacity),
 		};
-		setSelectedLayers(layersData);
+		setSelectedLayers(JSON.parse(JSON.stringify(layersData)));
+	};
+
+	const handleDuplicateLayer = (l) => {
+		const sl = { ...selectedLayers };
+		let layerOrder = _.keys(selectedLayers);
+		sl[`${l.__id}-DUPE`] = {
+			...l,
+			id: `${l.__id}-DUPE`,
+			__id: `${l.__id}-DUPE`,
+			indicator: { ...l.indicator, id: `${l.__id}-DUPE` },
+			styles: {
+				...l.styles,
+				__id: `${l.__id}-DUPE`,
+				colors: { ...l.styles.colors, id: `${l.__id}-DUPE`, source: `${l.__id}-DUPE` },
+			},
+		};
+		layerOrder.splice(_.indexOf(layerOrder, l.id), 0, `${l.__id}-DUPE`);
+		let newItems = {};
+		_.each(layerOrder, (lo) => (newItems[lo] = sl[lo]));
+		setSelectedLayers(JSON.parse(JSON.stringify(newItems)));
 	};
 
 	return (
@@ -80,15 +100,15 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 					</Box>
 				</Stack>
 				<Stack>
-					<Tooltip label="Duplicate Layer">
+					{/* <Tooltip label="Duplicate Layer">
 						<Icon
 							name="copy"
 							cursor="pointer"
 							size="16px"
 							color="#707070"
-							onClick={(e) => onDuplicateLayer(layer, layerIndex)}
+							onClick={(e) => handleDuplicateLayer(layer)}
 						/>
-					</Tooltip>
+					</Tooltip> */}
 					<Tooltip label="Filters">
 						<Box padding="5px 0" cursor="pointer">
 							<IconFilter />

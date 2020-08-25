@@ -57,6 +57,7 @@ function LayerStack({ layers, updateLayerOrder }) {
 			indicator: { ...layer.indicator, id: `${layer.__id}-DUPE` },
 			styles: {
 				...layer.styles,
+				__id: `${layer.__id}-DUPE`,
 				colors: { ...layer.styles.colors, id: `${layer.__id}-DUPE`, source: `${layer.__id}-DUPE` },
 			},
 		});
