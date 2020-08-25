@@ -2,7 +2,8 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Eye, EyeOff, Info, X, Layers } from 'react-feather';
 import _ from 'underscore';
 import { Box, Stack, Text, Flex, Icon } from '@chakra-ui/core';
-import { Slider, SliderTrack, SliderFilledTrack, SliderThumb } from '@chakra-ui/core';
+import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, Tooltip } from '@chakra-ui/core';
+
 import {
 	Popover,
 	PopoverTrigger,
@@ -16,8 +17,9 @@ import { List, ListItem, ListIcon } from '@chakra-ui/core';
 
 import formatMapData from '../../helper/formatMapData';
 import { LayerContext } from '../../context/Layer';
+import { IconFilter } from '../Icons';
 
-function Layer({ layer, dragHandleProps }) {
+function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	const { setSelectedLayers, selectedLayers, setShowMetadata } = useContext(LayerContext);
 	const [opacity, setOpacity] = useState(100);
 	const [layers, setLayers] = useState(false);
@@ -34,9 +36,9 @@ function Layer({ layer, dragHandleProps }) {
 	}, []);
 
 	useEffect(() => {
-		const layers = { ...selectedLayers };
-		layers[layer.indicator.id].styles.colors.paint['fill-opacity'] = opacity / 100;
-		setSelectedLayers(layers);
+		const l = { ...selectedLayers };
+		l[layer.indicator.id].styles.colors.paint['fill-opacity'] = opacity / 100;
+		setSelectedLayers(l);
 	}, [opacity]);
 
 	const removeIndicator = (indicatorId) => {
@@ -54,6 +56,8 @@ function Layer({ layer, dragHandleProps }) {
 	const onLayerChange = (value) => {
 		setSelectedLayer(value);
 		const layersData = { ...selectedLayers };
+		console.log('layersData', layersData);
+		console.log('layer.indicator.id', layer.indicator.id);
 		layersData[layer.indicator.id] = {
 			...layersData[layer.indicator.id],
 			...formatMapData(layer.indicator.data, value.toUpperCase(), opacity),
@@ -63,34 +67,61 @@ function Layer({ layer, dragHandleProps }) {
 
 	return (
 		<Box className="layer-item" padding="10px">
-			<Stack isInline {...dragHandleProps}>
-				<Icon name="drag-handle" size="16px" color="#7f7e7e" mt="6px"/>
-				<Box>
-					<Text fontWeight="bold" fontSize="13px">
-						{layer.indicator.indicatorName}
-					</Text>
-					<Text fontWeight="300" fontSize="12px">
-						Source: {layer.indicator.source}
-					</Text>
-				</Box>
+			<Stack isInline>
+				<Stack isInline {...dragHandleProps} width="100%">
+					<Icon name="drag-handle" size="16px" color="#7f7e7e" mt="6px" />
+					<Box>
+						<Text fontWeight="bold" fontSize="13px">
+							{layer.indicator.indicatorName}
+						</Text>
+						<Text fontWeight="300" fontSize="12px">
+							Source: {layer.indicator.source}
+						</Text>
+					</Box>
+				</Stack>
+				<Stack>
+					<Tooltip label="Duplicate Layer">
+						<Icon
+							name="copy"
+							cursor="pointer"
+							size="16px"
+							color="#707070"
+							onClick={(e) => onDuplicateLayer(layer, layerIndex)}
+						/>
+					</Tooltip>
+					<Tooltip label="Filters">
+						<Box padding="5px 0" cursor="pointer">
+							<IconFilter />
+						</Box>
+					</Tooltip>
+				</Stack>
 			</Stack>
 
 			<Flex align="center">
 				<Flex align="flex-end">
-					<Stack isInline>
-						{opacity ? (
-							<Eye size={'20px'} cursor="pointer" onClick={(e) => setOpacity(0)} />
-						) : (
-							<EyeOff size={'20px'} cursor="pointer" onClick={(e) => setOpacity(100)} />
-						)}
-					</Stack>
+					<Tooltip label="Show/Hide Layer">
+						<Stack isInline>
+							{opacity ? (
+								<Eye size={'20px'} cursor="pointer" onClick={(e) => setOpacity(0)} />
+							) : (
+								<EyeOff size={'20px'} cursor="pointer" onClick={(e) => setOpacity(100)} />
+							)}
+						</Stack>
+					</Tooltip>
 				</Flex>
 				<Flex size="70%" align="left" justify="center" mx="14px">
 					<Slider defaultValue={opacity} onChange={onSliderChange}>
 						<SliderTrack />
 						<SliderFilledTrack />
 						<SliderThumb>
-							<Box backgroundColor="blue.500" borderWidth="4px" rounded="6px" borderColor="blue.500" />
+							<Tooltip label="Layer Opacity">
+								<Box
+									backgroundColor="blue.500"
+									borderWidth="4px"
+									rounded="6px"
+									borderColor="blue.500"
+								/>
+							</Tooltip>
 						</SliderThumb>
 					</Slider>
 				</Flex>
@@ -101,7 +132,9 @@ function Layer({ layer, dragHandleProps }) {
 								{({ isOpen, onClose }) => (
 									<>
 										<PopoverTrigger>
+											{/* <Tooltip label="Switch Layer Data"> */}
 											<Layers size={'20px'} cursor="pointer" />
+											{/* </Tooltip> */}
 										</PopoverTrigger>
 										<PopoverContent zIndex={4} width="150px">
 											<PopoverArrow />
@@ -136,17 +169,21 @@ function Layer({ layer, dragHandleProps }) {
 								)}
 							</Popover>
 						)}
-						<Info
-							size={'20px'}
-							cursor="pointer"
-							onClick={(e) =>
-								setShowMetadata({
-									...layer.indicator,
-									['indicator_universal_name']: layer.indicator.indicatorName,
-								})
-							}
-						/>
-						<X size={'20px'} onClick={(e) => removeIndicator(layer.indicator.id)} cursor="pointer" />
+						<Tooltip label="Layer Information" zIndex="9">
+							<Info
+								size={'20px'}
+								cursor="pointer"
+								onClick={(e) =>
+									setShowMetadata({
+										...layer.indicator,
+										['indicator_universal_name']: layer.indicator.indicatorName,
+									})
+								}
+							/>
+						</Tooltip>
+						<Tooltip label="Remove Layer" zIndex="9">
+							<X size={'20px'} onClick={(e) => removeIndicator(layer.indicator.id)} cursor="pointer" />
+						</Tooltip>
 					</Stack>
 				</Box>
 			</Flex>

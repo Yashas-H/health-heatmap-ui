@@ -48,6 +48,21 @@ function LayerStack({ layers, updateLayerOrder }) {
 		updateLayerOrder(newItems);
 	};
 
+	const handleDuplicateLayer = (layer, layerIndex) => {
+		const newItems = items;
+		newItems.splice(layerIndex, 0, {
+			...layer,
+			id: `${layer.__id}-DUPE`,
+			__id: `${layer.__id}-DUPE`,
+			indicator: { ...layer.indicator, id: `${layer.__id}-DUPE` },
+			styles: {
+				...layer.styles,
+				colors: { ...layer.styles.colors, id: `${layer.__id}-DUPE`, source: `${layer.__id}-DUPE` },
+			},
+		});
+		updateLayerOrder(JSON.parse(JSON.stringify(newItems)));
+	};
+
 	// Normally you would want to split things out into separate components.
 	// But in this example everything is just done in one place for simplicity
 	return (
@@ -68,7 +83,12 @@ function LayerStack({ layers, updateLayerOrder }) {
 											{...provided.draggableProps}
 											style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
 										>
-											<Layer layer={item} dragHandleProps={{ ...provided.dragHandleProps }} />
+											<Layer
+												layer={item}
+												layerIndex={index}
+												dragHandleProps={{ ...provided.dragHandleProps }}
+												onDuplicateLayer={handleDuplicateLayer}
+											/>
 										</div>
 									)}
 								</Draggable>

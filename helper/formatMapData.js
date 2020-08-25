@@ -10,7 +10,6 @@ const STATE = 'STATE';
 export default function formatMapData(data, type, opacity) {
 	const layerId = data.id;
 	const chromaScale = data.legendType === 'POSITIVE' ? 'YlGn' : 'OrRd';
-	console.log('data, type', data, type);
 	// Parse data
 	const apiData = type === DISTRICT ? data.district : data.state;
 	let layer = type === DISTRICT ? distMap : stateMap;
