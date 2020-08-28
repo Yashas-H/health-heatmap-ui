@@ -7,6 +7,7 @@ import Filters from '../Filters';
 import Layers from '../Layers';
 
 import formatMapData from '../../helper/formatMapData';
+import AppConstant from '../../constant/AppConstant';
 
 const Map = () => {
 	const [externalLayers, setExternalLayers] = useState([]);
@@ -43,12 +44,12 @@ const Map = () => {
 					bearing: 0,
 					pitch: 0,
 				}}
-				loadToC={false}
+				loadToC={true}
 				showToC={false}
 				mapboxApiAccessToken="pk.eyJ1IjoiZGVlcGt0IiwiYSI6ImNrYWRuZHdkdjBiOHYydG1iY3RyaW52ancifQ.7jlcNtPLOyIBA1GdOzLbfg"
-				nakshaApiEndpoint="http://49.206.244.232/naksha-api/api"
+				nakshaApiEndpoint={AppConstant.config.nakshaApi}
 				geoserver={{
-					endpoint: 'http://49.206.244.232/naksha-api/api/geoserver',
+					endpoint: `${AppConstant.config.nakshaApi}/geoserver`,
 					store: 'ibp',
 					workspace: 'biodiv',
 				}}

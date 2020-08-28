@@ -29,6 +29,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	let delayTimer;
 
 	useEffect(() => {
+		if (!layer.indicator) return;
 		if (!_.isEmpty(layer.indicator.data.state) && !_.isEmpty(layer.indicator.data.district)) {
 			setLayers(['State', 'District']);
 			setSelectedLayer('State');
@@ -36,6 +37,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	}, []);
 
 	useEffect(() => {
+		if (!layer.indicator) return;
 		const l = { ...selectedLayers };
 		l[layer.indicator.id].styles.colors.paint['fill-opacity'] = opacity / 100;
 		setSelectedLayers(l);
@@ -56,8 +58,6 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	const onLayerChange = (value) => {
 		setSelectedLayer(value);
 		const layersData = JSON.parse(JSON.stringify(selectedLayers));
-		console.log('layersData', layersData);
-		console.log('layer.indicator.id', layer.indicator.id);
 		layersData[layer.indicator.id] = {
 			...layersData[layer.indicator.id],
 			...formatMapData(layer.indicator.data, value.toUpperCase(), opacity),
@@ -92,10 +92,10 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 					<Icon name="drag-handle" size="16px" color="#7f7e7e" mt="6px" />
 					<Box>
 						<Text fontWeight="bold" fontSize="13px">
-							{layer.indicator.indicatorName}
+							{layer.indicator ? layer.indicator.indicatorName : layer.layerName}
 						</Text>
 						<Text fontWeight="300" fontSize="12px">
-							Source: {layer.indicator.source}
+							Source: {layer.indicator ? layer.indicator.source : layer.createdBy}
 						</Text>
 					</Box>
 				</Stack>
@@ -202,13 +202,17 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							/>
 						</Tooltip>
 						<Tooltip label="Remove Layer" zIndex="9">
-							<X size={'20px'} onClick={(e) => removeIndicator(layer.indicator.id)} cursor="pointer" />
+							<X
+								size={'20px'}
+								onClick={(e) => removeIndicator(layer.indicator ? layer.indicator.id : layer.id)}
+								cursor="pointer"
+							/>
 						</Tooltip>
 					</Stack>
 				</Box>
 			</Flex>
 			<Box>
-				{layer.indicator.legends && (
+				{layer.indicator && layer.indicator.legends && (
 					<Flex isInline spacing={0} className="legend">
 						{_.map(layer.indicator.legends, (d, index) => {
 							return (

@@ -10,8 +10,6 @@ function Layers() {
 	const [active, setActive] = useState(true);
 	const { selectedLayers, setSelectedLayers, layersLoading } = useContext(LayerContext);
 
-	useEffect(() => {}, []);
-
 	const LoadingSkeleton = () => {
 		return (
 			<Box width="100%">
@@ -36,9 +34,9 @@ function Layers() {
 		});
 		setSelectedLayers({ ...newList });
 	};
-	
+
 	return (
-		<Box className="layer-container" fontSize="12px" fontWeight="300" width={active ? "400px" : "140px"}>
+		<Box className="layer-container" fontSize="12px" fontWeight="300" width={active ? '400px' : '140px'}>
 			{active ? (
 				<Box>
 					<Box className="layer-close" onClick={(e) => setActive(false)}>

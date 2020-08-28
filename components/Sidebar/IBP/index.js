@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import request from 'superagent';
 import _ from 'underscore';
 import { Box, Stack } from '@chakra-ui/core';
@@ -6,6 +6,7 @@ import { Box, Stack } from '@chakra-ui/core';
 import AppConstant from '../../../constant/AppConstant';
 import Search from '../Search';
 import Layer from './layer';
+import { LayerContext } from '../../../context/Layer';
 
 const filterLayers = (layers, q) => {
 	return _.filter(layers, (layer) => {
@@ -20,6 +21,7 @@ function IBPLayers() {
 	const [q, setQ] = useState(false);
 	const [layers, setLayers] = useState([]);
 	const [filteredLayers, setFilteredLayers] = useState(false);
+	const { selectedLayers, setSelectedLayers } = useContext(LayerContext);
 
 	useEffect(() => {
 		// Get IBP Layers
@@ -41,8 +43,59 @@ function IBPLayers() {
 		const __layers = [...layers];
 		const index = _.findIndex(layers, (l) => l.id === layer.id);
 		__layers[index].isAdded = !__layers[index].isAdded;
+		if (__layers[index].isAdded) {
+			// Add IBP Layer
+			setSelectedLayers(JSON.parse(JSON.stringify({ [layer.id]: { ...layer, isIbp: true }, ...selectedLayers })));
+			getLayerStyles(__layers[index]);
+		} else {
+			// Remove IBP Layer
+			const filtredLayers = _.omit(selectedLayers, layer.id);
+			setSelectedLayers({ ...filtredLayers });
+		}
 		setLayers(__layers);
 	};
+
+	const getLayerStyles = async (layer) => {
+		// Get IBP Layer Styles
+		let stylesProps = {};
+		let styles = {};
+		try {
+			stylesProps = await request.get(
+				`${AppConstant.config.nakshaApi}/geoserver/layers/${layer.layerTableName}/styles`
+			);
+		} catch (err) {
+			console.log('Error loading Styleprops', err);
+		}
+		try {
+			styles = await request.get(
+				`${AppConstant.config.nakshaApi}/geoserver/styles/${
+					layer.layerTableName
+				}/${layer.colorBy.toLowerCase()}`
+			);
+		} catch (err) {
+			console.log('Error loading Styles', err);
+		}
+		stylesProps = stylesProps.body[0];
+		styles = styles.body;
+		setSelectedLayers(
+			JSON.parse(
+				JSON.stringify({
+					[layer.id]: {
+						...layer,
+						id: 'ibp-' + layer.id,
+						isIbp: true,
+						styles: {
+							...styles.layers[0],
+							...stylesProps,
+							colors: { ...styles.layers[0], ...stylesProps, source: 'ibp-' + layer.id },
+						},
+					},
+					...selectedLayers,
+				})
+			)
+		);
+	};
+
 	return (
 		<div>
 			<Box className="sidebar-container" pb="50px">

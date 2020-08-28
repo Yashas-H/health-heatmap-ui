@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'underscore';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Text } from '@chakra-ui/core';
 
 import Layer from './Layer';
 
@@ -77,7 +78,7 @@ function LayerStack({ layers, updateLayerOrder }) {
 							style={getListStyle(snapshot.isDraggingOver)}
 						>
 							{_.map(items, (item, index) => (
-								<Draggable key={item.id} draggableId={item.id} index={index}>
+								<Draggable key={`layer-${item.id}`} draggableId={`layer-${item.id}`} index={index}>
 									{(provided, snapshot) => (
 										<div
 											ref={provided.innerRef}
@@ -89,6 +90,7 @@ function LayerStack({ layers, updateLayerOrder }) {
 												layerIndex={index}
 												dragHandleProps={{ ...provided.dragHandleProps }}
 												onDuplicateLayer={handleDuplicateLayer}
+												isIbp={item.isIbp}
 											/>
 										</div>
 									)}
