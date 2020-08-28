@@ -27,6 +27,7 @@ export default function formatMapData(data, type, opacity) {
 
 	// Calculate color for each entity based on the value
 	layer.__id = layerId;
+	layer.properties = apiData;
 	layer.id = `${layerId}-${type}`;
 	layer.styles.colors.id = `${layerId}-${type}`;
 	layer.styles.colors.source = `${layerId}-${type}`;

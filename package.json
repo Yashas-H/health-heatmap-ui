@@ -13,7 +13,7 @@
     "@emotion/styled": "^10.0.27",
     "chroma-js": "^2.1.0",
     "emotion-theming": "^10.0.27",
-    "naksha-component-react-restructured": "^1.7.1",
+    "naksha-component-react-restructured": "^1.7.20",
     "next": "9.4.4",
     "react": "16.13.1",
     "react-beautiful-dnd": "^13.0.0",
