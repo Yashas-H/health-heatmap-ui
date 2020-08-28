@@ -37,7 +37,7 @@ function Layers() {
 		setSelectedLayers({ ...newList });
 	};
 	return (
-		<Box className="layer-container" fontSize="12px" fontWeight="300">
+		<Box className="layer-container" fontSize="12px" fontWeight="300" width={active ? "400px" : "140px"}>
 			{active ? (
 				<Box>
 					<Box className="layer-close" onClick={(e) => setActive(false)}>
@@ -71,7 +71,7 @@ function Layers() {
 						className="header-title"
 						isInline
 						cursor="pointer"
-						padding="10px"
+						padding="6px"
 						onClick={(e) => setActive(true)}
 					>
 						<Stack isInline spacing={2} mt="5px" justifyContent="space-between">

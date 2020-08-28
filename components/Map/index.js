@@ -59,7 +59,7 @@ const Map = () => {
 			{(!_.isEmpty(selectedLayers) || !_.isEmpty(layersLoading)) && <Layers />}
 
 			{/* Filters */}
-			{!_.isEmpty(selectedLayers) && <Filters />}
+			{/* {!_.isEmpty(selectedLayers) && <Filters />} */}
 		</div>
 	);
 };
