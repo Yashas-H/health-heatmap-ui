@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input, InputGroup, InputLeftElement, Icon } from '@chakra-ui/core';
 
-function Search({ onChange }) {
+function Search({ onChange, placeholder }) {
 	let delayTimer;
 	const doSearch = (text) => {
 		clearTimeout(delayTimer);
@@ -14,7 +14,7 @@ function Search({ onChange }) {
 			<InputLeftElement children={<Icon name="search" color="gray.300" />} />
 			<Input
 				type="search"
-				placeholder="Search Indicator by name"
+				placeholder={placeholder || "Search"}
 				size="sm"
 				onChange={(e) => doSearch(e.target.value)}
 			/>

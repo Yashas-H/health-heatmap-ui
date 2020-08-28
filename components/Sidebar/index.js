@@ -3,11 +3,13 @@ import request from 'superagent';
 import _ from 'underscore';
 import { v4 as uuidv4 } from 'uuid';
 import { Box, Skeleton, Stack } from '@chakra-ui/core';
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/core';
 
 import AppConstant from '../../constant/AppConstant';
 import Accordion from './Accordion';
 import Search from './Search';
 import MetadataPopUp from './MetadataPopUp';
+import IBPLayers from './IBP';
 
 const filterIndicators = (groups, q) => {
 	return _.filter(groups, (group) => {
@@ -93,45 +95,59 @@ function Sidebar() {
 			);
 		});
 	};
-	
+
 	return (
-		<div>
-			<Box className="sidebar-container" pb="50px">
-				<Box className="sidebar-header">
-					<div className="searchbox">
-						<Search onChange={setQ} disabled={!indicators} />
-					</div>
-					<Stack isInline spacing={8} align="right" className="expand-all-stack">
-						<a className="expand-collapse-btn" onClick={(e) => setOpenAll(true)}>
-							EXPAND ALL
-						</a>
-						<a className="expand-collapse-btn">|</a>
-						<a className="expand-collapse-btn" onClick={(e) => setOpenAll(false)}>
-							COLLAPSE ALL
-						</a>
-					</Stack>
-				</Box>
-				{indicators ? (
-					<Box mt="10px" className="inidicator-list">
-						<Box mx="7px">
-							{_.map(filteredIndicators, (group, index) => (
-								<Accordion
-									key={index}
-									group={group}
-									index={index}
-									q={q}
-									openAll={openAll}
-									setOpenAll={setOpenAll}
-								/>
-							))}
+		<Tabs>
+			<TabList>
+				<Tab>Indicators</Tab>
+				<Tab>IBP Layers</Tab>
+			</TabList>
+
+			<TabPanels>
+				<TabPanel>
+					<div>
+						<Box className="sidebar-container" pb="50px">
+							<Box className="sidebar-header">
+								<div className="searchbox">
+									<Search onChange={setQ} disabled={!indicators} placeholder="Filter indicators by name" />
+								</div>
+								<Stack isInline spacing={8} align="right" className="expand-all-stack">
+									<a className="expand-collapse-btn" onClick={(e) => setOpenAll(true)}>
+										EXPAND ALL
+									</a>
+									<a className="expand-collapse-btn">|</a>
+									<a className="expand-collapse-btn" onClick={(e) => setOpenAll(false)}>
+										COLLAPSE ALL
+									</a>
+								</Stack>
+							</Box>
+							{indicators ? (
+								<Box mt="10px" className="inidicator-list">
+									<Box mx="7px">
+										{_.map(filteredIndicators, (group, index) => (
+											<Accordion
+												key={index}
+												group={group}
+												index={index}
+												q={q}
+												openAll={openAll}
+												setOpenAll={setOpenAll}
+											/>
+										))}
+									</Box>
+								</Box>
+							) : (
+								<LoadingSkeleton />
+							)}
+							<MetadataPopUp />
 						</Box>
-					</Box>
-				) : (
-					<LoadingSkeleton />
-				)}
-				<MetadataPopUp/>
-			</Box>
-		</div>
+					</div>
+				</TabPanel>
+				<TabPanel>
+					<IBPLayers />
+				</TabPanel>
+			</TabPanels>
+		</Tabs>
 	);
 }
 

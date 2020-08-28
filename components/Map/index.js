@@ -32,21 +32,6 @@ const Map = () => {
 		setSelectedLayers(JSON.parse(JSON.stringify({ [data.id]: layer, ...selectedLayers })));
 	};
 
-	// Handle pop-up on hover over layer
-	// _onMapHover = event => {
-	//   const feature = event.features.find(f => f.layer.id === 'geography-layer');
-	//   if (feature) {
-	//     this.setState({
-	//       showPopup: {
-	//         lngLat: event.lngLat,
-	//         properties: feature.properties,
-	//       },
-	//     });
-	//   } else {
-	//     this.setState({ showPopup: false });
-	//   }
-	// };
-
 	return (
 		<div className="map-area">
 			{/* Map */}
@@ -58,7 +43,7 @@ const Map = () => {
 					bearing: 0,
 					pitch: 0,
 				}}
-				loadToC={true}
+				loadToC={false}
 				showToC={false}
 				mapboxApiAccessToken="pk.eyJ1IjoiZGVlcGt0IiwiYSI6ImNrYWRuZHdkdjBiOHYydG1iY3RyaW52ancifQ.7jlcNtPLOyIBA1GdOzLbfg"
 				nakshaApiEndpoint="http://49.206.244.232/naksha-api/api"
