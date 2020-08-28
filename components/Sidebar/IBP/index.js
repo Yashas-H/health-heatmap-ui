@@ -26,8 +26,7 @@ function IBPLayers() {
 		request
 			.get(`${AppConstant.config.nakshaApi}/layer/all`)
 			.then((res) => {
-				console.log('Layers', res);
-				setLayers(res.body);
+				setLayers(_.map(res.body, (l) => ({ ...l, isAdded: false })));
 			})
 			.catch((err) => {
 				console.log('Error loading Data', err);
@@ -38,6 +37,12 @@ function IBPLayers() {
 		setFilteredLayers(q ? filterLayers(JSON.parse(JSON.stringify(layers)), q) : layers);
 	}, [q, layers]);
 
+	const handleToggleLayer = (layer) => {
+		const __layers = [...layers];
+		const index = _.findIndex(layers, (l) => l.id === layer.id);
+		__layers[index].isAdded = !__layers[index].isAdded;
+		setLayers(__layers);
+	};
 	return (
 		<div>
 			<Box className="sidebar-container" pb="50px">
@@ -50,7 +55,7 @@ function IBPLayers() {
 				<Box mt="10px" className="inidicator-list">
 					<Stack>
 						{_.map(filteredLayers, (layer) => (
-							<Layer key={layer.id} layer={layer} q={q} />
+							<Layer key={layer.id} layer={layer} q={q} onAddToMap={handleToggleLayer} />
 						))}
 					</Stack>
 				</Box>

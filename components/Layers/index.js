@@ -36,6 +36,7 @@ function Layers() {
 		});
 		setSelectedLayers({ ...newList });
 	};
+	
 	return (
 		<Box className="layer-container" fontSize="12px" fontWeight="300" width={active ? "400px" : "140px"}>
 			{active ? (

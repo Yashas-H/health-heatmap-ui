@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'underscore';
-import { Box, Button, Image, Stack, Text, Badge, Tooltip } from "@chakra-ui/core";
-import Highlight from "react-highlighter";
-import {FALLBACK_THUMB} from "../../Icons";
+import { Box, Button, Image, Stack, Text, Badge, Tooltip } from '@chakra-ui/core';
+import Highlight from 'react-highlighter';
+import { FALLBACK_THUMB } from '../../Icons';
 
-function Layer({layer, q}) {
+function Layer({ layer, q, onAddToMap }) {
 	return (
 		<Stack key={layer.id} spacing="1" borderBottom="1px" borderColor="gray.200" p={0} padding="12px">
 			<Stack isInline={true} spacing="3" p={0}>
@@ -42,7 +42,7 @@ function Layer({layer, q}) {
 					minW="5rem"
 					variantColor="blue"
 					variant={layer.isAdded ? 'solid' : 'outline'}
-					// onClick={handleToggleLayer}
+					onClick={(e) => onAddToMap(layer)}
 					// isLoading={isLoading}
 				>
 					{layer.isAdded ? 'Remove from Map' : 'Add to Map'}
