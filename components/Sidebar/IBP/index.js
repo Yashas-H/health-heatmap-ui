@@ -50,13 +50,11 @@ function IBPLayers() {
 		console.log('selectedLayers', selectedLayers);
 	}, [selectedLayers]);
 
-	const handleToggleLayer = (layer) => {
+	const handleToggleLayer = (layer, selected) => {
 		const __layers = [...layers];
 		const index = _.findIndex(layers, (l) => l.id === layer.id);
-		__layers[index].isAdded = !__layers[index].isAdded;
-		if (__layers[index].isAdded) {
+		if (!selected) {
 			// Add IBP Layer
-			// setSelectedLayers(JSON.parse(JSON.stringify({ [layer.id]: { ...layer, isIbp: true }, ...selectedLayers })));
 			setLayersLoading([...layersLoading, { ...layer, isIbp: true }]);
 			getLayerStyles(__layers[index]);
 		} else {
@@ -128,7 +126,14 @@ function IBPLayers() {
 				<Box mt="10px" className="inidicator-list">
 					<Stack>
 						{_.map(filteredLayers, (layer) => (
-							<Layer key={layer.id} layer={layer} q={q} onAddToMap={handleToggleLayer} />
+							<Layer
+								key={layer.id}
+								layer={layer}
+								q={q}
+								selectedLayers={selectedLayers}
+								layersLoading={layersLoading}
+								onAddToMap={handleToggleLayer}
+							/>
 						))}
 					</Stack>
 				</Box>
