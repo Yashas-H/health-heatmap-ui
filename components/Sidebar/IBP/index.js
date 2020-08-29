@@ -28,7 +28,14 @@ function IBPLayers() {
 		request
 			.get(`${AppConstant.config.nakshaApi}/layer/all`)
 			.then((res) => {
-				setLayers(_.map(res.body, (l) => ({ ...l, isAdded: false })));
+				setLayers(
+					_.map(res.body, (l) => ({
+						...l,
+						id: `IBP-Layer-${l.id}`,
+						__id: `IBP-Layer-${l.id}`,
+						isAdded: false,
+					}))
+				);
 			})
 			.catch((err) => {
 				console.log('Error loading Data', err);
@@ -38,6 +45,10 @@ function IBPLayers() {
 	useEffect(() => {
 		setFilteredLayers(q ? filterLayers(JSON.parse(JSON.stringify(layers)), q) : layers);
 	}, [q, layers]);
+
+	useEffect(() => {
+		console.log('selectedLayers', selectedLayers);
+	}, [selectedLayers]);
 
 	const handleToggleLayer = (layer) => {
 		const __layers = [...layers];
@@ -82,12 +93,13 @@ function IBPLayers() {
 				JSON.stringify({
 					[layer.id]: {
 						...layer,
-						id: 'ibp-' + layer.id,
+						id: layer.id,
 						isIbp: true,
 						styles: {
 							...styles.layers[0],
 							...stylesProps,
-							colors: { ...styles.layers[0], ...stylesProps, source: 'ibp-' + layer.id },
+							id: layer.id,
+							colors: { ...styles.layers[0], ...stylesProps, id: layer.id, source: layer.id },
 						},
 					},
 					...selectedLayers,
