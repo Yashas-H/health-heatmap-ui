@@ -10,8 +10,6 @@ function Layers() {
 	const [active, setActive] = useState(true);
 	const { selectedLayers, setSelectedLayers, layersLoading } = useContext(LayerContext);
 
-	useEffect(() => {}, []);
-
 	const LoadingSkeleton = () => {
 		return (
 			<Box width="100%">
@@ -36,8 +34,9 @@ function Layers() {
 		});
 		setSelectedLayers({ ...newList });
 	};
+
 	return (
-		<Box className="layer-container" fontSize="12px" fontWeight="300">
+		<Box className="layer-container" fontSize="12px" fontWeight="300" width={active ? '400px' : '140px'}>
 			{active ? (
 				<Box>
 					<Box className="layer-close" onClick={(e) => setActive(false)}>
@@ -53,9 +52,9 @@ function Layers() {
 									fontWeight="bold"
 									className="layer-item"
 								>
-									<Text>{layer.indicator_universal_name}</Text>
+									<Text>{layer.isIbp ? layer.layerName : layer.indicator_universal_name}</Text>
 									<Text fontWeight="300" fontSize="12px">
-										Source: {layer.source}
+										Source: {layer.isIbp ? layer.createdBy : layer.source}
 									</Text>
 									<LoadingSkeleton />
 								</Stack>
@@ -71,7 +70,7 @@ function Layers() {
 						className="header-title"
 						isInline
 						cursor="pointer"
-						padding="10px"
+						padding="6px"
 						onClick={(e) => setActive(true)}
 					>
 						<Stack isInline spacing={2} mt="5px" justifyContent="space-between">

@@ -4,15 +4,7 @@ import _ from 'underscore';
 import { Box, Stack, Text, Flex, Icon } from '@chakra-ui/core';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, Tooltip } from '@chakra-ui/core';
 
-import {
-	Popover,
-	PopoverTrigger,
-	PopoverContent,
-	PopoverHeader,
-	PopoverBody,
-	PopoverArrow,
-	PopoverCloseButton,
-} from '@chakra-ui/core';
+import { Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverBody } from '@chakra-ui/core';
 import { List, ListItem, ListIcon } from '@chakra-ui/core';
 
 import formatMapData from '../../helper/formatMapData';
@@ -29,6 +21,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	let delayTimer;
 
 	useEffect(() => {
+		if (!layer.indicator) return;
 		if (!_.isEmpty(layer.indicator.data.state) && !_.isEmpty(layer.indicator.data.district)) {
 			setLayers(['State', 'District']);
 			setSelectedLayer('State');
@@ -37,7 +30,10 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 
 	useEffect(() => {
 		const l = { ...selectedLayers };
-		l[layer.indicator.id].styles.colors.paint['fill-opacity'] = opacity / 100;
+		const lid = layer.isIbp ? layer.id : layer.indicator.id;
+		if (!l[lid].styles) return;
+
+		l[lid].styles.colors.paint['fill-opacity'] = opacity / 100;
 		setSelectedLayers(l);
 	}, [opacity]);
 
@@ -56,8 +52,6 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	const onLayerChange = (value) => {
 		setSelectedLayer(value);
 		const layersData = JSON.parse(JSON.stringify(selectedLayers));
-		console.log('layersData', layersData);
-		console.log('layer.indicator.id', layer.indicator.id);
 		layersData[layer.indicator.id] = {
 			...layersData[layer.indicator.id],
 			...formatMapData(layer.indicator.data, value.toUpperCase(), opacity),
@@ -92,10 +86,10 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 					<Icon name="drag-handle" size="16px" color="#7f7e7e" mt="6px" />
 					<Box>
 						<Text fontWeight="bold" fontSize="13px">
-							{layer.indicator.indicatorName}
+							{layer.indicator ? layer.indicator.indicatorName : layer.layerName}
 						</Text>
 						<Text fontWeight="300" fontSize="12px">
-							Source: {layer.indicator.source}
+							Source: {layer.indicator ? layer.indicator.source : layer.createdBy}
 						</Text>
 					</Box>
 				</Stack>
@@ -202,13 +196,17 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							/>
 						</Tooltip>
 						<Tooltip label="Remove Layer" zIndex="9">
-							<X size={'20px'} onClick={(e) => removeIndicator(layer.indicator.id)} cursor="pointer" />
+							<X
+								size={'20px'}
+								onClick={(e) => removeIndicator(layer.indicator ? layer.indicator.id : layer.id)}
+								cursor="pointer"
+							/>
 						</Tooltip>
 					</Stack>
 				</Box>
 			</Flex>
 			<Box>
-				{layer.indicator.legends && (
+				{layer.indicator && layer.indicator.legends && (
 					<Flex isInline spacing={0} className="legend">
 						{_.map(layer.indicator.legends, (d, index) => {
 							return (
