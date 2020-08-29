@@ -21,7 +21,7 @@ function IBPLayers() {
 	const [q, setQ] = useState(false);
 	const [layers, setLayers] = useState([]);
 	const [filteredLayers, setFilteredLayers] = useState(false);
-	const { selectedLayers, setSelectedLayers } = useContext(LayerContext);
+	const { selectedLayers, setSelectedLayers, layersLoading, setLayersLoading } = useContext(LayerContext);
 
 	useEffect(() => {
 		// Get IBP Layers
@@ -56,7 +56,8 @@ function IBPLayers() {
 		__layers[index].isAdded = !__layers[index].isAdded;
 		if (__layers[index].isAdded) {
 			// Add IBP Layer
-			setSelectedLayers(JSON.parse(JSON.stringify({ [layer.id]: { ...layer, isIbp: true }, ...selectedLayers })));
+			// setSelectedLayers(JSON.parse(JSON.stringify({ [layer.id]: { ...layer, isIbp: true }, ...selectedLayers })));
+			setLayersLoading([...layersLoading, { ...layer, isIbp: true }]);
 			getLayerStyles(__layers[index]);
 		} else {
 			// Remove IBP Layer
@@ -64,6 +65,10 @@ function IBPLayers() {
 			setSelectedLayers({ ...filtredLayers });
 		}
 		setLayers(__layers);
+	};
+
+	const removeThisLayerFromLoadingStack = (layer) => {
+		setLayersLoading(JSON.parse(JSON.stringify(_.filter(layersLoading, (l) => layer.id !== l.id))));
 	};
 
 	const getLayerStyles = async (layer) => {
@@ -75,6 +80,7 @@ function IBPLayers() {
 				`${AppConstant.config.nakshaApi}/geoserver/layers/${layer.layerTableName}/styles`
 			);
 		} catch (err) {
+			removeThisLayerFromLoadingStack(layer);
 			console.log('Error loading Styleprops', err);
 		}
 		try {
@@ -84,8 +90,10 @@ function IBPLayers() {
 				}/${layer.colorBy.toLowerCase()}`
 			);
 		} catch (err) {
+			removeThisLayerFromLoadingStack(layer);
 			console.log('Error loading Styles', err);
 		}
+		removeThisLayerFromLoadingStack(layer);
 		stylesProps = stylesProps.body[0];
 		styles = styles.body;
 		setSelectedLayers(
