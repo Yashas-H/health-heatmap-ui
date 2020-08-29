@@ -4,7 +4,7 @@ import _ from 'underscore';
 import { Box, Stack, Text, Flex, Icon } from '@chakra-ui/core';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, Tooltip } from '@chakra-ui/core';
 
-import { Popover, PopoverTrigger, PopoverContent, PopoverArrow } from '@chakra-ui/core';
+import { Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverBody } from '@chakra-ui/core';
 import { List, ListItem, ListIcon } from '@chakra-ui/core';
 
 import formatMapData from '../../helper/formatMapData';
@@ -31,8 +31,8 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	useEffect(() => {
 		const l = { ...selectedLayers };
 		const lid = layer.isIbp ? layer.id : layer.indicator.id;
-		if(!l[lid].styles) return;
-		
+		if (!l[lid].styles) return;
+
 		l[lid].styles.colors.paint['fill-opacity'] = opacity / 100;
 		setSelectedLayers(l);
 	}, [opacity]);

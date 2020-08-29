@@ -7,7 +7,7 @@ import { FALLBACK_THUMB } from '../../Icons';
 function Layer({ layer, q, onAddToMap, selectedLayers, layersLoading }) {
 	const [selected, setSelected] = useState(false);
 	useEffect(() => {
-		console.log('layersLoading', layersLoading);
+		console.log('selectedLayers', selectedLayers);
 		setSelected(
 			_.indexOf(_.keys(selectedLayers), layer.id) >= 0 || _.findWhere(layersLoading, { id: layer.id })
 				? true
