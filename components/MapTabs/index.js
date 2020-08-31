@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import _ from 'underscore';
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/core';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from '@chakra-ui/core';
 
 import { LayerContext } from '../../context/Layer';
 import Map from '../../components/Map';
@@ -12,8 +12,18 @@ function MapTabs() {
 	return (
 		<Tabs>
 			<TabList>
-				<Tab>Map</Tab>
-				{!_.isEmpty(loadedData) && <Tab>Table</Tab>}
+				<Tab>
+					<Text fontWeight="bold" mt="8px">
+						Map
+					</Text>
+				</Tab>
+				{!_.isEmpty(loadedData) && (
+					<Tab>
+						<Text fontWeight="bold" mt="8px">
+							Table
+						</Text>
+					</Tab>
+				)}
 			</TabList>
 
 			<TabPanels>

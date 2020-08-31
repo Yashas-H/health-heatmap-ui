@@ -3,7 +3,7 @@ import request from 'superagent';
 import _ from 'underscore';
 import { v4 as uuidv4 } from 'uuid';
 import { Box, Skeleton, Stack } from '@chakra-ui/core';
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/core';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from '@chakra-ui/core';
 
 import AppConstant from '../../constant/AppConstant';
 import Accordion from './Accordion';
@@ -100,8 +100,16 @@ function Sidebar() {
 	return (
 		<Tabs>
 			<TabList>
-				<Tab>Indicators</Tab>
-				<Tab>IBP Layers</Tab>
+				<Tab>
+					<Text fontWeight="bold" mt="8px">
+						Indicators
+					</Text>
+				</Tab>
+				<Tab>
+					<Text fontWeight="bold" mt="8px">
+						IBP Layers
+					</Text>
+				</Tab>
 			</TabList>
 
 			<TabPanels>
@@ -110,7 +118,11 @@ function Sidebar() {
 						<Box className="sidebar-container" pb="50px">
 							<Box className="sidebar-header">
 								<div className="searchbox">
-									<Search onChange={setQ} disabled={!indicators} placeholder="Filter indicators by name" />
+									<Search
+										onChange={setQ}
+										disabled={!indicators}
+										placeholder="Filter indicators by name"
+									/>
 								</div>
 								<Stack isInline spacing={8} align="right" className="expand-all-stack">
 									<a className="expand-collapse-btn" onClick={(e) => setOpenAll(true)}>
@@ -146,7 +158,7 @@ function Sidebar() {
 				</TabPanel>
 				<TabPanel>
 					<IBPLayers />
-					<MetadatPopUpIBP/>
+					<MetadatPopUpIBP />
 				</TabPanel>
 			</TabPanels>
 		</Tabs>
