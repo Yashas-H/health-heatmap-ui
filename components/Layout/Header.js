@@ -20,14 +20,14 @@ const Header = (props) => {
 				justify="space-between"
 				wrap="wrap"
 				padding="1rem"
-				bg="white"
-				color="#5d5d5d"
+				bg="#1D75D9"
+				color="#ffffff"
 				{...props}
 			>
 				<Flex align="center" mr={5}>
 					<Heading as="h1" size="lg" letterSpacing={'-.05rem'}>
 						<Link href="/">
-							<a href="#">Health Heatmap</a>
+							<a href="#">Health Heatmap <sup className="title-sup">Beta</sup></a>
 						</Link>
 					</Heading>
 				</Flex>

@@ -5,7 +5,7 @@ import _ from 'underscore';
 import Select from 'react-select';
 
 import './style.scss';
-import districts from 'data/allDistrictNames.json'
+// import districts from 'data/allDistrictNames.json'
 
 const SelectorStyles = {
   control: base => ({

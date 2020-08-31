@@ -75,16 +75,16 @@ function MetadatPopUpIBP() {
 									<Text fontSize="sm">{metadata.layerType}</Text>
 								</Stack>
 								<Stack spacing={0}>
-									<Text fontSize="xs">Created By</Text>
-									<Text fontSize="sm">{metadata.createdBy}</Text>
-								</Stack>
-								<Stack spacing={0}>
 									<Text fontSize="xs">Licence</Text>
 									<Text fontSize="sm">{metadata.license}</Text>
 								</Stack>
 								<Stack spacing={0}>
 									<Text fontSize="xs">Attribution</Text>
 									<CollapsibleText fontSize="sm">{metadata.attribution}</CollapsibleText>
+								</Stack>
+								<Stack spacing={0}>
+									<Text fontSize="xs">Uploaded By</Text>
+									<Text fontSize="sm">{metadata.createdBy}</Text>
 								</Stack>
 								{metadata.tags && (
 									<Stack spacing={0}>
