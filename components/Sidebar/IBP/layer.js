@@ -39,13 +39,10 @@ function Layer({ layer, q, onAddToMap, selectedLayers, layersLoading }) {
 				</Box>
 			</Stack>
 			<Box display="flex" alignItems="center" justifyContent="space-between" mx={1}>
-				<Box>
-					<Text fontSize="xs">
-						<Badge variant="outline" variantColor="green" fontSize={10} mr={1}>
-							{layer.license}
-						</Badge>
-						{layer.createdBy}
-					</Text>
+				<Box fontSize="xs">
+					<Badge variant="outline" variantColor="green" fontSize={10} mr={1}>
+						{layer.license}
+					</Badge>
 				</Box>
 				<Button
 					size="xs"

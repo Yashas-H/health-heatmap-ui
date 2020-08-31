@@ -18,9 +18,13 @@ const Map = () => {
 	}, [currentIndicatorData]);
 
 	useEffect(() => {
+		updateExternalLayers();
+	}, [selectedLayers]);
+
+	const updateExternalLayers = _.debounce((e) => {
 		const selected = _.map(selectedLayers, (l, key) => ({ ..._.omit(selectedLayers[key], 'indicator') }));
 		setExternalLayers(selected.reverse());
-	}, [selectedLayers]);
+	}, 500);
 
 	const updateMap = () => {
 		let data = currentIndicatorData;

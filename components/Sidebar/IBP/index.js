@@ -50,10 +50,6 @@ function IBPLayers() {
 		setFilteredLayers(q ? filterLayers(JSON.parse(JSON.stringify(shownLayers)), q) : shownLayers);
 	}, [q, layers]);
 
-	useEffect(() => {
-		console.log('selectedLayers', selectedLayers);
-	}, [selectedLayers]);
-
 	const handleToggleLayer = (layer, selected) => {
 		const __layers = [...layers];
 		const index = _.findIndex(layers, (l) => l.id === layer.id);

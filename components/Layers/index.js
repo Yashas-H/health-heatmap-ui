@@ -46,6 +46,7 @@ function Layers() {
 						<Stack className="layer-loading-stack">
 							{_.map(layersLoading, (layer) => (
 								<Stack
+									key={layer.id}
 									spacing="5px"
 									padding="10px 10px"
 									fontSize="13px"
