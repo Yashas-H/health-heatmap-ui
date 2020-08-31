@@ -8,6 +8,7 @@ import Search from '../Search';
 import Layer from './layer';
 import { LayerContext } from '../../../context/Layer';
 
+const hiddenLayers = [{ id: 'IBP-Layer-254' }, { id: 'IBP-Layer-255' }];
 const filterLayers = (layers, q) => {
 	return _.filter(layers, (layer) => {
 		return (
@@ -43,7 +44,10 @@ function IBPLayers() {
 	}, []);
 
 	useEffect(() => {
-		setFilteredLayers(q ? filterLayers(JSON.parse(JSON.stringify(layers)), q) : layers);
+		const shownLayers = hiddenLayers.length
+			? layers.filter((l) => !_.findWhere(hiddenLayers, { id: l.id }))
+			: layers;
+		setFilteredLayers(q ? filterLayers(JSON.parse(JSON.stringify(shownLayers)), q) : shownLayers);
 	}, [q, layers]);
 
 	useEffect(() => {

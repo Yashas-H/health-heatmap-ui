@@ -52,6 +52,7 @@ const Map = () => {
 					store: 'ibp',
 					workspace: 'biodiv',
 				}}
+				// hiddenLayers={[{ id: 254 }, { id: 255 }]}
 				externalLayers={externalLayers}
 			/>
 

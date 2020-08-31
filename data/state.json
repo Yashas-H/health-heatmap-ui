@@ -1,12 +1,12 @@
 {
-	"id": "lyr_221_admin2",
+	"id": "lyr_254_admin2",
 	"styles": {
 		"styleName": "polygon",
 		"styleTitle": "Default Polygon",
 		"colors": {
-			"id": "lyr_221_admin2",
+			"id": "lyr_254_admin2",
 			"type": "fill",
-			"source": "lyr_221_admin2",
+			"source": "lyr_254_admin2",
 			"paint": {
 				"fill-outline-color": "#aaaaaa",
 				"fill-opacity": 1,
@@ -16,8 +16,8 @@
 					"stops": []
 				}
 			},
-			"source-layer": "lyr_221_admin2"
+			"source-layer": "lyr_254_admin2"
 		},
-		"source-layer": "lyr_221_admin2"
+		"source-layer": "lyr_254_admin2"
 	}
 }

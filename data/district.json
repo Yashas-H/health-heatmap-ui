@@ -1,12 +1,12 @@
 {
-  "id": "lyr_222_ind_dist_2018_704",
+  "id": "lyr_255_ind_dist_2018_704",
   "styles": {
     "styleName": "polygon",
     "styleTitle": "Default Polygon",
     "colors": {
-      "id": "lyr_222_ind_dist_2018_704",
+      "id": "lyr_255_ind_dist_2018_704",
       "type": "fill",
-      "source": "lyr_222_ind_dist_2018_704",
+      "source": "lyr_255_ind_dist_2018_704",
       "paint": {
         "fill-outline-color": "#aaaaaa",
         "fill-opacity": 1,
@@ -16,8 +16,8 @@
           "stops": []
         }
       },
-      "source-layer": "lyr_222_ind_dist_2018_704"
+      "source-layer": "lyr_255_ind_dist_2018_704"
     },
-    "source-layer": "lyr_222_ind_dist_2018_704"
+    "source-layer": "lyr_255_ind_dist_2018_704"
   }
 }

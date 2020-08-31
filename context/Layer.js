@@ -11,9 +11,6 @@ const LayerContextProvider = (props) => {
 	const [loadedData, setLoadedData] = useState({});
 	const [showMetadata, setShowMetadata] = useState(false);
 	const [layersLoading, setLayersLoading] = useState([]);
-	useEffect(() => {
-		// console.log('selectedLayers', selectedLayers);
-	}, [selectedLayers]);
 
 	const loadIndicatorData = (indicator) => {
 		// Get DATA
