@@ -109,26 +109,10 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							onClick={(e) => handleDuplicateLayer(layer)}
 						/>
 					</Tooltip> */}
-					<Tooltip label="Filters">
-						<Box padding="5px 0" cursor="pointer">
-							<IconFilter />
-						</Box>
-					</Tooltip>
 				</Stack>
 			</Stack>
 
 			<Flex align="center">
-				<Flex align="flex-end">
-					<Tooltip label="Show/Hide Layer">
-						<Stack isInline>
-							{opacity ? (
-								<Eye size={'20px'} cursor="pointer" onClick={(e) => setOpacity(0)} />
-							) : (
-								<EyeOff size={'20px'} cursor="pointer" onClick={(e) => setOpacity(100)} />
-							)}
-						</Stack>
-					</Tooltip>
-				</Flex>
 				<Flex size="70%" align="left" justify="center" mx="14px">
 					<Slider defaultValue={opacity} onChange={onSliderChange}>
 						<SliderTrack />
@@ -147,7 +131,18 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 				</Flex>
 				<Box>
 					<Stack isInline spacing={3} shouldWrapChildren={true} color="#717171">
-						{layers && (
+						<Flex align="flex-end">
+							<Tooltip label="Show/Hide Layer">
+								<Stack isInline>
+									{opacity ? (
+										<Eye size={'20px'} cursor="pointer" onClick={(e) => setOpacity(0)} />
+									) : (
+										<EyeOff size={'20px'} cursor="pointer" onClick={(e) => setOpacity(100)} />
+									)}
+								</Stack>
+							</Tooltip>
+						</Flex>
+						{layers ? (
 							<Popover initialFocusRef={initRef}>
 								{({ isOpen, onClose }) => (
 									<>
@@ -188,7 +183,14 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 									</>
 								)}
 							</Popover>
+						) : (
+							<Layers size={'20px'} cursor="not-allowed" color="#dcdcdc"/>
 						)}
+						<Tooltip label="Filters">
+							<Box cursor="pointer">
+								<IconFilter />
+							</Box>
+						</Tooltip>
 						<Tooltip label="Layer Information" zIndex="9">
 							<Info size={'20px'} cursor="pointer" onClick={handleShowMetadata} />
 						</Tooltip>
