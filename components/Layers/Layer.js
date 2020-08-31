@@ -79,6 +79,12 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		setSelectedLayers(JSON.parse(JSON.stringify(newItems)));
 	};
 
+	const handleShowMetadata = (e) => {
+		const metdataInfo = layer.isIbp
+			? { ...layer }
+			: { ...layer.indicator, ['indicator_universal_name']: layer.indicator.indicatorName };
+		setShowMetadata(metdataInfo);
+	};
 	return (
 		<Box className="layer-item" padding="10px">
 			<Stack isInline>
@@ -184,16 +190,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							</Popover>
 						)}
 						<Tooltip label="Layer Information" zIndex="9">
-							<Info
-								size={'20px'}
-								cursor="pointer"
-								onClick={(e) =>
-									setShowMetadata({
-										...layer.indicator,
-										['indicator_universal_name']: layer.indicator.indicatorName,
-									})
-								}
-							/>
+							<Info size={'20px'} cursor="pointer" onClick={handleShowMetadata} />
 						</Tooltip>
 						<Tooltip label="Remove Layer" zIndex="9">
 							<X

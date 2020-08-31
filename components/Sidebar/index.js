@@ -9,6 +9,7 @@ import AppConstant from '../../constant/AppConstant';
 import Accordion from './Accordion';
 import Search from './Search';
 import MetadataPopUp from './MetadataPopUp';
+import MetadatPopUpIBP from './MetadataPopUp_IBP';
 import IBPLayers from './IBP';
 
 const filterIndicators = (groups, q) => {
@@ -145,6 +146,7 @@ function Sidebar() {
 				</TabPanel>
 				<TabPanel>
 					<IBPLayers />
+					<MetadatPopUpIBP/>
 				</TabPanel>
 			</TabPanels>
 		</Tabs>

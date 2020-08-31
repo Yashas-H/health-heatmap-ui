@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import _ from 'underscore';
 import { Box, Button, Image, Stack, Text, Badge, Tooltip } from '@chakra-ui/core';
 import Highlight from 'react-highlighter';
+import { Info } from 'react-feather';
 
 import { FALLBACK_THUMB } from '../../Icons';
+import { LayerContext } from '../../../context/Layer';
 
 function Layer({ layer, q, onAddToMap, selectedLayers, layersLoading }) {
 	const [selected, setSelected] = useState(false);
+	const { setShowMetadata } = useContext(LayerContext);
+
 	useEffect(() => {
 		setSelected(
 			_.indexOf(_.keys(selectedLayers), layer.id) >= 0 || _.findWhere(layersLoading, { id: layer.id })
@@ -25,20 +29,29 @@ function Layer({ layer, q, onAddToMap, selectedLayers, layersLoading }) {
 					src={layer.thumbnail}
 					fallbackSrc={FALLBACK_THUMB}
 				/>
-				<Box p={3}>
+				<Box p={1}>
+					<Stack
+						isInline
+						spacing={1}
+						cursor="pointer"
+						onClick={(e) => setShowMetadata({ ...layer, isIbp: true })}
+					>
+						<Box mt="2px">
+							<Info size={'16px'} color="#717171" />
+						</Box>
+						<Text mb={1} fontSize="15px" fontWeight="bold">
+							<Highlight search={q}>{layer.layerName}</Highlight>
+						</Text>
+					</Stack>
+
 					<Tooltip label={layer.layerDescription}>
-						<div>
-							<Text mb={1}>
-								<Highlight search={q}>{layer.layerName}</Highlight>
-							</Text>
-							<Box fontSize="sm" color="gray.600" className="ibp-layer-description">
-								{layer.layerDescription}
-							</Box>
-						</div>
+						<Box fontSize="sm" color="gray.600" className="ibp-layer-description">
+							{layer.layerDescription}
+						</Box>
 					</Tooltip>
 				</Box>
 			</Stack>
-			<Box display="flex" alignItems="center" justifyContent="space-between" mx={1}>
+			<Box display="flex" alignItems="center" justifyContent="space-between" mx={1} p={1}>
 				<Box fontSize="xs">
 					<Badge variant="outline" variantColor="green" fontSize={10} mr={1}>
 						{layer.license}

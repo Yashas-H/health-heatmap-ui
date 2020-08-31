@@ -29,7 +29,7 @@ function MetadatPopUp() {
 	const { showMetadata, setShowMetadata } = useContext(LayerContext);
 
 	useEffect(() => {
-		if (showMetadata) {
+		if (showMetadata && !showMetadata.isIbp) {
 			onOpen();
 			setMetadata(false);
 			// Get Indicator metadata
