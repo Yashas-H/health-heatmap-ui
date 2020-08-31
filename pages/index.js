@@ -8,7 +8,7 @@ export default function Home() {
 	return (
 		<Layout>
 			<Head>
-				<title>Health Heatmap - Home</title>
+				<title>Health Heatmap of India</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div className="hero">

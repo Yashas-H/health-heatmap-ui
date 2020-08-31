@@ -15,7 +15,7 @@ export function HomePage({ username, loading, error, repos, onSubmitForm, onChan
 			<Layout>
 				<article className="main-container">
 					<Helmet>
-						<title>Home Page</title>
+						<title>Health Heatmap Of India - Map explorer</title>
 						<meta name="description" content="Health Heat Map" />
 					</Helmet>
 					<div>
