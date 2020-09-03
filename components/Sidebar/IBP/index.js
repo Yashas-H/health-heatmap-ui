@@ -8,7 +8,7 @@ import Search from '../Search';
 import Layer from './layer';
 import { LayerContext } from '../../../context/Layer';
 
-const hiddenLayers = [{ id: 'IBP-Layer-254' }, { id: 'IBP-Layer-255' }];
+const hiddenLayers = [{ id: 'IBP-Layer-254' }, { id: 'IBP-Layer-255' }, { id: 'IBP-Layer-265' }];
 const filterLayers = (layers, q) => {
 	return _.filter(layers, (layer) => {
 		return (

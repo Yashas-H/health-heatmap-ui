@@ -1,23 +1,23 @@
 {
-	"id": "lyr_254_admin2",
+	"id": "lyr_265_ind_states_2018",
 	"styles": {
 		"styleName": "polygon",
 		"styleTitle": "Default Polygon",
 		"colors": {
-			"id": "lyr_254_admin2",
+			"id": "lyr_265_ind_states_2018",
 			"type": "fill",
-			"source": "lyr_254_admin2",
+			"source": "lyr_265_ind_states_2018",
 			"paint": {
 				"fill-outline-color": "#aaaaaa",
 				"fill-opacity": 1,
 				"fill-color": {
-					"property": "st_nm",
+					"property": "state",
 					"type": "categorical",
 					"stops": []
 				}
 			},
-			"source-layer": "lyr_254_admin2"
+			"source-layer": "lyr_265_ind_states_2018"
 		},
-		"source-layer": "lyr_254_admin2"
+		"source-layer": "lyr_265_ind_states_2018"
 	}
 }

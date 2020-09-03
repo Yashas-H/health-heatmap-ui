@@ -23,6 +23,7 @@ const Map = () => {
 
 	const updateExternalLayers = _.debounce((e) => {
 		const selected = _.map(selectedLayers, (l, key) => ({ ..._.omit(selectedLayers[key], 'indicator') }));
+		console.log("Ext Layers", selected);
 		setExternalLayers(selected.reverse());
 	}, 500);
 
