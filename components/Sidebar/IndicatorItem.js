@@ -39,7 +39,7 @@ function IndicatorItem({ indicator, q }) {
 						py={1}
 					>
 						<Text fontSize="sm">
-							<Highlight search={q}>{indicator.indicator_universal_name}</Highlight>
+							<Highlight search={q}>{indicator['indicator.id']}</Highlight>
 						</Text>
 					</Checkbox>
 				</Stack>
@@ -55,7 +55,7 @@ function IndicatorItem({ indicator, q }) {
 							/>
 						</Box>
 						<Text fontSize="sm">
-							<Highlight search={q}>{indicator.indicator_universal_name}</Highlight>
+							<Highlight search={q}>{indicator['indicator.id']}</Highlight>
 						</Text>
 					</Stack>
 					{_.map(indicator.sources, (source, i) => {

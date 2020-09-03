@@ -17,7 +17,7 @@ const filterIndicators = (groups, q) => {
 		return _.filter(group.subs, (sub, key) => {
 			if (key.toLowerCase().includes(q.toLowerCase())) return true;
 			const indicators = _.filter(sub, (i) => {
-				return i.indicator_universal_name.toLowerCase().includes(q.toLowerCase());
+				return i['indicator.id'].toLowerCase().includes(q.toLowerCase());
 			});
 			group.subs[key] = [...indicators];
 			return indicators.length;
@@ -41,11 +41,11 @@ function Sidebar() {
 			.post(`${AppConstant.config.appBaseUrl}/dimensions`)
 			.send({
 				fields: [
-					'indicator_universal_name',
-					'indicator_category',
-					'indicator_subcategory',
-					'indicator_positive_negative',
-					'source',
+					'indicator.id',
+					'indicator.Category',
+					'indicator.Sub-Category',
+					'indicator.Positive/Negative',
+					'source.id',
 				],
 			})
 			.then((res) => {
@@ -53,20 +53,20 @@ function Sidebar() {
 					_.filter(
 						res.body,
 						(item) =>
-							item.indicator_universal_name != '' && item.indicator_category && item.indicator_subcategory
+							item['indicator.id'] != '' && item["indicator.Category"] && item["indicator.Sub-Category"]
 					),
-					'indicator_category'
+					'indicator.Category'
 				);
 				const groupsWithSubs = [];
 				_.each(groups, (group, key) => {
 					// Remove duplicate indicators and group by source
-					let dupes = _.groupBy(group, 'indicator_universal_name');
+					let dupes = _.groupBy(group, 'indicator.id');
 					dupes = _.map(dupes, (dupe) => {
 						if (dupe.length > 1)
 							return {
 								...dupe[0],
 								sources: _.map(dupe, (i) => ({
-									name: i.source,
+									name: i['source.id'],
 									id: uuidv4(),
 								})),
 							};
@@ -75,7 +75,7 @@ function Sidebar() {
 					groupsWithSubs.push({
 						name: key,
 						count: dupes.length,
-						subs: _.groupBy(dupes, 'indicator_subcategory'),
+						subs: _.groupBy(dupes, 'indicator.Sub-Category'),
 					});
 				});
 				setIndicators(groupsWithSubs);

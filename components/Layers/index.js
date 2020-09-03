@@ -53,9 +53,9 @@ function Layers() {
 									fontWeight="bold"
 									className="layer-item"
 								>
-									<Text>{layer.isIbp ? layer.layerName : layer.indicator_universal_name}</Text>
+									<Text>{layer.isIbp ? layer.layerName : layer['indicator.id']}</Text>
 									<Text fontWeight="300" fontSize="12px">
-										Source: {layer.isIbp ? layer.createdBy : layer.source}
+										Source: {layer.isIbp ? layer.createdBy : layer['source.id']}
 									</Text>
 									<LoadingSkeleton />
 								</Stack>

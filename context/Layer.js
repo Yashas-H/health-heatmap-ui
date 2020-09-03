@@ -19,8 +19,8 @@ const LayerContextProvider = (props) => {
 			.post(`${AppConstant.config.appBaseUrl}/data`)
 			.send({
 				terms: {
-					indicator_universal_name: [indicator.indicator_universal_name],
-					source: [indicator.source],
+					['indicator.id']: [indicator['indicator.id']],
+					['source.id']: [indicator['source.id']],
 				},
 			})
 			.then((res) => {
@@ -33,9 +33,9 @@ const LayerContextProvider = (props) => {
 				setCurrentIndicatorData({
 					district: districtData,
 					state: stateData,
-					indicatorName: indicator.indicator_universal_name,
-					legendType: indicator.indicator_positive_negative,
-					source: indicator.source,
+					indicatorName: indicator['indicator.id'],
+					legendType: indicator['indicator.Positive/Negative'],
+					source: indicator['source.id'],
 					id: indicator.id,
 				});
 				setLoadedData({
@@ -43,8 +43,8 @@ const LayerContextProvider = (props) => {
 					[indicator.id]: {
 						district: districtData,
 						state: stateData,
-						indicatorName: indicator.indicator_universal_name,
-						legendType: indicator.indicator_positive_negative,
+						indicatorName: indicator['indicator.id'],
+						legendType: indicator['indicator.Positive/Negative'],
 						id: indicator.id,
 					},
 				});
@@ -67,7 +67,7 @@ const LayerContextProvider = (props) => {
 				setShowMetadata: setShowMetadata,
 				layersLoading: layersLoading,
 				setLayersLoading: setLayersLoading,
-				loadedData:loadedData
+				loadedData: loadedData,
 			}}
 		>
 			{props.children}

@@ -34,7 +34,7 @@ function MetadatPopUp() {
 			setMetadata(false);
 			// Get Indicator metadata
 			request
-				.get(`${AppConstant.config.appBaseUrl}/indicators/${encodeURI(showMetadata.indicator_universal_name)}`)
+				.get(`${AppConstant.config.appBaseUrl}/indicators/${encodeURI(showMetadata['indicator.id'])}`)
 				.then((res) => {
 					setMetadata(res.body);
 				})
@@ -77,7 +77,7 @@ function MetadatPopUp() {
 							Indicator Name
 						</Text>
 						<Text fontSize={14} fontWeight="bold">
-							{showMetadata.indicator_universal_name}
+							{showMetadata['indicator.id']}
 						</Text>
 					</Text>
 					{metadata ? (
@@ -87,13 +87,13 @@ function MetadatPopUp() {
 									<Text fontWeight="bold" color="gray.500">
 										Category
 									</Text>
-									<Text>{metadata.indicator_category}</Text>
+									<Text>{metadata["indicator.Category"]}</Text>
 								</Text>
 								<Text fontSize={14}>
 									<Text fontWeight="bold" color="gray.500">
 										Sub Category
 									</Text>
-									<Text>{metadata.indicator_subcategory}</Text>
+									<Text>{metadata["indicator.Sub-Category"]}</Text>
 								</Text>
 								<Text fontSize={14}>
 									<Text fontWeight="bold" color="gray.500">
@@ -111,7 +111,7 @@ function MetadatPopUp() {
 									<Text fontWeight="bold" color="gray.500">
 										+ve/-ve
 									</Text>
-									<Text>{metadata.indicator_positive_negative}</Text>
+									<Text>{metadata["indicator.Positive/Negative"]}</Text>
 								</Text>
 							</Stack>
 							{metadata.source_specific && (

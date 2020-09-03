@@ -53,7 +53,7 @@ export default function formatMapData(data, type, opacity) {
 		id: layerId,
 		indicatorName: data.indicatorName,
 		legendType: data.legendType,
-		source: data.source,
+		source: data['source.id'],
 		data: data,
 		legends: l.reverse(),
 	};

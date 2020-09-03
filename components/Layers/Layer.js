@@ -10,11 +10,13 @@ import { List, ListItem, ListIcon } from '@chakra-ui/core';
 import formatMapData from '../../helper/formatMapData';
 import { LayerContext } from '../../context/Layer';
 import { IconFilter } from '../Icons';
+import Filters from '../Filters';
 
 function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	const { setSelectedLayers, selectedLayers, setShowMetadata } = useContext(LayerContext);
 	const [opacity, setOpacity] = useState(100);
 	const [layers, setLayers] = useState(false);
+	const [isFilters, showFilters] = useState(false);
 	const [selectedLayer, setSelectedLayer] = useState(false);
 	const initRef = useRef();
 
@@ -82,7 +84,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	const handleShowMetadata = (e) => {
 		const metdataInfo = layer.isIbp
 			? { ...layer }
-			: { ...layer.indicator, ['indicator_universal_name']: layer.indicator.indicatorName };
+			: { ...layer.indicator, ['indicator.id']: layer.indicator.indicatorName };
 		setShowMetadata(metdataInfo);
 	};
 	return (
@@ -95,7 +97,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							{layer.indicator ? layer.indicator.indicatorName : layer.layerName}
 						</Text>
 						<Text fontWeight="300" fontSize="12px">
-							Source: {layer.indicator ? layer.indicator.source : layer.createdBy}
+							Source: {layer.indicator ? layer.indicator['source.id'] : layer.createdBy}
 						</Text>
 					</Box>
 				</Stack>
@@ -184,10 +186,14 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 								)}
 							</Popover>
 						) : (
-							<Layers size={'20px'} cursor="not-allowed" color="#dcdcdc"/>
+							<Layers size={'20px'} cursor="not-allowed" color="#dcdcdc" />
 						)}
 						<Tooltip label="Filters">
-							<Box cursor="pointer">
+							<Box
+								cursor="pointer"
+								className={`${isFilters ? 'filter-btn-active' : ''}`}
+								onClick={(e) => showFilters(!isFilters)}
+							>
 								<IconFilter />
 							</Box>
 						</Tooltip>
@@ -195,8 +201,11 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							<Info size={'20px'} cursor="pointer" onClick={handleShowMetadata} />
 						</Tooltip>
 						<Tooltip label="Remove Layer" zIndex="9">
-							<X
-								size={'20px'}
+							<Icon
+								name="delete"
+								size="16px"
+								color="#7f7e7e"
+								mt="6px"
 								onClick={(e) => removeIndicator(layer.indicator ? layer.indicator.id : layer.id)}
 								cursor="pointer"
 							/>
@@ -204,6 +213,14 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 					</Stack>
 				</Box>
 			</Flex>
+
+			{/* Fiters Area */}
+			{isFilters && (
+				<Box>
+					<Filters />
+				</Box>
+			)}
+
 			<Box>
 				{layer.indicator && layer.indicator.legends && (
 					<Flex isInline spacing={0} className="legend">

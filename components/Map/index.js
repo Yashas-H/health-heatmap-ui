@@ -23,7 +23,6 @@ const Map = () => {
 
 	const updateExternalLayers = _.debounce((e) => {
 		const selected = _.map(selectedLayers, (l, key) => ({ ..._.omit(selectedLayers[key], 'indicator') }));
-		console.log("Ext Layers", selected);
 		setExternalLayers(selected.reverse());
 	}, 500);
 
@@ -35,6 +34,7 @@ const Map = () => {
 		let newlayerData = [...externalLayers];
 		newlayerData.unshift({ ...layer });
 		setSelectedLayers(JSON.parse(JSON.stringify({ [data.id]: layer, ...selectedLayers })));
+		console.log('Externallayers',newlayerData );
 	};
 
 	return (
@@ -57,7 +57,6 @@ const Map = () => {
 					store: 'ibp',
 					workspace: 'biodiv',
 				}}
-				// hiddenLayers={[{ id: 254 }, { id: 255 }]}
 				externalLayers={externalLayers}
 			/>
 
