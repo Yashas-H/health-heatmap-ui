@@ -1,16 +1,16 @@
-import { useFilteredData } from "context/hhm-data";
+import { useCompositeScore } from "context/hhm-data";
 
-export default function DataViewer() {
+export default function DataViewer({filter}) {
   const {
-    filteredDataLoading,
-    filteredDataError,
-    filteredData,
-  } = useFilteredData();
-  if (filteredDataLoading) {
+    compositeScoreLoading,
+    compositeScoreError,
+    compositeScores,
+  } = useCompositeScore(filter);
+  if (compositeScoreLoading) {
     return <div>Loading...</div>;
   }
-  if (filteredDataError) {
-    return <div>{filteredDataError.message}</div>
+  if (compositeScoreError) {
+    return <div>{compositeScoreError.message}</div>
   }
-  return <div>{JSON.stringify(filteredData)}</div>
+  return <div>{JSON.stringify(compositeScores)}</div>
 }

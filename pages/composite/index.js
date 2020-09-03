@@ -5,32 +5,37 @@ import { Grid, Box } from "@chakra-ui/core";
 
 import { Sidebar, DataViewer } from "components/CompositeIndicatorsViewer";
 import Layout from "components/Layout";
-import { FilteredDataProvider } from "context/hhm-data";
+import { useDataFilter } from "context/hhm-data";
 
 export default function CompositePage({}) {
-  return (
-    <FilteredDataProvider>
-      <Layout>
-        <article className="main-container">
-          <Helmet>
-            <title>Health Heatmap Of India - Composite Indicators</title>
-            <meta name="description" content="Health Heat Map" />
-          </Helmet>
-          <div>
-            <Grid gridTemplateColumns={"30% 1fr"} gap={0}>
-              <Box>
-                <Sidebar />
-              </Box>
+  const initialFilter = {"terms": {
+    "source.id" : ["NFHS - 4"],
+    "settlement.id": ["Total"],
+    "entity.type": ["DISTRICT"]
+  }}
+  const [filter, dispatchFilter] = useDataFilter(initialFilter);
 
-              <Box className="vis-right-column">
-                <div className="visualization-area">
-                  <DataViewer />
-                </div>
-              </Box>
-            </Grid>
-          </div>
-        </article>
-      </Layout>
-    </FilteredDataProvider>
+  return (
+    <Layout>
+      <article className="main-container">
+        <Helmet>
+          <title>Health Heatmap Of India - Composite Indicators</title>
+          <meta name="description" content="Health Heat Map" />
+        </Helmet>
+        <div>
+          <Grid gridTemplateColumns={"30% 1fr"} gap={0}>
+            <Box>
+              <Sidebar initialFilter={initialFilter} filter={filter} dispatchFilter={dispatchFilter} />
+            </Box>
+
+            <Box className="vis-right-column">
+              <div className="visualization-area">
+                <DataViewer filter={filter}/>
+              </div>
+            </Box>
+          </Grid>
+        </div>
+      </article>
+    </Layout>
   );
 }

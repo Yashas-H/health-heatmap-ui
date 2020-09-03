@@ -1,4 +1,4 @@
-import { useIndicators, useDataFilter } from "context/hhm-data";
+import { useIndicators } from "context/hhm-data";
 import { groupBy } from "underscore";
 import {
   Accordion,
@@ -10,9 +10,9 @@ import {
   ListItem,
 } from "@chakra-ui/core";
 
-export default function Sidebar() {
+export default function Sidebar({initialFilter, filter, dispatchFilter}) {
   const { indicatorsLoading, indicatorsError, indicators } = useIndicators({
-    filter: { terms: { "source.id": ["NFHS - 4"] } },
+    filter: initialFilter,
   });
   if (indicatorsLoading) {
     return <div>Loading indicators...</div>;
@@ -22,12 +22,11 @@ export default function Sidebar() {
   }
   const groupedIndicators = groupBy(indicators, (i) => i["indicator.Category"]);
 
-  const [state, dispatch] = useDataFilter();
   return (
     <>
       <div>Selected Indicators:</div>
       <List as="ol" styleType="decimal">
-        {state?.terms?.["indicator.id"]?.map((i) => (
+        {filter?.terms?.["indicator.id"]?.map((i) => (
           <ListItem>{i}</ListItem>
         ))}
       </List>
@@ -42,12 +41,12 @@ export default function Sidebar() {
                   value={v["indicator.id"]}
                   onChange={(e) => {
                     if (e.target.checked) {
-                      dispatch({
+                      dispatchFilter({
                         type: "add-term",
                         payload: ["indicator.id", v["indicator.id"]],
                       });
                     } else {
-                      dispatch({
+                      dispatchFilter({
                         type: "remove-term",
                         payload: ["indicator.id", v["indicator.id"]],
                       });

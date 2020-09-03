@@ -7,9 +7,6 @@ import {
 } from "services/hhm-api";
 import { union, without } from "underscore";
 
-const FilteredDataStateContext = React.createContext();
-const FilteredDataDispatchContext = React.createContext();
-
 const addTermToState = (state, [key, value]) => {
   return {
     terms: {
@@ -42,55 +39,23 @@ function filterReducer(state, action) {
   }
 }
 
-function FilteredDataProvider({ children }) {
-  const [state, dispatch] = React.useReducer(filterReducer, {});
-  return (
-    <FilteredDataStateContext.Provider value={state}>
-      <FilteredDataDispatchContext.Provider value={dispatch}>
-        {children}
-      </FilteredDataDispatchContext.Provider>
-    </FilteredDataStateContext.Provider>
-  );
+export function useDataFilter(initialFilter = {}) {
+  return React.useReducer(filterReducer, initialFilter);
 }
 
-function useDataFilterState() {
-  const context = React.useContext(FilteredDataStateContext);
-  if (context === undefined) {
-    throw new Error(
-      "useFilteredDataState must be used within a FilteredDataProvider"
-    );
-  }
-  return context;
-}
-
-function useDataFilterDispatch() {
-  const context = React.useContext(FilteredDataDispatchContext);
-  if (context === undefined) {
-    throw new Error(
-      "useFilteredDataDispatch must be used within a FilteredDataProvider"
-    );
-  }
-  return context;
-}
-
-function useDataFilter() {
-  return [useDataFilterState(), useDataFilterDispatch()];
-}
-
-function useFilteredData() {
-  const filter = useDataFilterState();
+export function useCompositeScore(filter) {
   const { isLoading, error, data } = useQuery(
     ["analysis", filter],
     (_, filter) => getCompositeScores(filter)
   );
   return {
-    filteredDataLoading: isLoading,
-    filteredDataError: error,
-    filteredData: data,
+    compositeScoreLoading: isLoading,
+    compositeScoreError: error,
+    compositeScores: data,
   };
 }
 
-function useIndicators({ filter = {} }) {
+export function useIndicators({ filter = {} }) {
   const { isLoading, error, data } = Object.is(filter, {})
     ? useQuery("indicators", getIndicators)
     : useQuery(["indicators", filter], (_, filter) =>
@@ -102,5 +67,3 @@ function useIndicators({ filter = {} }) {
     indicators: data,
   };
 }
-
-export { useIndicators, useDataFilter, FilteredDataProvider, useFilteredData };
