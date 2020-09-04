@@ -9,7 +9,8 @@ export const getDimensions = ({ fields, filter }) =>
   request
     .post(`${API_ROOT}/dimensions`)
     .send({ fields, filter })
-    .then((res) => res.body);
+    .then((res) => res.body)
+    .catch((err) => err.response.body.errors[0]);
 
 export const getIndicatorsWithFilter = (filter) =>
   getDimensions({
@@ -28,6 +29,12 @@ export const getCompositeScores = (filter) =>
     .send({ filter, dimension: "indicator.id" })
     .then((res) => res.body)
     .catch((err) => {
-      return err.response.body.errors[0]
-
+      return err.response.body.errors[0];
     });
+
+export const getData = (filter) =>
+  request
+    .post(`${API_ROOT}/data`)
+    .send(filter)
+    .then((res) => res.body)
+    .catch((err) => err.response.body.errors[0]);

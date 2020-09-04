@@ -4,11 +4,14 @@ import {
   getIndicators,
   getIndicatorsWithFilter,
   getCompositeScores,
+  getData,
+  getDimensions,
 } from "services/hhm-api";
 import { union, without } from "underscore";
 
 const addTermToState = (state, [key, value]) => {
   return {
+    ...state,
     terms: {
       ...state.terms,
       [key]: union([...(state?.terms?.[key] ?? [])], [value]),
@@ -16,14 +19,46 @@ const addTermToState = (state, [key, value]) => {
   };
 };
 
+const setTermInState = (state, [key, values]) => {
+  return {
+    ...state,
+    terms: {
+      ...state.terms,
+      [key]: values
+    }
+  }
+}
+
+const removeTermEntirelyInState = (state, term) => {
+  const {term: removedTerm, ...newTerms} = state?.terms
+  return {
+    ...state,
+    terms: newTerms
+  }
+}
+
 const removeTermFromState = (state, [key, value]) => {
   return {
+    ...state,
     terms: {
       ...state.terms,
       [key]: without([...(state?.terms?.[key] ?? [])], value),
     },
   };
 };
+
+const addRangeToState = (state, [dimension, operator, rangeValue]) => {
+  return {
+    ...state,
+    ranges: {
+      ...state.ranges,
+      [dimension]: {
+        ...(state?.ranges?.[dimension] ?? {}),
+        [operator]: rangeValue
+      }
+    }
+  }
+}
 
 function filterReducer(state, action) {
   switch (action.type) {
@@ -32,6 +67,15 @@ function filterReducer(state, action) {
     }
     case "remove-term": {
       return removeTermFromState(state, action.payload);
+    }
+    case "add-range-date": {
+      return addRangeToState(state, action.payload)
+    }
+    case "remove-term-entirely": {
+      return removeTermEntirelyInState(state, action.payload)
+    }
+    case "set-term": {
+      return setTermInState(state, action.payload)
     }
     default: {
       throw new Error(`Unhandled action of type ${action.type}`);
@@ -55,6 +99,17 @@ export function useCompositeScore(filter) {
   };
 }
 
+export function useData(filter) {
+  const { isLoading, error, data } = useQuery(["data", filter], (_, filter) =>
+    getData(filter)
+  );
+  return {
+    dataLoading: isLoading,
+    dataError: error,
+    data,
+  };
+}
+
 export function useIndicators({ filter = {} }) {
   const { isLoading, error, data } = Object.is(filter, {})
     ? useQuery("indicators", getIndicators)
@@ -66,4 +121,11 @@ export function useIndicators({ filter = {} }) {
     indicatorsError: error,
     indicators: data,
   };
+}
+
+export function useDimensionValues({ fields = [], filter = {} }) {
+  return useQuery(
+    ["dimension", fields, filter],
+    (_, fields, filter) => getDimensions({ fields, filter })
+  );
 }
