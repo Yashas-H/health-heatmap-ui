@@ -11,7 +11,9 @@ export default function CompositePage({}) {
   const initialFilter = {"terms": {
     "source.id" : ["NFHS - 4"],
     "settlement.id": ["Total"],
-    "entity.type": ["DISTRICT"]
+    "entity.type": ["DISTRICT"],
+    // "indicator.Category": ["Maternal & Reproductive Health", "Child Health"],
+    "indicator.Positive/Negative": ["POSITIVE", "NEGATIVE"]
   }}
   const [filter, dispatchFilter] = useDataFilter(initialFilter);
 
