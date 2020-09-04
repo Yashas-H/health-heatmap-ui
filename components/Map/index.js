@@ -34,7 +34,6 @@ const Map = () => {
 		let newlayerData = [...externalLayers];
 		newlayerData.unshift({ ...layer });
 		setSelectedLayers(JSON.parse(JSON.stringify({ [data.id]: layer, ...selectedLayers })));
-		console.log('Externallayers',newlayerData );
 	};
 
 	return (

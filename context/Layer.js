@@ -27,9 +27,8 @@ const LayerContextProvider = (props) => {
 				let stateData = _.filter(res.body.data, (item) => item['entity.type'] === 'STATE');
 				let districtData = _.filter(res.body.data, (item) => item['entity.type'] === 'DISTRICT');
 
-				stateData = _.groupBy(stateData, (item) => item['entity.state']);
-				districtData = _.groupBy(districtData, (item) => item['entity.district_map']);
-
+				stateData = _.groupBy(stateData, (item) => item['entity.Name']);
+				districtData = _.groupBy(districtData, (item) => item['entity.Name']);
 				setCurrentIndicatorData({
 					district: districtData,
 					state: stateData,
