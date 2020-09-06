@@ -1,4 +1,11 @@
 .filter-container {
 	background: #e4e4e4;
 	border-radius: 5px;
+	.clear-filter-btn {
+		border: 1px solid #e4e4e4;
+		height: 32px;
+		line-height: 32px;
+		padding: 0 10px;
+		border-left: none;
+	}
 }

@@ -12,11 +12,27 @@ import { LayerContext } from '../../context/Layer';
 import { IconFilter } from '../Icons';
 import Filters from '../Filters';
 
+const filterTypes = ['gender.id', 'settlement.id', 'socialgroup.id'];
+const filterNames = {
+	['gender.id']: 'Gender',
+	['settlement.id']: 'Settlement',
+	['socialgroup.id']: 'Social Group',
+};
+
 function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
-	const { setSelectedLayers, selectedLayers, setShowMetadata } = useContext(LayerContext);
+	const {
+		setSelectedLayers,
+		selectedLayers,
+		setShowMetadata,
+		filtersAvailable,
+		getFilterInfoForIndicator,
+	} = useContext(LayerContext);
+
 	const [opacity, setOpacity] = useState(100);
 	const [layers, setLayers] = useState(false);
 	const [isFilters, showFilters] = useState(false);
+	const [filtersSelected, setFiltersSelected] = useState({});
+	const [filtersList, setFiltersList] = useState({});
 	const [selectedLayer, setSelectedLayer] = useState(false);
 	const initRef = useRef();
 
@@ -28,6 +44,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 			setLayers(['State', 'District']);
 			setSelectedLayer('State');
 		}
+		getFilterInfoForIndicator(layer.indicator);
 	}, []);
 
 	useEffect(() => {
@@ -38,6 +55,25 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		l[lid].styles.colors.paint['fill-opacity'] = opacity / 100;
 		setSelectedLayers(l);
 	}, [opacity]);
+
+	useEffect(() => {
+		if (filtersAvailable[layer.indicator.id]) updateFilters();
+	}, [filtersAvailable]);
+
+	useEffect(() => {
+		const l = { ...selectedLayers };
+		const lid = layer.isIbp ? layer.id : layer.indicator.id;
+		if (!l[lid].styles) return;
+
+		l[lid].styles.colors.paint['fill-opacity'] = opacity / 100;
+		setSelectedLayers(l);
+	}, [opacity]);
+
+	const updateFilters = () => {
+		setFiltersList(
+			_.pick(filtersAvailable[layer.indicator.id], (v, key) => _.indexOf(filterTypes, key) >= 0 && v.length > 0)
+		);
+	};
 
 	const removeIndicator = (indicatorId) => {
 		const filtredLayers = _.omit(selectedLayers, indicatorId);
@@ -87,6 +123,14 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 			: { ...layer.indicator, ['indicator.id']: layer.indicator.indicatorName };
 		setShowMetadata(metdataInfo);
 	};
+
+	const onFilterChange = (filterChanged) => {
+		setFiltersSelected({
+			...filtersSelected,
+			[filterChanged.filterType]: filterChanged.value,
+		});
+	};
+
 	return (
 		<Box className="layer-item" padding="10px">
 			<Stack isInline>
@@ -97,7 +141,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							{layer.indicator ? layer.indicator.indicatorName : layer.layerName}
 						</Text>
 						<Text fontWeight="300" fontSize="12px">
-							Source: {layer.indicator ? layer.indicator['source.id'] : layer.createdBy}
+							Source: {layer.indicator ? layer.indicator.source : layer.createdBy}
 						</Text>
 					</Box>
 				</Stack>
@@ -190,9 +234,12 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 						)}
 						<Tooltip label="Filters">
 							<Box
-								cursor="pointer"
+								cursor={`${_.isEmpty(filtersList) ? 'not-allowed' : 'pointer'}`}
+								opacity={`${_.isEmpty(filtersList) ? '30%' : '100%'}`}
 								className={`${isFilters ? 'filter-btn-active' : ''}`}
-								onClick={(e) => showFilters(!isFilters)}
+								onClick={(e) => {
+									if (!_.isEmpty(filtersList)) return showFilters(!isFilters);
+								}}
 							>
 								<IconFilter />
 							</Box>
@@ -217,7 +264,12 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 			{/* Fiters Area */}
 			{isFilters && (
 				<Box>
-					<Filters />
+					<Filters
+						filtersList={filtersList}
+						onFilterChange={onFilterChange}
+						filterNames={filterNames}
+						filtersSelected={filtersSelected}
+					/>
 				</Box>
 			)}
 

@@ -1,24 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import _ from 'underscore';
-import { Box, Stack, CloseButton } from '@chakra-ui/core';
-
-import { IconFilter } from '../Icons';
-import MultiSelect from './MultiSelect';
-import SingleSelect from './SingleSelect';
+import { Box, Stack, Select, Link } from '@chakra-ui/core';
 
 const settlement = ['Rural', 'Urban', 'Any'];
 const caste = ['SC', 'ST', 'OBC', 'General', 'Others'];
 const gender = ['Male', 'Female', 'Other'];
 
-function Filters() {
+function Filters({ filtersList, onFilterChange, filterNames, filtersSelected }) {
 	return (
 		<Box className="filter-container">
-			<Box className="active">
-				<Box>
-					<MultiSelect title="Settlement" filters={settlement} />
-					<MultiSelect title="Caste" filters={caste} />
-					<MultiSelect title="Gender" filters={gender} />
-				</Box>
+			<Box className="active" padding="12px">
+				<Stack spacing={1} width="100%">
+					{_.map(filtersList, (filter, key) => (
+						<Stack isInline spacing={0} alignItems="center" background="white">
+							<Select
+								placeholder={`Select ${filterNames[key]}`}
+								size="sm"
+								value={filtersSelected[key]}
+								onChange={(e) => onFilterChange({ value: e.target.value, filterType: key })}
+							>
+								{_.map(filter, (f) => (
+									<option value={f}>{f}</option>
+								))}
+							</Select>
+							<Box className="clear-filter-btn">
+								<Link isDisabled={!filtersSelected[key]} onClick={(e) => onFilterChange({ value:"", filterType: key })}>Clear</Link>
+							</Box>
+						</Stack>
+					))}
+				</Stack>
 			</Box>
 		</Box>
 	);

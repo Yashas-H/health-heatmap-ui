@@ -11,6 +11,7 @@ const LayerContextProvider = (props) => {
 	const [loadedData, setLoadedData] = useState({});
 	const [showMetadata, setShowMetadata] = useState(false);
 	const [layersLoading, setLayersLoading] = useState([]);
+	const [filtersAvailable, setfiltersAvailable] = useState({});
 
 	const loadIndicatorData = (indicator) => {
 		// Get DATA
@@ -55,6 +56,27 @@ const LayerContextProvider = (props) => {
 			});
 	};
 
+	const getFilterInfoForIndicator = (indicator) => {
+		// Get filter info for indicatore
+		request
+			.post(`${AppConstant.config.appBaseUrl}/filters`)
+			.send({
+				terms: {
+					['indicator.id']: [indicator.indicatorName],
+					['source.id']: [indicator.source],
+				},
+			})
+			.then((res) => {
+				setfiltersAvailable({
+					...filtersAvailable,
+					[indicator.id]: res.body,
+				});
+			})
+			.catch((err) => {
+				console.log('Error loading Data', err);
+			});
+	};
+
 	return (
 		<LayerContext.Provider
 			value={{
@@ -67,6 +89,8 @@ const LayerContextProvider = (props) => {
 				layersLoading: layersLoading,
 				setLayersLoading: setLayersLoading,
 				loadedData: loadedData,
+				filtersAvailable: filtersAvailable,
+				getFilterInfoForIndicator: getFilterInfoForIndicator,
 			}}
 		>
 			{props.children}
