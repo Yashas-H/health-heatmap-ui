@@ -70,8 +70,8 @@ function Grid({ IndicatorData }) {
 					region: name,
 					value: item[0].value,
 					code: item[0]['entity.DistCode'],
-					state: item[0]['entity.state'],
-					settlement: item[0]['settlement'],
+					state: item[0]['entity.Name'],
+					settlement: item[0]['settlement.Name'],
 				};
 			});
 			break;

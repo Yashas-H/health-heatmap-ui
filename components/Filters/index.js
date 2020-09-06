@@ -12,7 +12,7 @@ function Filters({ filtersList, onFilterChange, filterNames, filtersSelected }) 
 			<Box className="active" padding="12px">
 				<Stack spacing={1} width="100%">
 					{_.map(filtersList, (filter, key) => (
-						<Stack isInline spacing={0} alignItems="center" background="white">
+						<Stack isInline spacing={0} alignItems="center" background="white" key={key}>
 							<Select
 								placeholder={`Select ${filterNames[key]}`}
 								size="sm"
@@ -20,7 +20,7 @@ function Filters({ filtersList, onFilterChange, filterNames, filtersSelected }) 
 								onChange={(e) => onFilterChange({ value: e.target.value, filterType: key })}
 							>
 								{_.map(filter, (f) => (
-									<option value={f}>{f}</option>
+									<option value={f} key={f}>{f}</option>
 								))}
 							</Select>
 							<Box className="clear-filter-btn">

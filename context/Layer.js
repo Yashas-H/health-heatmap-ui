@@ -13,16 +13,15 @@ const LayerContextProvider = (props) => {
 	const [layersLoading, setLayersLoading] = useState([]);
 	const [filtersAvailable, setfiltersAvailable] = useState({});
 
-	const loadIndicatorData = (indicator) => {
+	const loadIndicatorData = (indicator, filters) => {
 		// Get DATA
-		setLayersLoading([...layersLoading, indicator]);
+		if (!filters) setLayersLoading([...layersLoading, indicator]);
+		let terms = { ['indicator.id']: [indicator['indicator.id']], ['source.id']: [indicator['source.id']] };
+		if (filters && !_.isEmpty(filters)) terms = { ...terms, ...filters };
 		request
 			.post(`${AppConstant.config.appBaseUrl}/data`)
 			.send({
-				terms: {
-					['indicator.id']: [indicator['indicator.id']],
-					['source.id']: [indicator['source.id']],
-				},
+				terms: terms,
 			})
 			.then((res) => {
 				let stateData = _.filter(res.body.data, (item) => item['entity.type'] === 'STATE');
@@ -37,6 +36,7 @@ const LayerContextProvider = (props) => {
 					legendType: indicator['indicator.Positive/Negative'],
 					source: indicator['source.id'],
 					id: indicator.id,
+					filteredData: filters ? true : false,
 				});
 				setLoadedData({
 					...loadedData,

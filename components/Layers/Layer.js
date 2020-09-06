@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Eye, EyeOff, Info, X, Layers } from 'react-feather';
-import _ from 'underscore';
+import _, { isEmpty } from 'underscore';
 import { Box, Stack, Text, Flex, Icon } from '@chakra-ui/core';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, Tooltip } from '@chakra-ui/core';
 
@@ -26,12 +26,13 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		setShowMetadata,
 		filtersAvailable,
 		getFilterInfoForIndicator,
+		loadIndicatorData,
 	} = useContext(LayerContext);
 
 	const [opacity, setOpacity] = useState(100);
 	const [layers, setLayers] = useState(false);
 	const [isFilters, showFilters] = useState(false);
-	const [filtersSelected, setFiltersSelected] = useState({});
+	const [filtersSelected, setFiltersSelected] = useState(false);
 	const [filtersList, setFiltersList] = useState({});
 	const [selectedLayer, setSelectedLayer] = useState(false);
 	const initRef = useRef();
@@ -68,6 +69,30 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		l[lid].styles.colors.paint['fill-opacity'] = opacity / 100;
 		setSelectedLayers(l);
 	}, [opacity]);
+
+	useEffect(() => {
+		if (!filtersSelected) return;
+		const i = layer.indicator;
+
+		const timer = setTimeout(() => {
+			let filtersToSend = _.omit(filtersSelected, (f) => f.value);
+			filtersToSend = _.mapObject(filtersToSend, (f) => [f]);
+			filtersToSend = _.omit(filtersToSend, (value) => {
+				return !value.length || value[0] === "";
+			});
+			filtersToSend = _.isEmpty(filtersToSend) ? {} : filtersToSend;
+
+			loadIndicatorData(
+				{
+					...i,
+					['indicator.id']: i.indicatorName,
+					['source.id']: i.source,
+				},
+				filtersToSend
+			);
+		}, 100);
+		return () => clearTimeout(timer);
+	}, [filtersSelected]);
 
 	const updateFilters = () => {
 		setFiltersList(
@@ -206,6 +231,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 													{_.map(layers, (l) => {
 														return (
 															<ListItem
+																key={l}
 																cursor="pointer"
 																onClick={(e) => {
 																	onClose();

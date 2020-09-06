@@ -28,12 +28,16 @@ const Map = () => {
 
 	const updateMap = () => {
 		let data = currentIndicatorData;
-		let type = _.isEmpty(data.state) ? 'DISTRICT' : 'STATE';
+		let type = _.isEmpty(data.district) ? 'STATE' : 'DISTRICT';
 		const layer = formatMapData(data, type);
 
-		let newlayerData = [...externalLayers];
-		newlayerData.unshift({ ...layer });
-		setSelectedLayers(JSON.parse(JSON.stringify({ [data.id]: layer, ...selectedLayers })));
+		if (data.filteredData) {
+			let sl = { ...selectedLayers };
+			sl[data.id] = layer;
+			setSelectedLayers(JSON.parse(JSON.stringify(sl)));
+		} else {
+			setSelectedLayers(JSON.parse(JSON.stringify({ [data.id]: layer, ...selectedLayers })));
+		}
 	};
 
 	return (
