@@ -33,7 +33,7 @@ const LayerContextProvider = (props) => {
 					district: districtData,
 					state: stateData,
 					indicatorName: indicator['indicator.id'],
-					legendType: indicator['indicator.Positive/Negative'],
+					legendType: indicator['indicator.Positive/Negative'] || indicator.legendType,
 					source: indicator['source.id'],
 					id: indicator.id,
 					filteredData: filters ? true : false,
