@@ -11,11 +11,16 @@ const LayerContextProvider = (props) => {
 	const [loadedData, setLoadedData] = useState({});
 	const [showMetadata, setShowMetadata] = useState(false);
 	const [layersLoading, setLayersLoading] = useState([]);
+	const [filtersLoading, setFiltersLoading] = useState([]);
 	const [filtersAvailable, setfiltersAvailable] = useState({});
 
 	const loadIndicatorData = (indicator, filters) => {
 		// Get DATA
-		if (!filters) setLayersLoading([...layersLoading, indicator]);
+		if (!filters) {
+			setLayersLoading([...layersLoading, indicator]);
+		} else {
+			setFiltersLoading([...filtersLoading, indicator]);
+		}
 		let terms = { ['indicator.id']: [indicator['indicator.id']], ['source.id']: [indicator['source.id']] };
 		if (filters && !_.isEmpty(filters)) terms = { ...terms, ...filters };
 		request
@@ -49,9 +54,11 @@ const LayerContextProvider = (props) => {
 					},
 				});
 				setLayersLoading(JSON.parse(JSON.stringify(_.filter(layersLoading, (l) => indicator.id !== l.id))));
+				setFiltersLoading(JSON.parse(JSON.stringify(_.filter(filtersLoading, (l) => indicator.id !== l.id))));
 			})
 			.catch((err) => {
 				setLayersLoading(JSON.parse(JSON.stringify(_.filter(layersLoading, (l) => indicator.id !== l.id))));
+				setFiltersLoading(JSON.parse(JSON.stringify(_.filter(filtersLoading, (l) => indicator.id !== l.id))));
 				console.log('Error loading Data', err);
 			});
 	};
@@ -91,6 +98,7 @@ const LayerContextProvider = (props) => {
 				loadedData: loadedData,
 				filtersAvailable: filtersAvailable,
 				getFilterInfoForIndicator: getFilterInfoForIndicator,
+				filtersLoading: filtersLoading,
 			}}
 		>
 			{props.children}

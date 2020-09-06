@@ -27,6 +27,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		filtersAvailable,
 		getFilterInfoForIndicator,
 		loadIndicatorData,
+		filtersLoading,
 	} = useContext(LayerContext);
 
 	const [opacity, setOpacity] = useState(100);
@@ -35,6 +36,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	const [filtersSelected, setFiltersSelected] = useState(false);
 	const [filtersList, setFiltersList] = useState({});
 	const [selectedLayer, setSelectedLayer] = useState(false);
+	const [filterLoading, setFilterLoading] = useState(false);
 	const initRef = useRef();
 
 	let delayTimer;
@@ -78,7 +80,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 			let filtersToSend = _.omit(filtersSelected, (f) => f.value);
 			filtersToSend = _.mapObject(filtersToSend, (f) => [f]);
 			filtersToSend = _.omit(filtersToSend, (value) => {
-				return !value.length || value[0] === "";
+				return !value.length || value[0] === '';
 			});
 			filtersToSend = _.isEmpty(filtersToSend) ? {} : filtersToSend;
 
@@ -93,6 +95,10 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		}, 100);
 		return () => clearTimeout(timer);
 	}, [filtersSelected]);
+
+	useEffect(() => {
+		setFilterLoading(_.find(filtersLoading, (f) => f.id === layer.indicator.id));
+	}, [filtersLoading]);
 
 	const updateFilters = () => {
 		setFiltersList(
@@ -295,6 +301,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 						onFilterChange={onFilterChange}
 						filterNames={filterNames}
 						filtersSelected={filtersSelected}
+						isBusy={filterLoading}
 					/>
 				</Box>
 			)}
