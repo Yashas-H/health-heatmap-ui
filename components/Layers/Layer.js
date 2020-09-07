@@ -82,7 +82,6 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	}, [opacity]);
 
 	useEffect(() => {
-		console.log('filtersAvailable', filtersAvailable);
 		if (layer.indicator && filtersAvailable[layer.indicator.id]) updateFilters();
 	}, [filtersAvailable]);
 
@@ -340,21 +339,27 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 
 			<Box>
 				{layer.indicator && layer.indicator.legends && (
-					<Flex isInline spacing={0} className="legend">
-						{_.map(layer.indicator.legends, (d, index) => {
-							return (
-								<Box key={index} width={`${100 / 6}%`}>
-									<Box
-										className="palette"
-										style={{
-											backgroundColor: d.color,
-										}}
-									></Box>
-									<Box textAlign="center">{d.value}</Box>
-								</Box>
-							);
-						})}
-					</Flex>
+					<Stack className="legend">
+						<Flex isInline spacing={0}>
+							{_.map(layer.indicator.legends, (d, index) => {
+								return (
+									<Box key={index} width={`${100 / 6}%`}>
+										<Box
+											className="palette"
+											style={{
+												backgroundColor: d.color,
+											}}
+										></Box>
+										<Box textAlign="center">{d.value}</Box>
+									</Box>
+								);
+							})}
+						</Flex>
+						<Stack isInline alignItems="center">
+							<Box width="12px" height="12px" background="#a5a5a5" />
+							<Text fontSize="10px">Data Not Available</Text>
+						</Stack>
+					</Stack>
 				)}
 			</Box>
 		</Box>

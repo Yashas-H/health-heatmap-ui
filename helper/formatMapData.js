@@ -34,10 +34,10 @@ export default function formatMapData(data, type, opacity) {
 	layer.styles.colors.paint['fill-opacity'] = opacity ? opacity / 100 : 1;
 	layer.styles.colors.paint['fill-color'].stops = [];
 	_.each(apiData, (entity, name) => {
-		layer.styles.colors.paint['fill-color'].stops.push([
-			name,
-			colors[Math.floor((Object.keys(apiData).length * parseFloat(entity[0].value)) / max)] || colors[0],
-		]);
+		const color = isNaN(entity[0].value)
+			? '#a5a5a5'
+			: colors[Math.floor((Object.keys(apiData).length * parseFloat(entity[0].value)) / max)] || colors[0];
+		layer.styles.colors.paint['fill-color'].stops.push([name, color]);
 	});
 
 	const step = (max - min) / 5;
