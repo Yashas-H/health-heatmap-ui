@@ -1,53 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import _ from 'underscore';
-import { Box, IconButton, Stack, CloseButton } from '@chakra-ui/core';
-
-import { IconFilter } from '../Icons';
-import MultiSelect from './MultiSelect';
-import SingleSelect from './SingleSelect';
+import { Box, Stack, Select, Link, Spinner } from '@chakra-ui/core';
 
 const settlement = ['Rural', 'Urban', 'Any'];
 const caste = ['SC', 'ST', 'OBC', 'General', 'Others'];
 const gender = ['Male', 'Female', 'Other'];
 
-function Filters() {
-	const [active, setActive] = useState(false);
-
-	useEffect(() => {}, []);
-
+function Filters({ filtersList, onFilterChange, filterNames, filtersSelected, isBusy }) {
 	return (
 		<Box className="filter-container">
-			{active ? (
-				<Box className="active">
-					<Stack
-						spacing={8}
-						className="header-title"
-						isInline
-						justifyContent="space-between"
-						alignItems="center"
-					>
-						<Stack isInline>
-							<IconFilter display="inline" />
-							<Box ml="10px">Filters</Box>
+			<Box className="active" padding="12px">
+				<Stack spacing={1} width="100%">
+					{_.map(filtersList, (filter, key) => (
+						<Stack isInline spacing={0} alignItems="center" background="white" key={key}>
+							<Select
+								placeholder={`Select ${filterNames[key]}`}
+								size="sm"
+								value={filtersSelected[key]}
+								onChange={(e) => onFilterChange({ value: e.target.value, filterType: key })}
+								isDisabled={isBusy}
+							>
+								{_.map(filter, (f) => (
+									<option value={f} key={f}>
+										{f}
+									</option>
+								))}
+							</Select>
+							<Box className="clear-filter-btn">
+								{isBusy ? (
+									<Spinner size="xs" />
+								) : (
+									<Link
+										isDisabled={!filtersSelected[key]}
+										onClick={(e) => onFilterChange({ value: '', filterType: key })}
+									>
+										Clear
+									</Link>
+								)}
+							</Box>
 						</Stack>
-						<CloseButton onClick={(e) => setActive(false)} />
-					</Stack>
-					<Box>
-						<MultiSelect title="Settlement" filters={settlement} />
-						<MultiSelect title="Caste" filters={caste} />
-						<MultiSelect title="Gender" filters={gender} />
-					</Box>
-				</Box>
-			) : (
-				<IconButton
-					className="icon"
-					icon={IconFilter}
-					size="sm"
-					color="#2a69ac"
-					background="#fff"
-					onClick={(e) => setActive(true)}
-				/>
-			)}
+					))}
+				</Stack>
+			</Box>
 		</Box>
 	);
 }

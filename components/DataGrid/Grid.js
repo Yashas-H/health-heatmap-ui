@@ -2,10 +2,17 @@ import React, { useContext } from 'react';
 import { useTable } from 'react-table';
 import _ from 'underscore';
 import { Box } from '@chakra-ui/core';
+import { LayerContext } from '../../context/Layer';
 
 function Grid({ IndicatorData }) {
+	const { layerEntity } = useContext(LayerContext);
 	let data = [];
-	const type = _.isEmpty(IndicatorData.district) ? 'state' : 'district';
+	// const type = _.isEmpty(IndicatorData.district) ? 'state' : 'district';
+	const type = layerEntity[IndicatorData.id]
+		? layerEntity[IndicatorData.id].toLowerCase()
+		: _.isEmpty(IndicatorData.district)
+		? 'state'
+		: 'district';
 
 	const columnsState = React.useMemo(
 		() => [
@@ -28,6 +35,7 @@ function Grid({ IndicatorData }) {
 		],
 		[]
 	);
+	
 	const columnsDist = React.useMemo(
 		() => [
 			{
@@ -60,7 +68,8 @@ function Grid({ IndicatorData }) {
 				return {
 					region: name,
 					value: item[0].value,
-					settlement: item[0]['settlement'],
+					code: item[0]['entity.id'],
+					settlement: item[0]['settlement.Name'],
 				};
 			});
 			break;
@@ -70,8 +79,8 @@ function Grid({ IndicatorData }) {
 					region: name,
 					value: item[0].value,
 					code: item[0]['entity.DistCode'],
-					state: item[0]['entity.state'],
-					settlement: item[0]['settlement'],
+					state: item[0]['entity.Name'],
+					settlement: item[0]['settlement.Name'],
 				};
 			});
 			break;

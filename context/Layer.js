@@ -11,47 +11,77 @@ const LayerContextProvider = (props) => {
 	const [loadedData, setLoadedData] = useState({});
 	const [showMetadata, setShowMetadata] = useState(false);
 	const [layersLoading, setLayersLoading] = useState([]);
+	const [filtersLoading, setFiltersLoading] = useState([]);
+	const [filtersAvailable, setfiltersAvailable] = useState({});
+	const [layerEntity, setLayerEntity] = useState({});
 
-	const loadIndicatorData = (indicator) => {
+	const loadIndicatorData = (indicator, filters) => {
 		// Get DATA
-		setLayersLoading([...layersLoading, indicator]);
+		if (!filters) {
+			setLayersLoading([...layersLoading, indicator]);
+		} else {
+			setFiltersLoading([...filtersLoading, indicator]);
+		}
+		let terms = { ['indicator.id']: [indicator['indicator.id']], ['source.id']: [indicator['source.id']] };
+		if (filters && !_.isEmpty(filters)) terms = { ...terms, ...filters };
 		request
-			.post(`${AppConstant.config.appBaseUrl}/data`)
+			.post(`${AppConstant.config.appBaseUrl}/data/autoFiltered`)
 			.send({
-				terms: {
-					indicator_universal_name: [indicator.indicator_universal_name],
-					source: [indicator.source],
-				},
+				terms: terms,
 			})
 			.then((res) => {
 				let stateData = _.filter(res.body.data, (item) => item['entity.type'] === 'STATE');
 				let districtData = _.filter(res.body.data, (item) => item['entity.type'] === 'DISTRICT');
 
-				stateData = _.groupBy(stateData, (item) => item['entity.state']);
-				districtData = _.groupBy(districtData, (item) => item['entity.district_map']);
-
+				stateData = _.groupBy(stateData, (item) => item['entity.Name']);
+				districtData = _.groupBy(districtData, (item) => item['entity.Name']);
 				setCurrentIndicatorData({
 					district: districtData,
 					state: stateData,
-					indicatorName: indicator.indicator_universal_name,
-					legendType: indicator.indicator_positive_negative,
-					source: indicator.source,
+					indicatorName: indicator['indicator.id'],
+					legendType: indicator['indicator.Positive/Negative'] || indicator.legendType,
+					source: indicator['source.id'],
 					id: indicator.id,
+					filteredData: filters ? true : false,
 				});
 				setLoadedData({
 					...loadedData,
 					[indicator.id]: {
 						district: districtData,
 						state: stateData,
-						indicatorName: indicator.indicator_universal_name,
-						legendType: indicator.indicator_positive_negative,
+						indicatorName: indicator['indicator.id'],
+						legendType: indicator['indicator.Positive/Negative'],
+						source: indicator['source.id'],
 						id: indicator.id,
 					},
 				});
 				setLayersLoading(JSON.parse(JSON.stringify(_.filter(layersLoading, (l) => indicator.id !== l.id))));
+				setFiltersLoading(JSON.parse(JSON.stringify(_.filter(filtersLoading, (l) => indicator.id !== l.id))));
 			})
 			.catch((err) => {
 				setLayersLoading(JSON.parse(JSON.stringify(_.filter(layersLoading, (l) => indicator.id !== l.id))));
+				setFiltersLoading(JSON.parse(JSON.stringify(_.filter(filtersLoading, (l) => indicator.id !== l.id))));
+				console.log('Error loading Data', err);
+			});
+	};
+
+	const getFilterInfoForIndicator = (indicator) => {
+		// Get filter info for indicatore
+		request
+			.post(`${AppConstant.config.appBaseUrl}/filters`)
+			.send({
+				terms: {
+					['indicator.id']: [indicator.indicatorName],
+					['source.id']: [indicator.source],
+				},
+			})
+			.then((res) => {
+				setfiltersAvailable({
+					...filtersAvailable,
+					[indicator.id]: res.body,
+				});
+			})
+			.catch((err) => {
 				console.log('Error loading Data', err);
 			});
 	};
@@ -67,7 +97,12 @@ const LayerContextProvider = (props) => {
 				setShowMetadata: setShowMetadata,
 				layersLoading: layersLoading,
 				setLayersLoading: setLayersLoading,
-				loadedData:loadedData
+				loadedData: loadedData,
+				filtersAvailable: filtersAvailable,
+				getFilterInfoForIndicator: getFilterInfoForIndicator,
+				filtersLoading: filtersLoading,
+				layerEntity: layerEntity,
+				setLayerEntity: setLayerEntity,
 			}}
 		>
 			{props.children}

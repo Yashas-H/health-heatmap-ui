@@ -11,7 +11,14 @@ import AppConstant from '../../constant/AppConstant';
 
 const Map = () => {
 	const [externalLayers, setExternalLayers] = useState([]);
-	const { setSelectedLayers, selectedLayers, currentIndicatorData, layersLoading } = useContext(LayerContext);
+	const {
+		setSelectedLayers,
+		selectedLayers,
+		currentIndicatorData,
+		layersLoading,
+		setLayerEntity,
+		layerEntity,
+	} = useContext(LayerContext);
 
 	useEffect(() => {
 		if (!_.isEmpty(currentIndicatorData)) updateMap();
@@ -23,18 +30,25 @@ const Map = () => {
 
 	const updateExternalLayers = _.debounce((e) => {
 		const selected = _.map(selectedLayers, (l, key) => ({ ..._.omit(selectedLayers[key], 'indicator') }));
-		console.log("Ext Layers", selected);
 		setExternalLayers(selected.reverse());
 	}, 500);
 
 	const updateMap = () => {
-		let data = currentIndicatorData;
-		let type = _.isEmpty(data.state) ? 'DISTRICT' : 'STATE';
+		const data = currentIndicatorData;
+		const type = layerEntity[data.id]
+			? layerEntity[data.id].toUpperCase()
+			: _.isEmpty(data.district)
+			? 'STATE'
+			: 'DISTRICT';
 		const layer = formatMapData(data, type);
-
-		let newlayerData = [...externalLayers];
-		newlayerData.unshift({ ...layer });
-		setSelectedLayers(JSON.parse(JSON.stringify({ [data.id]: layer, ...selectedLayers })));
+		setLayerEntity({ ...layerEntity, [data.id]: type });
+		if (data.filteredData) {
+			let sl = { ...selectedLayers };
+			sl[data.id] = layer;
+			setSelectedLayers(JSON.parse(JSON.stringify(sl)));
+		} else {
+			setSelectedLayers(JSON.parse(JSON.stringify({ [data.id]: layer, ...selectedLayers })));
+		}
 	};
 
 	return (
@@ -47,6 +61,7 @@ const Map = () => {
 					zoom: 3.4494111278786177,
 					bearing: 0,
 					pitch: 0,
+					minZoom: 3.5,
 				}}
 				loadToC={true}
 				showToC={false}
@@ -57,7 +72,6 @@ const Map = () => {
 					store: 'ibp',
 					workspace: 'biodiv',
 				}}
-				// hiddenLayers={[{ id: 254 }, { id: 255 }]}
 				externalLayers={externalLayers}
 			/>
 

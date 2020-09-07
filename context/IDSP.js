@@ -26,7 +26,7 @@ const IDSPContextProvider = (props) => {
     const districtIds = selectedDistricts.map((d) => d["entity.DistCode"]);
     const terms = { source: ["IDSP"] };
     if (selectedDiseases.length > 0)
-      terms["indicator_universal_name"] = selectedDiseases;
+      terms["indicator.id"] = selectedDiseases;
     if (districtIds.length > 0) terms["entity.DistCode"] = districtIds;
     const ranges = {
       "duration.start": {
@@ -57,10 +57,10 @@ const IDSPContextProvider = (props) => {
             source: ["IDSP"],
           },
         },
-        fields: ["indicator_universal_name"],
+        fields: ["indicator.id"],
       })
       .then((res) => {
-        const indicators = res.body.map((e) => e["indicator_universal_name"]);
+        const indicators = res.body.map((e) => e["indicator.id"]);
         setDiseases(indicators);
       });
   }, []);

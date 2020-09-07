@@ -1,21 +1,62 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Eye, EyeOff, Info, X, Layers } from 'react-feather';
-import _ from 'underscore';
-import { Box, Stack, Text, Flex, Icon } from '@chakra-ui/core';
-import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, Tooltip } from '@chakra-ui/core';
+import _, { isEmpty } from 'underscore';
+import {
+	Box,
+	Stack,
+	Text,
+	Flex,
+	Icon,
+	Slider,
+	SliderTrack,
+	SliderFilledTrack,
+	SliderThumb,
+	Tooltip,
+} from '@chakra-ui/core';
 
-import { Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverBody } from '@chakra-ui/core';
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+	PopoverArrow,
+	PopoverBody,
+	PopoverCloseButton,
+	PopoverHeader,
+} from '@chakra-ui/core';
 import { List, ListItem, ListIcon } from '@chakra-ui/core';
 
 import formatMapData from '../../helper/formatMapData';
 import { LayerContext } from '../../context/Layer';
 import { IconFilter } from '../Icons';
+import Filters from '../Filters';
+
+const filterTypes = ['gender.id', 'settlement.id', 'socialgroup.id'];
+const filterNames = {
+	['gender.id']: 'Gender',
+	['settlement.id']: 'Settlement',
+	['socialgroup.id']: 'Social Group',
+};
 
 function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
-	const { setSelectedLayers, selectedLayers, setShowMetadata } = useContext(LayerContext);
+	const {
+		setSelectedLayers,
+		selectedLayers,
+		setShowMetadata,
+		filtersAvailable,
+		getFilterInfoForIndicator,
+		loadIndicatorData,
+		filtersLoading,
+		layerEntity,
+		setLayerEntity,
+	} = useContext(LayerContext);
+
 	const [opacity, setOpacity] = useState(100);
 	const [layers, setLayers] = useState(false);
+	const [isFilters, showFilters] = useState(false);
+	const [filtersSelected, setFiltersSelected] = useState(false);
+	const [filtersList, setFiltersList] = useState({});
 	const [selectedLayer, setSelectedLayer] = useState(false);
+	const [filterLoading, setFilterLoading] = useState(false);
 	const initRef = useRef();
 
 	let delayTimer;
@@ -23,9 +64,12 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	useEffect(() => {
 		if (!layer.indicator) return;
 		if (!_.isEmpty(layer.indicator.data.state) && !_.isEmpty(layer.indicator.data.district)) {
-			setLayers(['State', 'District']);
-			setSelectedLayer('State');
+			setLayers(['district', 'state']);
+			setSelectedLayer(
+				layerEntity[layer.indicator.id] ? layerEntity[layer.indicator.id].toLowerCase() : 'district'
+			);
 		}
+		getFilterInfoForIndicator(layer.indicator);
 	}, []);
 
 	useEffect(() => {
@@ -36,6 +80,57 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		l[lid].styles.colors.paint['fill-opacity'] = opacity / 100;
 		setSelectedLayers(l);
 	}, [opacity]);
+
+	useEffect(() => {
+		if (filtersAvailable[layer.indicator.id]) updateFilters();
+	}, [filtersAvailable]);
+
+	useEffect(() => {
+		const l = { ...selectedLayers };
+		const lid = layer.isIbp ? layer.id : layer.indicator.id;
+		if (!l[lid].styles) return;
+
+		l[lid].styles.colors.paint['fill-opacity'] = opacity / 100;
+		setSelectedLayers(l);
+	}, [opacity]);
+
+	useEffect(() => {
+		if (!filtersSelected) return;
+		const i = layer.indicator;
+
+		const timer = setTimeout(() => {
+			let filtersToSend = _.omit(filtersSelected, (f) => f.value);
+			filtersToSend = _.mapObject(filtersToSend, (f) => [f]);
+			filtersToSend = _.omit(filtersToSend, (value) => {
+				return !value.length || value[0] === '';
+			});
+			filtersToSend = _.isEmpty(filtersToSend) ? {} : filtersToSend;
+
+			loadIndicatorData(
+				{
+					...i,
+					['indicator.id']: i.indicatorName,
+					['source.id']: i.source,
+				},
+				filtersToSend
+			);
+		}, 100);
+		return () => clearTimeout(timer);
+	}, [filtersSelected]);
+
+	useEffect(() => {
+		setFilterLoading(_.find(filtersLoading, (f) => f.id === layer.indicator.id));
+	}, [filtersLoading]);
+
+	const updateFilters = () => {
+		let fa = filtersAvailable[layer.indicator.id];
+		fa = _.pick(fa, (v, key) => _.indexOf(filterTypes, key) >= 0 && v.length > 0);
+		setFiltersList(
+			_.mapObject(fa, function (val, key) {
+				return _.without(val, null);
+			})
+		);
+	};
 
 	const removeIndicator = (indicatorId) => {
 		const filtredLayers = _.omit(selectedLayers, indicatorId);
@@ -51,6 +146,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 
 	const onLayerChange = (value) => {
 		setSelectedLayer(value);
+		setLayerEntity({...layerEntity, [layer.indicator.id]:value.toUpperCase()});
 		const layersData = JSON.parse(JSON.stringify(selectedLayers));
 		layersData[layer.indicator.id] = {
 			...layersData[layer.indicator.id],
@@ -82,9 +178,17 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	const handleShowMetadata = (e) => {
 		const metdataInfo = layer.isIbp
 			? { ...layer }
-			: { ...layer.indicator, ['indicator_universal_name']: layer.indicator.indicatorName };
+			: { ...layer.indicator, ['indicator.id']: layer.indicator.indicatorName };
 		setShowMetadata(metdataInfo);
 	};
+
+	const onFilterChange = (filterChanged) => {
+		setFiltersSelected({
+			...filtersSelected,
+			[filterChanged.filterType]: filterChanged.value,
+		});
+	};
+
 	return (
 		<Box className="layer-item" padding="10px">
 			<Stack isInline>
@@ -153,13 +257,14 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 										</PopoverTrigger>
 										<PopoverContent zIndex={4} width="150px">
 											<PopoverArrow />
-											{/* <PopoverCloseButton /> */}
-											{/* <PopoverHeader>Layers</PopoverHeader> */}
+											<PopoverCloseButton />
+											<PopoverHeader>Select Layer</PopoverHeader>
 											<PopoverBody fontSize="14px">
 												<List spacing={1}>
 													{_.map(layers, (l) => {
 														return (
 															<ListItem
+																key={l}
 																cursor="pointer"
 																onClick={(e) => {
 																	onClose();
@@ -167,13 +272,17 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 																}}
 																ref={initRef}
 															>
-																<ListIcon
-																	icon="check-circle"
-																	color={
-																		selectedLayer === l ? 'green.500' : '#ffffff00'
-																	}
-																/>
-																{l}
+																<Stack isInline>
+																	<ListIcon
+																		icon="check-circle"
+																		color={
+																			selectedLayer === l
+																				? 'green.500'
+																				: '#ffffff00'
+																		}
+																	/>
+																	<Text textTransform="capitalize">{l}</Text>
+																</Stack>
 															</ListItem>
 														);
 													})}
@@ -184,10 +293,17 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 								)}
 							</Popover>
 						) : (
-							<Layers size={'20px'} cursor="not-allowed" color="#dcdcdc"/>
+							<Layers size={'20px'} cursor="not-allowed" color="#dcdcdc" />
 						)}
 						<Tooltip label="Filters">
-							<Box cursor="pointer">
+							<Box
+								cursor={`${_.isEmpty(filtersList) ? 'not-allowed' : 'pointer'}`}
+								opacity={`${_.isEmpty(filtersList) ? '30%' : '100%'}`}
+								className={`${isFilters ? 'filter-btn-active' : ''}`}
+								onClick={(e) => {
+									if (!_.isEmpty(filtersList)) return showFilters(!isFilters);
+								}}
+							>
 								<IconFilter />
 							</Box>
 						</Tooltip>
@@ -195,8 +311,11 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							<Info size={'20px'} cursor="pointer" onClick={handleShowMetadata} />
 						</Tooltip>
 						<Tooltip label="Remove Layer" zIndex="9">
-							<X
-								size={'20px'}
+							<Icon
+								name="delete"
+								size="16px"
+								color="#7f7e7e"
+								mt="6px"
 								onClick={(e) => removeIndicator(layer.indicator ? layer.indicator.id : layer.id)}
 								cursor="pointer"
 							/>
@@ -204,6 +323,20 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 					</Stack>
 				</Box>
 			</Flex>
+
+			{/* Fiters Area */}
+			{isFilters && (
+				<Box>
+					<Filters
+						filtersList={filtersList}
+						onFilterChange={onFilterChange}
+						filterNames={filterNames}
+						filtersSelected={filtersSelected}
+						isBusy={filterLoading}
+					/>
+				</Box>
+			)}
+
 			<Box>
 				{layer.indicator && layer.indicator.legends && (
 					<Flex isInline spacing={0} className="legend">
