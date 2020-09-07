@@ -34,8 +34,12 @@ const Map = () => {
 	}, 500);
 
 	const updateMap = () => {
-		let data = currentIndicatorData;
-		let type = _.isEmpty(data.district) ? 'STATE' : 'DISTRICT';
+		const data = currentIndicatorData;
+		const type = layerEntity[data.id]
+			? layerEntity[data.id].toUpperCase()
+			: _.isEmpty(data.district)
+			? 'STATE'
+			: 'DISTRICT';
 		const layer = formatMapData(data, type);
 		setLayerEntity({ ...layerEntity, [data.id]: type });
 		if (data.filteredData) {

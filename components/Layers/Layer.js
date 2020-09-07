@@ -47,6 +47,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		loadIndicatorData,
 		filtersLoading,
 		layerEntity,
+		setLayerEntity,
 	} = useContext(LayerContext);
 
 	const [opacity, setOpacity] = useState(100);
@@ -122,8 +123,12 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	}, [filtersLoading]);
 
 	const updateFilters = () => {
+		let fa = filtersAvailable[layer.indicator.id];
+		fa = _.pick(fa, (v, key) => _.indexOf(filterTypes, key) >= 0 && v.length > 0);
 		setFiltersList(
-			_.pick(filtersAvailable[layer.indicator.id], (v, key) => _.indexOf(filterTypes, key) >= 0 && v.length > 0)
+			_.mapObject(fa, function (val, key) {
+				return _.without(val, null);
+			})
 		);
 	};
 
@@ -141,6 +146,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 
 	const onLayerChange = (value) => {
 		setSelectedLayer(value);
+		setLayerEntity({...layerEntity, [layer.indicator.id]:value.toUpperCase()});
 		const layersData = JSON.parse(JSON.stringify(selectedLayers));
 		layersData[layer.indicator.id] = {
 			...layersData[layer.indicator.id],

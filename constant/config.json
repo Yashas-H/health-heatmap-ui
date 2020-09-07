@@ -1,17 +1,14 @@
 {
 	"development": {
-		"apiBaseUrl": "http://hhmnew.optimus.metastringfoundation.free.gen.in/api",
-		"apiBaseUrl_old": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
+		"apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
 		"nakshaApi": "http://49.206.244.232/naksha-api/api"
 	},
 	"production": {
-		"apiBaseUrl_Old": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
-		"apiBaseUrl": "http://hhmnew.optimus.metastringfoundation.free.gen.in/api",
+		"apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
 		"nakshaApi": "http://49.206.244.232/naksha-api/api"
 	},
 	"qa": {
-		"apiBaseUrl_Old": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
-		"apiBaseUrl": "http://hhmnew.optimus.metastringfoundation.free.gen.in/api",
+		"apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
 		"nakshaApi": "http://49.206.244.232/naksha-api/api"
 	}
 }

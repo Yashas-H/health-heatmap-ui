@@ -35,6 +35,7 @@ function Grid({ IndicatorData }) {
 		],
 		[]
 	);
+	
 	const columnsDist = React.useMemo(
 		() => [
 			{
@@ -67,7 +68,8 @@ function Grid({ IndicatorData }) {
 				return {
 					region: name,
 					value: item[0].value,
-					settlement: item[0]['settlement'],
+					code: item[0]['entity.id'],
+					settlement: item[0]['settlement.Name'],
 				};
 			});
 			break;

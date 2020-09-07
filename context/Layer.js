@@ -25,7 +25,7 @@ const LayerContextProvider = (props) => {
 		let terms = { ['indicator.id']: [indicator['indicator.id']], ['source.id']: [indicator['source.id']] };
 		if (filters && !_.isEmpty(filters)) terms = { ...terms, ...filters };
 		request
-			.post(`${AppConstant.config.appBaseUrl}/data`)
+			.post(`${AppConstant.config.appBaseUrl}/data/autoFiltered`)
 			.send({
 				terms: terms,
 			})
