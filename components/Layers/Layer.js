@@ -1,10 +1,28 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Eye, EyeOff, Info, X, Layers } from 'react-feather';
 import _, { isEmpty } from 'underscore';
-import { Box, Stack, Text, Flex, Icon } from '@chakra-ui/core';
-import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, Tooltip } from '@chakra-ui/core';
+import {
+	Box,
+	Stack,
+	Text,
+	Flex,
+	Icon,
+	Slider,
+	SliderTrack,
+	SliderFilledTrack,
+	SliderThumb,
+	Tooltip,
+} from '@chakra-ui/core';
 
-import { Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverBody } from '@chakra-ui/core';
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+	PopoverArrow,
+	PopoverBody,
+	PopoverCloseButton,
+	PopoverHeader,
+} from '@chakra-ui/core';
 import { List, ListItem, ListIcon } from '@chakra-ui/core';
 
 import formatMapData from '../../helper/formatMapData';
@@ -28,6 +46,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		getFilterInfoForIndicator,
 		loadIndicatorData,
 		filtersLoading,
+		layerEntity,
 	} = useContext(LayerContext);
 
 	const [opacity, setOpacity] = useState(100);
@@ -44,8 +63,10 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	useEffect(() => {
 		if (!layer.indicator) return;
 		if (!_.isEmpty(layer.indicator.data.state) && !_.isEmpty(layer.indicator.data.district)) {
-			setLayers(['State', 'District']);
-			setSelectedLayer('State');
+			setLayers(['district', 'state']);
+			setSelectedLayer(
+				layerEntity[layer.indicator.id] ? layerEntity[layer.indicator.id].toLowerCase() : 'district'
+			);
 		}
 		getFilterInfoForIndicator(layer.indicator);
 	}, []);
@@ -230,8 +251,8 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 										</PopoverTrigger>
 										<PopoverContent zIndex={4} width="150px">
 											<PopoverArrow />
-											{/* <PopoverCloseButton /> */}
-											{/* <PopoverHeader>Layers</PopoverHeader> */}
+											<PopoverCloseButton />
+											<PopoverHeader>Select Layer</PopoverHeader>
 											<PopoverBody fontSize="14px">
 												<List spacing={1}>
 													{_.map(layers, (l) => {
@@ -245,13 +266,17 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 																}}
 																ref={initRef}
 															>
-																<ListIcon
-																	icon="check-circle"
-																	color={
-																		selectedLayer === l ? 'green.500' : '#ffffff00'
-																	}
-																/>
-																{l}
+																<Stack isInline>
+																	<ListIcon
+																		icon="check-circle"
+																		color={
+																			selectedLayer === l
+																				? 'green.500'
+																				: '#ffffff00'
+																		}
+																	/>
+																	<Text textTransform="capitalize">{l}</Text>
+																</Stack>
 															</ListItem>
 														);
 													})}

@@ -51,6 +51,7 @@ const LayerContextProvider = (props) => {
 						state: stateData,
 						indicatorName: indicator['indicator.id'],
 						legendType: indicator['indicator.Positive/Negative'],
+						source: indicator['source.id'],
 						id: indicator.id,
 					},
 				});

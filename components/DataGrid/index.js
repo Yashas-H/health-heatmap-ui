@@ -29,7 +29,7 @@ function DataGrid({ indicatorsLoaded, selectedLayers }) {
 		<Tabs variant="enclosed" index={tabIndex} onChange={handleTabsChange} size="sm" mt="10px" mr="15px">
 			<TabList>
 				{_.map(indicatorsLoaded, (indicator, key) => (
-					<DataTab key={key}>{indicator.indicatorName}</DataTab>
+					<DataTab key={key}>{`${indicator.indicatorName} (${indicator.source})`}</DataTab>
 				))}
 			</TabList>
 

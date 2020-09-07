@@ -26,7 +26,12 @@ function IndicatorItem({ indicator, q }) {
 			{!indicator.sources ? (
 				<Stack isInline spacing="3px" align="center" my="3px">
 					<Box>
-						<Info size={'18px'} cursor="pointer" onClick={(e) => setShowMetadata(indicator)} color="#717171" />
+						<Info
+							size={'18px'}
+							cursor="pointer"
+							onClick={(e) => setShowMetadata(indicator)}
+							color="#717171"
+						/>
 					</Box>
 					<Checkbox
 						variantColor="blue"
@@ -39,7 +44,9 @@ function IndicatorItem({ indicator, q }) {
 						py={1}
 					>
 						<Text fontSize="sm">
-							<Highlight search={q}>{indicator['indicator.id']}</Highlight>
+							<Highlight
+								search={q}
+							>{`${indicator['indicator.id']} (${indicator['source.id']})`}</Highlight>
 						</Text>
 					</Checkbox>
 				</Stack>
@@ -72,7 +79,9 @@ function IndicatorItem({ indicator, q }) {
 									}}
 									py={1}
 								>
-									<Text fontSize="sm">Source: {source.name}</Text>
+									<Text fontSize="sm">
+										<Highlight search={q}>Source: {source.name}</Highlight>
+									</Text>
 								</Checkbox>
 							</Stack>
 						);

@@ -17,7 +17,10 @@ const filterIndicators = (groups, q) => {
 		return _.filter(group.subs, (sub, key) => {
 			if (key.toLowerCase().includes(q.toLowerCase())) return true;
 			const indicators = _.filter(sub, (i) => {
-				return i['indicator.id'].toLowerCase().includes(q.toLowerCase());
+				return (
+					i['indicator.id'].toLowerCase().includes(q.toLowerCase()) ||
+					i['source.id'].toLowerCase().includes(q.toLowerCase())
+				);
 			});
 			group.subs[key] = [...indicators];
 			return indicators.length;
@@ -53,7 +56,7 @@ function Sidebar() {
 					_.filter(
 						res.body,
 						(item) =>
-							item['indicator.id'] != '' && item["indicator.Category"] && item["indicator.Sub-Category"]
+							item['indicator.id'] != '' && item['indicator.Category'] && item['indicator.Sub-Category']
 					),
 					'indicator.Category'
 				);

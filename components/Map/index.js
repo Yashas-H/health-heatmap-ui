@@ -57,6 +57,7 @@ const Map = () => {
 					zoom: 3.4494111278786177,
 					bearing: 0,
 					pitch: 0,
+					minZoom: 3.5,
 				}}
 				loadToC={true}
 				showToC={false}
