@@ -23,13 +23,13 @@ const convertToNumber = (list, field) => {
 
 const displaySelected = (list) => {
   const headers = [
-    {id: "report_id", name: "Report ID"},
-    {id: "indicator_normalized", name: "Indicator"},
-    {id: "source", name: "Source"},
-    {id: "countOf", name: "Cases/Deaths"},
+    {id: "meta.original.report_id", name: "Report ID"},
+    {id: "diagnosis.Name", name: "Disease"},
+    {id: "source.id", name: "Source"},
+    {id: "meta.original.countOf", name: "Cases/Deaths"},
     {id: "duration.start", name: "Report date"},
-    {id: "entity.state", name: "State"},
-    {id: "entity.district", name: "District"},
+    {id: "entity.State", name: "State"},
+    {id: "entity.Name", name: "District"},
     {id: "value", name: "Value"}
   ]
   const columns = headers.map(h => ({

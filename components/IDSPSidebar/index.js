@@ -126,8 +126,8 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
             name="states"
             isMulti
             options={states}
-            getOptionLabel={(o) => o}
-            getOptionValue={(o) => o}
+            getOptionLabel={(o) => o["entity.State"]}
+            getOptionValue={(o) => o["entity.State"]}
             styles={selectStyles}
             onChange={(states) => {
               if (states === null)
@@ -138,7 +138,7 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
               else
                 dispatchFilter({
                   type: "set-term",
-                  payload: ["entity.State", states],
+                  payload: ["entity.State", states.map(s => s["entity.State"])],
                 });
             }}
           />

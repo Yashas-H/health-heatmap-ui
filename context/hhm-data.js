@@ -99,9 +99,9 @@ export function useCompositeScore(filter) {
   };
 }
 
-export function useData(filter) {
-  const { isLoading, error, data } = useQuery(["data", filter], (_, filter) =>
-    getData(filter)
+export function useData(filter, fieldsToInclude) {
+  const { isLoading, error, data } = useQuery(["data", filter, fieldsToInclude], (_, filter) =>
+    getData(filter, fieldsToInclude)
   );
   return {
     dataLoading: isLoading,

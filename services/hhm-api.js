@@ -32,9 +32,18 @@ export const getCompositeScores = (filter) =>
       return err.response.body.errors[0];
     });
 
-export const getData = (filter) =>
-  request
+export const getData = (filter, fields) => {
+  const req = request
     .post(`${API_ROOT}/data`)
+  
+  if (Array.isArray(fields)) {
+    fields.forEach(field => {
+      req.query({include: field})
+    })
+  }
+  return req
     .send(filter)
     .then((res) => res.body)
     .catch((err) => err.response.body.errors[0]);
+}
+  
