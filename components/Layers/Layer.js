@@ -82,7 +82,8 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 	}, [opacity]);
 
 	useEffect(() => {
-		if (filtersAvailable[layer.indicator.id]) updateFilters();
+		console.log('filtersAvailable', filtersAvailable);
+		if (layer.indicator && filtersAvailable[layer.indicator.id]) updateFilters();
 	}, [filtersAvailable]);
 
 	useEffect(() => {
@@ -146,7 +147,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 
 	const onLayerChange = (value) => {
 		setSelectedLayer(value);
-		setLayerEntity({...layerEntity, [layer.indicator.id]:value.toUpperCase()});
+		setLayerEntity({ ...layerEntity, [layer.indicator.id]: value.toUpperCase() });
 		const layersData = JSON.parse(JSON.stringify(selectedLayers));
 		layersData[layer.indicator.id] = {
 			...layersData[layer.indicator.id],
