@@ -1,6 +1,6 @@
 import AppConstant from "constant/AppConstant";
 import request from "superagent";
-const API_ROOT = "http://hhmnew.optimus.metastringfoundation.free.gen.in/api";
+const API_ROOT = AppConstant.config.appBaseUrl;
 
 export const getIndicators = () =>
   fetch(`${API_ROOT}/indicators`).then((res) => res.json());

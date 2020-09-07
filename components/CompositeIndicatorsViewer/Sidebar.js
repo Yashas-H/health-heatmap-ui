@@ -33,11 +33,12 @@ export default function Sidebar({initialFilter, filter, dispatchFilter}) {
       <div>Select from:</div>
       <Accordion allowToggle>
         {Object.entries(groupedIndicators).map(([key, value]) => (
-          <AccordionItem>
+          <AccordionItem key={key}>
             <AccordionHeader>{key}</AccordionHeader>
             <AccordionPanel>
               {value.map((v) => (
                 <Checkbox
+                  key={v}
                   value={v["indicator.id"]}
                   onChange={(e) => {
                     if (e.target.checked) {

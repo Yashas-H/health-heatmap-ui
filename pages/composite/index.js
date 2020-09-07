@@ -10,7 +10,7 @@ import { useDataFilter } from "context/hhm-data";
 export default function CompositePage({}) {
   const initialFilter = {"terms": {
     "source.id" : ["NFHS - 4"],
-    "settlement.id": ["Total"],
+    "settlement.id": [null],
     "entity.type": ["DISTRICT"],
     // "indicator.Category": ["Maternal & Reproductive Health", "Child Health"],
     "indicator.Positive/Negative": ["POSITIVE", "NEGATIVE"]
