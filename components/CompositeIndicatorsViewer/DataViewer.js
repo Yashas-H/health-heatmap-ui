@@ -27,13 +27,7 @@ export default function DataViewer({ filter }) {
         </TabList>
         <TabPanels>
           <TabPanel>
-            {compositeScoreLoading ? (
-              <div>Loading...</div>
-            ) : compositeScoreError ? (
-              <div>{compositeScoreError.message}</div>
-            ) : (
-              <Map data={compositeScores} />
-            )}
+            <Map data={compositeScores} />
           </TabPanel>
           <TabPanel>
             {compositeScoreLoading ? (

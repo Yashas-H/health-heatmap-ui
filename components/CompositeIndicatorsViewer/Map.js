@@ -1,32 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import _ from "underscore";
 import Naksha from "naksha-component-react-restructured";
 import AppConstant from "constant/AppConstant";
 import formatMapData from "helper/formatMapData";
 
-const Map = ({ data }) => {
-  const conformItemToExploreMapDataStructure = (item) => {
-    const entityId = item["entity.id"];
-    const entityName = entityId.split(" (")[0];
-    const value = item["Composite Score"];
-    return {
-      ...item,
-      "entity.Name": entityName,
-      value,
-    };
+const conformItemToExploreMapDataStructure = (item) => {
+  const entityId = item["entity.id"];
+  const entityName = entityId.split(" (")[0];
+  const value = item["Composite Score"];
+  return {
+    ...item,
+    "entity.Name": entityName,
+    value,
   };
-  let districtData = data.map(conformItemToExploreMapDataStructure);
-  districtData = _.groupBy(districtData, (item) => item["entity.Name"]);
-  const externalLayers = [
-    formatMapData(
-      {
-        id: "compositeScore",
-        district: districtData,
-      },
-      "DISTRICT",
-      100
-    ),
-  ];
+};
+
+const Map = ({ data }) => {
+  const [externalLayers, setExternalLayers] = useState([]);
+  useEffect(() => {
+    if (data === undefined) {
+      setExternalLayers([]);
+    } else {
+      let districtData = data.map(conformItemToExploreMapDataStructure);
+      districtData = _.groupBy(districtData, (item) => item["entity.Name"]);
+      setExternalLayers([
+        formatMapData(
+          {
+            id: "compositeScore",
+            district: districtData,
+          },
+          "DISTRICT",
+          100
+        ),
+      ]);
+    }
+  }, [data]);
+
   return (
     <div className="map-area">
       {/* Map */}
