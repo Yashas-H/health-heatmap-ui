@@ -8,14 +8,25 @@ import Layout from "components/Layout";
 import { useDataFilter } from "context/hhm-data";
 
 export default function CompositePage({}) {
-  const initialFilter = {"terms": {
+  const relevantDataFilter = {"terms": {
     "source.id" : ["NFHS - 4"],
     "settlement.id": [null],
     "entity.type": ["DISTRICT"],
     // "indicator.Category": ["Maternal & Reproductive Health", "Child Health"],
     "indicator.Positive/Negative": ["POSITIVE", "NEGATIVE"]
   }}
-  const [filter, dispatchFilter] = useDataFilter(initialFilter);
+  const filterWithInitialSelections = {
+    terms: {
+      ...relevantDataFilter.terms,
+      "indicator.id": [
+        "Breastfeeding children age 6-23 months receiving an adequate diet (%)",
+        "Children age 12-23 months who have received BCG (%)",
+        "Households using clean fuel for cooking (%)",
+        "Households using improved sanitation facility (%)"
+      ]
+    }
+  }
+  const [filter, dispatchFilter] = useDataFilter(filterWithInitialSelections);
 
   return (
     <Layout>
@@ -27,7 +38,7 @@ export default function CompositePage({}) {
         <div>
           <Grid gridTemplateColumns={"30% 1fr"} gap={0}>
             <Box>
-              <Sidebar initialFilter={initialFilter} filter={filter} dispatchFilter={dispatchFilter} />
+              <Sidebar relevantDataFilter={relevantDataFilter} filter={filter} dispatchFilter={dispatchFilter} />
             </Box>
 
             <Box className="vis-right-column">

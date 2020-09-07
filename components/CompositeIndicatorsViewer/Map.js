@@ -6,28 +6,27 @@ import formatMapData from "helper/formatMapData";
 
 const Map = ({ data }) => {
   const conformItemToExploreMapDataStructure = (item) => {
-    const entityId = item["entity.id"]
-    const entityName = entityId.split(' (')[0]
-    const value = item["Composite Score"]
+    const entityId = item["entity.id"];
+    const entityName = entityId.split(" (")[0];
+    const value = item["Composite Score"];
     return {
       ...item,
-      'entity.Name': entityName,
-      value
-    }
-  }
-  let districtData = data.map(conformItemToExploreMapDataStructure)
-  districtData = _.groupBy(districtData, (item) => item['entity.Name']);
+      "entity.Name": entityName,
+      value,
+    };
+  };
+  let districtData = data.map(conformItemToExploreMapDataStructure);
+  districtData = _.groupBy(districtData, (item) => item["entity.Name"]);
   const externalLayers = [
     formatMapData(
       {
-        id: 'compositeScore',
+        id: "compositeScore",
         district: districtData,
       },
       "DISTRICT",
       100
     ),
   ];
-  console.log(externalLayers[0])
   return (
     <div className="map-area">
       {/* Map */}

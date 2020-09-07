@@ -1,5 +1,5 @@
 import { useIndicators } from "context/hhm-data";
-import { groupBy } from "underscore";
+import { groupBy, contains } from "underscore";
 import {
   Accordion,
   AccordionItem,
@@ -10,9 +10,13 @@ import {
   ListItem,
 } from "@chakra-ui/core";
 
-export default function Sidebar({initialFilter, filter, dispatchFilter}) {
+export default function Sidebar({
+  relevantDataFilter,
+  filter,
+  dispatchFilter,
+}) {
   const { indicatorsLoading, indicatorsError, indicators } = useIndicators({
-    filter: initialFilter,
+    filter: relevantDataFilter,
   });
   if (indicatorsLoading) {
     return <div>Loading indicators...</div>;
@@ -53,6 +57,10 @@ export default function Sidebar({initialFilter, filter, dispatchFilter}) {
                       });
                     }
                   }}
+                  defaultIsChecked={contains(
+                    filter?.terms?.["indicator.id"],
+                    v["indicator.id"]
+                  )}
                 >
                   {v["indicator.Name"]}
                 </Checkbox>
