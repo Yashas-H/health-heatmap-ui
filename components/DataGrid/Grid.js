@@ -2,10 +2,17 @@ import React, { useContext } from 'react';
 import { useTable } from 'react-table';
 import _ from 'underscore';
 import { Box } from '@chakra-ui/core';
+import { LayerContext } from '../../context/Layer';
 
 function Grid({ IndicatorData }) {
+	const { layerEntity } = useContext(LayerContext);
 	let data = [];
-	const type = _.isEmpty(IndicatorData.district) ? 'state' : 'district';
+	// const type = _.isEmpty(IndicatorData.district) ? 'state' : 'district';
+	const type = layerEntity[IndicatorData.id]
+		? layerEntity[IndicatorData.id].toLowerCase()
+		: _.isEmpty(IndicatorData.district)
+		? 'state'
+		: 'district';
 
 	const columnsState = React.useMemo(
 		() => [

@@ -11,7 +11,14 @@ import AppConstant from '../../constant/AppConstant';
 
 const Map = () => {
 	const [externalLayers, setExternalLayers] = useState([]);
-	const { setSelectedLayers, selectedLayers, currentIndicatorData, layersLoading } = useContext(LayerContext);
+	const {
+		setSelectedLayers,
+		selectedLayers,
+		currentIndicatorData,
+		layersLoading,
+		setLayerEntity,
+		layerEntity,
+	} = useContext(LayerContext);
 
 	useEffect(() => {
 		if (!_.isEmpty(currentIndicatorData)) updateMap();
@@ -30,7 +37,7 @@ const Map = () => {
 		let data = currentIndicatorData;
 		let type = _.isEmpty(data.district) ? 'STATE' : 'DISTRICT';
 		const layer = formatMapData(data, type);
-
+		setLayerEntity({ ...layerEntity, [data.id]: type });
 		if (data.filteredData) {
 			let sl = { ...selectedLayers };
 			sl[data.id] = layer;

@@ -13,6 +13,7 @@ const LayerContextProvider = (props) => {
 	const [layersLoading, setLayersLoading] = useState([]);
 	const [filtersLoading, setFiltersLoading] = useState([]);
 	const [filtersAvailable, setfiltersAvailable] = useState({});
+	const [layerEntity, setLayerEntity] = useState({});
 
 	const loadIndicatorData = (indicator, filters) => {
 		// Get DATA
@@ -99,6 +100,8 @@ const LayerContextProvider = (props) => {
 				filtersAvailable: filtersAvailable,
 				getFilterInfoForIndicator: getFilterInfoForIndicator,
 				filtersLoading: filtersLoading,
+				layerEntity: layerEntity,
+				setLayerEntity: setLayerEntity,
 			}}
 		>
 			{props.children}
