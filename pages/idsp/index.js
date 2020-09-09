@@ -15,6 +15,7 @@ export default function IDSP() {
       "diagnosis.id": ["Dengue"],
       "entity.type": ["DISTRICT"],
       "source.id": ["IDSP"],
+      "meta.original.countOf": ["Number of cases"],
     },
     ranges: {
       "duration.start": {
@@ -44,13 +45,12 @@ export default function IDSP() {
                 <div className="visualization-area">
                   <IDSPVisualization
                     filter={filter}
-                    dispatchFilter={dispatchFilter}
                   />
                 </div>
               </Box>
             </Grid>
             <Box>
-              <IDSPTable filter={filter} dispatchFilter={dispatchFilter} />
+              <IDSPTable filter={filter}/>
             </Box>
           </div>
         </main>
