@@ -362,7 +362,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 						<Stack isInline alignItems="center">
 							<Stack isInline alignItems="center">
 								<Box width="12px" height="12px" background="#000000" />
-								<Text fontSize="10px">Data does not exist</Text>
+								<Text fontSize="10px">Data does not exist for geoentity</Text>
 							</Stack>
 							<Stack isInline alignItems="center">
 								<Box width="12px" height="12px" background="#a5a5a5" />
