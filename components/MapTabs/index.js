@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import _ from 'underscore';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from '@chakra-ui/core';
 
@@ -8,9 +8,17 @@ import DataGrid from '../../components/DataGrid';
 
 function MapTabs() {
 	const { loadedData, selectedLayers } = useContext(LayerContext);
+	const [tabIndex, setTabIndex] = useState(0);
 
+	useEffect(() => {
+		if(_.isEmpty(loadedData)) setTabIndex(0);
+	}, [loadedData]);
+
+	const handleTabsChange = (index) => {
+		setTabIndex(index);
+	};
 	return (
-		<Tabs>
+		<Tabs index={tabIndex} onChange={handleTabsChange}>
 			<TabList>
 				<Tab>
 					<Text fontWeight="bold" mt="8px">

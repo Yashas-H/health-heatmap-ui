@@ -98,6 +98,7 @@ const LayerContextProvider = (props) => {
 				layersLoading: layersLoading,
 				setLayersLoading: setLayersLoading,
 				loadedData: loadedData,
+				setLoadedData: setLoadedData,
 				filtersAvailable: filtersAvailable,
 				getFilterInfoForIndicator: getFilterInfoForIndicator,
 				filtersLoading: filtersLoading,

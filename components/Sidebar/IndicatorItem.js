@@ -7,7 +7,7 @@ import _ from 'underscore';
 import { LayerContext } from '../../context/Layer';
 
 function IndicatorItem({ indicator, q }) {
-	const { selectedLayers, setSelectedLayers, loadIndicatorData, setShowMetadata } = useContext(LayerContext);
+	const { selectedLayers, setSelectedLayers, loadIndicatorData, setShowMetadata, loadedData, setLoadedData } = useContext(LayerContext);
 
 	const selectIndicator = (i) => {
 		console.log('i', i);
@@ -19,7 +19,9 @@ function IndicatorItem({ indicator, q }) {
 
 	const deSelectIndicator = (indicatorId) => {
 		const filtredLayers = _.omit(selectedLayers, indicatorId);
+		const loadedDataR = _.omit(loadedData, indicatorId);
 		setSelectedLayers({ ...filtredLayers });
+		setLoadedData({ ...loadedDataR });
 	};
 
 	return (

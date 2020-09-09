@@ -48,6 +48,8 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 		filtersLoading,
 		layerEntity,
 		setLayerEntity,
+		loadedData,
+		setLoadedData,
 	} = useContext(LayerContext);
 
 	const [opacity, setOpacity] = useState(100);
@@ -134,7 +136,9 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 
 	const removeIndicator = (indicatorId) => {
 		const filtredLayers = _.omit(selectedLayers, indicatorId);
+		const loadedDataR = _.omit(loadedData, indicatorId);
 		setSelectedLayers({ ...filtredLayers });
+		setLoadedData({ ...loadedDataR });
 	};
 
 	const onSliderChange = (value) => {
@@ -356,8 +360,14 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							})}
 						</Flex>
 						<Stack isInline alignItems="center">
-							<Box width="12px" height="12px" background="#a5a5a5" />
-							<Text fontSize="10px">Data Not Available</Text>
+							<Stack isInline alignItems="center">
+								<Box width="12px" height="12px" background="#000000" />
+								<Text fontSize="10px">Data does not exist</Text>
+							</Stack>
+							<Stack isInline alignItems="center">
+								<Box width="12px" height="12px" background="#a5a5a5" />
+								<Text fontSize="10px">Data Not Available</Text>
+							</Stack>
 						</Stack>
 					</Stack>
 				)}
