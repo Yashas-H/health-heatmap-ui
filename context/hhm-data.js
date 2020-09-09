@@ -30,7 +30,7 @@ const setTermInState = (state, [key, values]) => {
 }
 
 const removeTermEntirelyInState = (state, term) => {
-  const {term: removedTerm, ...newTerms} = state?.terms
+  const {[term]: removedTerm, ...newTerms} = state?.terms
   return {
     ...state,
     terms: newTerms
@@ -60,7 +60,7 @@ const addRangeToState = (state, [dimension, operator, rangeValue]) => {
   }
 }
 
-function filterReducer(state, action) {
+export function filterReducer(state, action) {
   switch (action.type) {
     case "add-term": {
       return addTermToState(state, action.payload);

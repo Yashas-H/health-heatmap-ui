@@ -130,7 +130,7 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
             getOptionValue={(o) => o["entity.State"]}
             styles={selectStyles}
             onChange={(states) => {
-              if (states === null)
+              if (states === null || states.length === 0)
                 dispatchFilter({
                   type: "remove-term-entirely",
                   payload: "entity.State",
