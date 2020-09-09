@@ -15,10 +15,10 @@ const displayEverything = (list) => {
 }
 
 const convertToNumber = (list, field) => {
-  return list.map(row => {
-    row[field] = parseInt(row[field], 10)
-    return row
-  })
+  return list.map(row => ({
+    ...row,
+    [field]: parseInt(row[field], 10)
+  }))
 }
 
 const displaySelected = (list) => {
