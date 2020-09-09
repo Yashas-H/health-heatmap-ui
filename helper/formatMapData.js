@@ -36,7 +36,7 @@ export default function formatMapData(data, type, opacity) {
 	_.each(apiData, (entity, name) => {
 		const color = isNaN(entity[0].value)
 			? '#a5a5a5'
-			: colors[Math.floor((Object.keys(apiData).length * parseFloat(entity[0].value)) / max)] || colors[0];
+			: colors[Math.floor((Object.keys(apiData).length * parseFloat(entity[0].value)) / max) - 1] || colors[0];
 		layer.styles.colors.paint['fill-color'].stops.push([name, color]);
 	});
 

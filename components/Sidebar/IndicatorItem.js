@@ -7,9 +7,10 @@ import _ from 'underscore';
 import { LayerContext } from '../../context/Layer';
 
 function IndicatorItem({ indicator, q }) {
-	const { selectedLayers, setSelectedLayers, loadIndicatorData, setShowMetadata } = useContext(LayerContext);
+	const { selectedLayers, setSelectedLayers, loadIndicatorData, setShowMetadata, loadedData, setLoadedData } = useContext(LayerContext);
 
 	const selectIndicator = (i) => {
+		console.log('i', i);
 		const timer = setTimeout(() => {
 			loadIndicatorData(i);
 		}, 600);
@@ -18,7 +19,9 @@ function IndicatorItem({ indicator, q }) {
 
 	const deSelectIndicator = (indicatorId) => {
 		const filtredLayers = _.omit(selectedLayers, indicatorId);
+		const loadedDataR = _.omit(loadedData, indicatorId);
 		setSelectedLayers({ ...filtredLayers });
+		setLoadedData({ ...loadedDataR });
 	};
 
 	return (
@@ -74,7 +77,7 @@ function IndicatorItem({ indicator, q }) {
 									isChecked={selectedLayers[source.id]}
 									onChange={(e) => {
 										if (event.target.checked)
-											selectIndicator({ ...indicator, id: source.id, source: source.name });
+											selectIndicator({ ...indicator, id: source.id, ['source.id']: source.name });
 										else deSelectIndicator(source.id);
 									}}
 									py={1}
