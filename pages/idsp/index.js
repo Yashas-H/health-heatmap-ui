@@ -4,8 +4,7 @@ import _ from "underscore";
 import { Grid, Box } from "@chakra-ui/core";
 import moment from "moment";
 
-import IDSPSidebar from "components/IDSPSidebar";
-import { IDSPVisualization, IDSPTable } from "components/IDSPVisualization";
+import { IDSPSidebar, IDSPVisualization, IDSPTable } from "components/IDSP";
 import Layout from "components/Layout";
 import { useDataFilter } from "context/hhm-data";
 

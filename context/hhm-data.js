@@ -24,18 +24,18 @@ const setTermInState = (state, [key, values]) => {
     ...state,
     terms: {
       ...state.terms,
-      [key]: values
-    }
-  }
-}
+      [key]: values,
+    },
+  };
+};
 
 const removeTermEntirelyInState = (state, term) => {
-  const {[term]: removedTerm, ...newTerms} = state?.terms
+  const { [term]: removedTerm, ...newTerms } = state?.terms;
   return {
     ...state,
-    terms: newTerms
-  }
-}
+    terms: newTerms,
+  };
+};
 
 const removeTermFromState = (state, [key, value]) => {
   return {
@@ -54,11 +54,11 @@ const addRangeToState = (state, [dimension, operator, rangeValue]) => {
       ...state.ranges,
       [dimension]: {
         ...(state?.ranges?.[dimension] ?? {}),
-        [operator]: rangeValue
-      }
-    }
-  }
-}
+        [operator]: rangeValue,
+      },
+    },
+  };
+};
 
 export function filterReducer(state, action) {
   switch (action.type) {
@@ -69,13 +69,13 @@ export function filterReducer(state, action) {
       return removeTermFromState(state, action.payload);
     }
     case "add-range-date": {
-      return addRangeToState(state, action.payload)
+      return addRangeToState(state, action.payload);
     }
     case "remove-term-entirely": {
-      return removeTermEntirelyInState(state, action.payload)
+      return removeTermEntirelyInState(state, action.payload);
     }
     case "set-term": {
-      return setTermInState(state, action.payload)
+      return setTermInState(state, action.payload);
     }
     default: {
       throw new Error(`Unhandled action of type ${action.type}`);
@@ -100,14 +100,9 @@ export function useCompositeScore(filter) {
 }
 
 export function useData(filter, fieldsToInclude) {
-  const { isLoading, error, data } = useQuery(["data", filter, fieldsToInclude], (_, filter) =>
+  return useQuery(["data", filter, fieldsToInclude], (_, filter) =>
     getData(filter, fieldsToInclude)
   );
-  return {
-    dataLoading: isLoading,
-    dataError: error,
-    data,
-  };
 }
 
 export function useIndicators({ filter = {} }) {
@@ -124,8 +119,7 @@ export function useIndicators({ filter = {} }) {
 }
 
 export function useDimensionValues({ fields = [], filter = {} }) {
-  return useQuery(
-    ["dimension", fields, filter],
-    (_, fields, filter) => getDimensions({ fields, filter })
+  return useQuery(["dimension", fields, filter], (_, fields, filter) =>
+    getDimensions({ fields, filter })
   );
 }
