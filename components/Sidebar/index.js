@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import request from 'superagent';
 import _ from 'underscore';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,6 +11,7 @@ import Search from './Search';
 import MetadataPopUp from './MetadataPopUp';
 import MetadatPopUpIBP from './MetadataPopUp_IBP';
 import IBPLayers from './IBP';
+import { LayerContext } from '../../context/Layer';
 
 const filterIndicators = (groups, q) => {
 	return _.filter(groups, (group) => {
@@ -33,11 +34,16 @@ function Sidebar() {
 	const [filteredIndicators, setFilteredIndicators] = useState(false);
 	const [q, setQ] = useState('');
 	const [openAll, setOpenAll] = useState(false);
+	const { setSelectedLayers, setLoadedData } = useContext(LayerContext);
 
 	useEffect(() => {
 		setFilteredIndicators(q ? filterIndicators(JSON.parse(JSON.stringify(indicators)), q) : indicators);
 	}, [q, indicators]);
 
+	const clearAll = () => {
+		setSelectedLayers({});
+		setLoadedData({});
+	};
 	useEffect(() => {
 		// Get Indicators
 		request
@@ -127,13 +133,24 @@ function Sidebar() {
 										placeholder="Filter indicators by name"
 									/>
 								</div>
-								<Stack isInline spacing={8} align="right" className="expand-all-stack">
-									<a className="expand-collapse-btn" onClick={(e) => setOpenAll(true)}>
-										EXPAND ALL
-									</a>
-									<a className="expand-collapse-btn">|</a>
-									<a className="expand-collapse-btn" onClick={(e) => setOpenAll(false)}>
-										COLLAPSE ALL
+								<Stack
+									isInline
+									spacing={1}
+									align="right"
+									className="expand-all-stack"
+									justifyContent="space-between"
+								>
+									<Stack isInline spacing={8}>
+										<a className="expand-collapse-btn" onClick={(e) => setOpenAll(true)}>
+											EXPAND ALL
+										</a>
+										<a className="expand-collapse-btn">|</a>
+										<a className="expand-collapse-btn" onClick={(e) => setOpenAll(false)}>
+											COLLAPSE ALL
+										</a>
+									</Stack>
+									<a className="expand-collapse-btn" onClick={(e) => clearAll(false)}>
+										CLEAR ALL
 									</a>
 								</Stack>
 							</Box>
