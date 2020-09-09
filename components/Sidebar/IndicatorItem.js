@@ -10,6 +10,7 @@ function IndicatorItem({ indicator, q }) {
 	const { selectedLayers, setSelectedLayers, loadIndicatorData, setShowMetadata } = useContext(LayerContext);
 
 	const selectIndicator = (i) => {
+		console.log('i', i);
 		const timer = setTimeout(() => {
 			loadIndicatorData(i);
 		}, 600);
@@ -74,7 +75,7 @@ function IndicatorItem({ indicator, q }) {
 									isChecked={selectedLayers[source.id]}
 									onChange={(e) => {
 										if (event.target.checked)
-											selectIndicator({ ...indicator, id: source.id, source: source.name });
+											selectIndicator({ ...indicator, id: source.id, ['source.id']: source.name });
 										else deSelectIndicator(source.id);
 									}}
 									py={1}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'underscore';
 import { Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/core';
+import { v4 as uuidv4 } from 'uuid';
 
 import Grid from './Grid';
 
@@ -35,7 +36,7 @@ function DataGrid({ indicatorsLoaded, selectedLayers }) {
 
 			<TabPanels>
 				{_.map(indicatorsLoaded, (indicator, key) => (
-					<TabPanel key={key}>
+					<TabPanel key={`${key}_${uuidv4()}`}>
 						<Grid IndicatorData={indicator} />
 					</TabPanel>
 				))}
