@@ -12,7 +12,6 @@ export default function CompositePage({}) {
     "source.id" : ["NFHS - 4"],
     "settlement.id": [null],
     "entity.type": ["DISTRICT"],
-    // "indicator.Category": ["Maternal & Reproductive Health", "Child Health"],
     "indicator.Positive/Negative": ["POSITIVE", "NEGATIVE"]
   }}
   const filterWithInitialSelections = {

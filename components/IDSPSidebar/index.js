@@ -7,7 +7,7 @@ import {
 import MomentUtils from "@date-io/moment";
 import moment from "moment";
 import Select from "react-select";
-import { Text, Flex, Spinner, Box } from "@chakra-ui/core";
+import { Text, Flex, Spinner, Box, RadioGroup, Radio } from "@chakra-ui/core";
 import { useDimensionValues } from "context/hhm-data";
 import { contains } from "underscore";
 import KeyboardDateInput from "@material-ui/pickers/_shared/KeyboardDateInput";
@@ -37,24 +37,23 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
     filter: idspFilter,
   });
   return (
-    <Box p={5}>
+    <Flex p={5} direction="column" alignItems="center" textAlign="center">
       <MuiPickersUtilsProvider utils={MomentUtils}>
+        <Text fontWeight="bold" pt="0.6em">
+          Date Range
+        </Text>
         <Flex flexWrap="wrap" justifyContent="space-evenly">
           <KeyboardDatePicker
             variant="inline"
             margin="normal"
             style={{
-              width: `150px`
+              width: `150px`,
             }}
             value={filter?.ranges?.["duration.start"]?.["gte"]}
             onChange={(e) => {
               dispatchFilter({
                 type: "add-range-date",
-                payload: [
-                  "duration.start",
-                  "gte",
-                  moment(e).get("YYYY/MM/DD"),
-                ],
+                payload: ["duration.start", "gte", moment(e).get("YYYY/MM/DD")],
               });
             }}
             format="yyyy/MM/DD"
@@ -63,17 +62,13 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
             variant="inline"
             margin="normal"
             style={{
-              width: `150px`
+              width: `150px`,
             }}
             value={filter?.ranges?.["duration.start"]?.["lte"]}
             onChange={(e) => {
               dispatchFilter({
                 type: "add-range-date",
-                payload: [
-                  "duration.start",
-                  "lte",
-                  moment(e).get("YYYY/MM/DD"),
-                ],
+                payload: ["duration.start", "lte", moment(e).get("YYYY/MM/DD")],
               });
             }}
             format="yyyy/MM/DD"
@@ -81,7 +76,10 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
         </Flex>
       </MuiPickersUtilsProvider>
       <Flex flexWrap="wrap" flexDirection="column">
-        <Text>Disease: </Text>
+        <Text fontWeight="bold" pt="0.6em">
+          Disease
+        </Text>
+
         {!diagnoses ? (
           <Spinner />
         ) : (
@@ -115,7 +113,9 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
             styles={selectStyles}
           />
         )}
-        <Text>State</Text>
+        <Text fontWeight="bold" pt="0.6em">
+          State
+        </Text>
         {statesLoading ? (
           <Spinner />
         ) : (
@@ -130,7 +130,7 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
             getOptionValue={(o) => o["entity.State"]}
             styles={selectStyles}
             onChange={(states) => {
-              if (states === null)
+              if (states === null || states.length === 0)
                 dispatchFilter({
                   type: "remove-term-entirely",
                   payload: "entity.State",
@@ -138,13 +138,32 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
               else
                 dispatchFilter({
                   type: "set-term",
-                  payload: ["entity.State", states.map(s => s["entity.State"])],
+                  payload: [
+                    "entity.State",
+                    states.map((s) => s["entity.State"]),
+                  ],
                 });
             }}
           />
         )}
+        <Text fontWeight="bold" pt="0.6em">
+          Display
+        </Text>
+
+        <RadioGroup
+          onChange={(e) =>
+            dispatchFilter({
+              type: "set-term",
+              payload: ["meta.original.countOf", [e.target.value]],
+            })
+          }
+          value={filter?.terms?.["meta.original.countOf"][0]}
+        >
+          <Radio value="Number of cases">Cases</Radio>
+          <Radio value="Number of deaths">Deaths</Radio>
+        </RadioGroup>
       </Flex>
-    </Box>
+    </Flex>
   );
 }
 
