@@ -26,7 +26,6 @@ export function IDSPVisualization({ filter }) {
         yParam={yParam}
         yDomain={yDomain}
       />
-      ;
     </Flex>
   );
 }

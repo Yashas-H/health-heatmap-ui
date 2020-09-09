@@ -1372,10 +1372,10 @@
     "@babel/runtime" "^7.0.0"
     gl-matrix "^3.0.0"
 
-"@metastring/multidimensional-charts@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@metastring/multidimensional-charts/-/multidimensional-charts-0.1.8.tgz#5253e212a48ff8b701c4c02494733d4635c48da9"
-  integrity sha512-VCct8Tw3WHB8i9zw94KrLjm18bExdU/znDJF5iMIHp+KCQeR0lB6I54NsSuk40QkriV72UO/kQqjOkOhoiGCXg==
+"@metastring/multidimensional-charts@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@metastring/multidimensional-charts/-/multidimensional-charts-0.1.9.tgz#b52776e161b75abb30ef395c6afafbe35aba5f09"
+  integrity sha512-Hqv05XzzPQnIU0zzE5VXq8cLk2BOezJ6VMg1mTi0td8HmCuTzV2P34O+zbGJ9UPbXO4ZcvVrAJ+KecOMIBKISQ==
   dependencies:
     d3 "^5.16.0"
 
