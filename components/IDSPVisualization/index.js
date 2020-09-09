@@ -17,6 +17,10 @@ export function IDSPVisualization({ filter }) {
     ? uniq(data?.data?.map((d) => d["entity.Name"]))
     : getDomainFromStates(data?.data?.map((d) => d["entity.State"]));
   const yParam = useDistrict ? "entity.Name" : "entity.State";
+  const dateDomain = [
+    new Date(filter?.ranges?.["duration.start"]?.["gte"]),
+    new Date(filter?.ranges?.["duration.start"]?.["lte"]),
+  ];
   return (
     <Flex direction="column">
       <Button marginLeft="auto">View Legend</Button>
@@ -25,6 +29,9 @@ export function IDSPVisualization({ filter }) {
         colorParam="diagnosis.id"
         yParam={yParam}
         yDomain={yDomain}
+        dateParam="duration.start"
+        dateDomain={dateDomain}
+        sizeParam="value"
       />
     </Flex>
   );
