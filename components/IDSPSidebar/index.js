@@ -1,58 +1,88 @@
 import { useContext } from "react";
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
+import moment from "moment";
 import Select from "react-select";
-import { Text, Flex, Spinner } from "@chakra-ui/core";
+import { Text, Flex, Spinner, Box } from "@chakra-ui/core";
+import { useDimensionValues } from "context/hhm-data";
+import { contains } from "underscore";
+import KeyboardDateInput from "@material-ui/pickers/_shared/KeyboardDateInput";
 
-
-import { IDSPContext } from "../../context/IDSP";
-
-export default function IDSPSidebar() {
+export default function IDSPSidebar({ filter, dispatchFilter }) {
+  const idspFilter = {
+    terms: {
+      "source.id": ["IDSP"],
+      "entity.type": ["DISTRICT"],
+    },
+  };
   const {
-    displayData,
-    dataState,
-    diseases,
-    selectDiseases,
-    selectedDiseases,
-    districts,
-    selectedDistricts,
-    startDate,
-    endDate,
-    setStartDate,
-    setEndDate
-  } = useContext(IDSPContext);
+    loading: statesLoading,
+    error: statesError,
+    data: states,
+  } = useDimensionValues({
+    fields: ["entity.State"],
+    filter: idspFilter,
+  });
+
+  const {
+    loading: diagnosesLoading,
+    error: diagnosesError,
+    data: diagnoses,
+  } = useDimensionValues({
+    fields: ["diagnosis.id", "diagnosis.Name"],
+    filter: idspFilter,
+  });
   return (
-    <>
+    <Box p={5}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <Flex flexWrap="wrap" justifyContent="space-evenly">
-          <Text>Date Range: </Text>
-          <DatePicker
-            value={startDate}
-            onChange={setStartDate}
+          <KeyboardDatePicker
+            variant="inline"
+            margin="normal"
+            style={{
+              width: `150px`
+            }}
+            value={filter?.ranges?.["duration.start"]?.["gte"]}
+            onChange={(e) => {
+              dispatchFilter({
+                type: "add-range-date",
+                payload: [
+                  "duration.start",
+                  "gte",
+                  moment(e).get("YYYY/MM/DD"),
+                ],
+              });
+            }}
             format="yyyy/MM/DD"
           />
-          <Text>To</Text>
-          <DatePicker
-            value={endDate}
-            onChange={setEndDate}
+          <KeyboardDatePicker
+            variant="inline"
+            margin="normal"
+            style={{
+              width: `150px`
+            }}
+            value={filter?.ranges?.["duration.start"]?.["lte"]}
+            onChange={(e) => {
+              dispatchFilter({
+                type: "add-range-date",
+                payload: [
+                  "duration.start",
+                  "lte",
+                  moment(e).get("YYYY/MM/DD"),
+                ],
+              });
+            }}
             format="yyyy/MM/DD"
           />
         </Flex>
       </MuiPickersUtilsProvider>
       <Flex flexWrap="wrap" flexDirection="column">
-        <Text>Source: </Text>
-        <Select
-          id="sources"
-          instanceId="sources"
-          inputId="sources"
-          isDisabled
-          options={["IDSP"]}
-          getOptionLabel={(o) => o}
-          value={["IDSP"]}
-          styles={selectStyles}
-        />
         <Text>Disease: </Text>
-        {diseases.length === 0 ? (
+        {!diagnoses ? (
           <Spinner />
         ) : (
           <Select
@@ -61,41 +91,60 @@ export default function IDSPSidebar() {
             inputId="diseases"
             name="diseases"
             isMulti
-            options={diseases}
-            getOptionLabel={(o) => o}
-            getOptionValue={(o) => o}
-            onChange={(diseases) => {
-              if (diseases === null) selectDiseases([]);
-              else selectDiseases(diseases);
+            options={diagnoses}
+            getOptionLabel={(o) => o["diagnosis.Name"]}
+            getOptionValue={(o) => o["diagnosis.id"]}
+            onChange={(diagnoses) => {
+              if (diagnoses === null)
+                dispatchFilter({
+                  type: "remove-term-entirely",
+                  payload: "diagnosis.id",
+                });
+              else
+                dispatchFilter({
+                  type: "set-term",
+                  payload: [
+                    "diagnosis.id",
+                    diagnoses.map((o) => o["diagnosis.id"]),
+                  ],
+                });
             }}
-            defaultValue={[diseases[0]]}
+            defaultValue={diagnoses.filter((d) =>
+              contains(filter?.terms?.["diagnosis.id"], d["diagnosis.id"])
+            )}
             styles={selectStyles}
           />
         )}
-        <Text>District: </Text>
-        {districts.length === 0 ? (
+        <Text>State</Text>
+        {statesLoading ? (
           <Spinner />
         ) : (
           <Select
-            id="districts"
-            instancedId="districts"
-            inputId="districts"
-            name="districts"
+            id="states"
+            instancedId="states"
+            inputId="states"
+            name="states"
             isMulti
-            options={districts}
-            getOptionLabel={(o) =>
-              `${o["entity.district"]} - ${o["entity.state"]}`
-            }
-            getOptionValue={(o) => o["entity.DistCode"]}
+            options={states}
+            getOptionLabel={(o) => o["entity.State"]}
+            getOptionValue={(o) => o["entity.State"]}
             styles={selectStyles}
-            onChange={(districts) => {
-              if (districts === null) selectDistricts([]);
-              else selectDistricts(districts);
+            onChange={(states) => {
+              if (states === null)
+                dispatchFilter({
+                  type: "remove-term-entirely",
+                  payload: "entity.State",
+                });
+              else
+                dispatchFilter({
+                  type: "set-term",
+                  payload: ["entity.State", states.map(s => s["entity.State"])],
+                });
             }}
           />
         )}
       </Flex>
-    </>
+    </Box>
   );
 }
 
@@ -103,5 +152,6 @@ const selectStyles = {
   container: (base) => ({
     ...base,
     flex: 1,
+    maxWidth: `200px`,
   }),
 };

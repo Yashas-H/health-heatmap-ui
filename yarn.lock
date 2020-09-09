@@ -1372,10 +1372,10 @@
     "@babel/runtime" "^7.0.0"
     gl-matrix "^3.0.0"
 
-"@metastring/multidimensional-charts@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@metastring/multidimensional-charts/-/multidimensional-charts-0.1.5.tgz#6df0c1d6f9f0fe6712da99e95edc84860b0c75c9"
-  integrity sha512-XEsz24wh0U9T/p8toGtz+ECxktErvhgMvRRC3JQwxy0XSIg/591eqi1dr46opXCkwo2gTfPVwlNZFAidljkjPQ==
+"@metastring/multidimensional-charts@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@metastring/multidimensional-charts/-/multidimensional-charts-0.1.8.tgz#5253e212a48ff8b701c4c02494733d4635c48da9"
+  integrity sha512-VCct8Tw3WHB8i9zw94KrLjm18bExdU/znDJF5iMIHp+KCQeR0lB6I54NsSuk40QkriV72UO/kQqjOkOhoiGCXg==
   dependencies:
     d3 "^5.16.0"
 
@@ -8756,6 +8756,11 @@ react-map-gl@^5.2.3:
     prop-types "^15.7.2"
     react-virtualized-auto-sizer "^1.0.2"
     viewport-mercator-project "^6.2.3 || ^7.0.1"
+
+react-query@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.14.0.tgz#8d050ef92e8e0385b056b31b98330ff096a61b0f"
+  integrity sha512-bKga3293aXX2SDmseVnKRbqjSi8oYmtEo4OY65fi47a+qbK5b/+PJNnagfaUoqiEiCOrt/jFP5SY1hhdiwzkRw==
 
 react-redux@^7.1.1:
   version "7.2.1"

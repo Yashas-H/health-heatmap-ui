@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DataTable from 'react-data-table-component';
 import { getUniqueKeysOf, ensureKeys } from '../../helper/listUtils';
+import { contains } from 'underscore';
 
 const displayEverything = (list) => {
   const headers = getUniqueKeysOf(list)
@@ -10,9 +11,22 @@ const displayEverything = (list) => {
     selector: row => row[h],
     sortable: true
   }))
-  const cleanResults = ensureKeys(headers, list);
+  let cleanResults = ensureKeys(headers, list);
+  cleanResults = convertAllToNumberExcept(cleanResults, ["entity.id"])
   return {headers, columns, cleanResults}
 }
+
+
+const convertAllToNumberExcept = (list, excluding) => {
+    return list.map(row => {
+      Object.keys(row).forEach(key => {
+        if (!contains(excluding, key)) {
+          row[key] = parseFloat(row[key], 10)
+        }
+      })
+      return row
+    })
+  }
 
 const convertToNumber = (list, field) => {
   return list.map(row => {
@@ -23,13 +37,13 @@ const convertToNumber = (list, field) => {
 
 const displaySelected = (list) => {
   const headers = [
-    {id: "meta.original.report_id", name: "Report ID"},
-    {id: "diagnosis.Name", name: "Disease"},
-    {id: "source.id", name: "Source"},
-    {id: "meta.original.countOf", name: "Cases/Deaths"},
+    {id: "report_id", name: "Report ID"},
+    {id: "indicator_normalized", name: "Indicator"},
+    {id: "source", name: "Source"},
+    {id: "countOf", name: "Cases/Deaths"},
     {id: "duration.start", name: "Report date"},
-    {id: "entity.State", name: "State"},
-    {id: "entity.Name", name: "District"},
+    {id: "entity.state", name: "State"},
+    {id: "entity.district", name: "District"},
     {id: "value", name: "Value"}
   ]
   const columns = headers.map(h => ({
