@@ -35,6 +35,7 @@ const statesInOrder = [
   "Karnataka",
   "Puducherry",
   "Andaman and Nicobar Islands",
+  "Lakshadweep",
   "Kerala",
 ];
 
