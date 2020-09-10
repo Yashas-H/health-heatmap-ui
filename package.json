@@ -30,6 +30,7 @@
     "react-helmet": "^6.1.0",
     "react-highlighter": "^0.4.3",
     "react-query": "^2.14.0",
+    "react-scroll": "^1.8.1",
     "react-select": "^3.1.0",
     "react-table": "^7.2.2",
     "sass": "^1.26.10",
