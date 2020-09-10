@@ -59,13 +59,25 @@ const Header = (props) => {
 						</Link>
 					</MenuItems>
 					<MenuItems>
-						<Link href="/map">
-							<a href="#">Map</a>
+						<Link href="/composite">
+							<a href="#">Composite Index</a>
 						</Link>
 					</MenuItems>
-					<MenuItems>Dashboards</MenuItems>
-					<MenuItems>About Us</MenuItems>
-					<MenuItems>Get Involved</MenuItems>
+					<MenuItems>
+						<Link href="/idsp">
+							<a href="#">Infectious Diseases</a>
+						</Link>
+					</MenuItems>
+					<MenuItems>
+						<Link href="/map">
+							<a href="#">Deep Dive</a>
+						</Link>
+					</MenuItems>
+					<MenuItems>
+						<Link href="/map">
+							<a href="#">About</a>
+						</Link>
+					</MenuItems>
 				</Box>
 			</Flex>
 		</Box>

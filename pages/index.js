@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { Button } from "@chakra-ui/core";
+import { Button, Text, Stack, Box, SimpleGrid, Icon } from '@chakra-ui/core';
+import { Link as ScrollLink, Element } from 'react-scroll';
 
 import Layout from '../components/Layout';
 
@@ -13,151 +14,107 @@ export default function Home() {
 			</Head>
 			<div className="hero">
 				<h1 className="title">
-					<p>Health Heatmap</p>
+					<p>Health Heatmap of India</p>
 				</h1>
 				<p className="description">FOR INDIA'S DATA-DRIVEN DECISION MAKING</p>
-				<Link href="/map">
-					<Button variantColor="white" margin="auto" display="block" variant="outline" mt="30px">Explore Data</Button>
-				</Link>
+				<Text padding="12px" maxWidth="800px" marginX="auto" marginTop="20px" textAlign="center">
+					This is an alpha version of the health heatmap with the intent of collecting all the public health
+					data, curating them based on a data model and deploying them on a map-based open access platform.
+				</Text>
+
+				<ScrollLink to="faq" smooth={true} duration={500}>
+					<Button variantColor="white" margin="auto" display="block" variant="outline" mt="30px">
+						Know More
+					</Button>
+				</ScrollLink>
 			</div>
-			<div className="container">
-				<main>
-					<div className="grid">
-						<a href="https://nextjs.org/docs" className="card">
-							<h3>Documentation &rarr;</h3>
-							<p>Find in-depth information about Next.js features and API.</p>
-						</a>
+			<Box maxWidth="1080px" marginX="auto" marginTop={5} paddingX="1rem">
+				<Stack>
+					<SimpleGrid columns={3} spacing={5} marginY="3rem">
+						<Link href="/composite">
+							<Box className="link-box-home">
+								<Text fontWeight="bold" fontSize="18px">
+									Score your district on Health Indicators{' '}
+									<Icon name="arrow-forward" color="014491" />
+								</Text>
+								<Text className="link-text">
+									Get an overview of the health status of each district by building a composite index
+									from selected health indicators.
+								</Text>
+							</Box>
+						</Link>
+						<Link href="/idsp">
+							<Box className="link-box-home">
+								<Text fontWeight="bold" fontSize="18px">
+									Visualize the spread of infectious diseases in India over last 12 years
+									<Icon name="arrow-forward" color="014491" />
+								</Text>
+								<Text className="link-text">
+									Get an overview of the health status of each district by building a composite index
+									from selected health indicators.
+								</Text>
+							</Box>
+						</Link>
+						<Link href="/map">
+							<Box className="link-box-home">
+								<Text fontWeight="bold" fontSize="18px">
+									Deep dive into health indicators of India
+									<Icon name="arrow-forward" color="014491" />
+								</Text>
+								<Text className="link-text">
+									Get an overview of the health status of each district by building a composite index
+									from selected health indicators.
+								</Text>
+							</Box>
+						</Link>
+					</SimpleGrid>
+				</Stack>
 
-						<a href="https://nextjs.org/learn" className="card">
-							<h3>Learn &rarr;</h3>
-							<p>Learn about Next.js in an interactive course with quizzes!</p>
-						</a>
+				<Element name="faq"></Element>
+				<Stack spacing={1} marginTop={5}>
+					<Text padding="0.4rem" fontWeight="bold" fontSize="1.6rem" marginTop="2rem">
+						How how do we collect the data?
+					</Text>
+					<Text padding="0.4rem">
+						The Health HeatMap of India is an attempt to aggregate publicly available health data from
+						diverse sources, curate it and warehouse it in a searchable, queryable format and make it
+						available on an open access platform with a range of visualizations
+					</Text>
+					<Text padding="0.4rem">
+						Data from various sources like the National Health and Family Survey (NFHS), Annual Health
+						Survey (AHS), Sample Registration System (SRS), the Integrated Disease Surveillance Program
+						(IDSP) and other sources of public data have been accessed, curated and organized on a data
+						model of health indicator - geo entity framework and deployed on the system. Spatial as well as
+						tabular visualizations allow viewing and exploration of the data from different perspectives
+					</Text>
+					<Text padding="0.4rem" fontWeight="bold" fontSize="1.6rem" marginTop="2rem">
+						How do we massage the data?
+					</Text>
+					<Text padding="0.4rem">
+						The data on the platform have been extracted, curated and transformed from various sources and
+						in various formats. While we have done the first cut at curation, we are putting out the data
+						with source attribution for the first time on a public platform for public scrutiny, feedback
+						and suggestions. Alternatively : After a first attempt at curation, the data is now available on
+						this portal with source attribution for public scrutiny, feedback and suggestions.
+					</Text>
 
-						<a href="https://github.com/zeit/next.js/tree/master/examples" className="card">
-							<h3>Examples &rarr;</h3>
-							<p>Discover and deploy boilerplate example Next.js projects.</p>
-						</a>
-
-						<a
-							href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-							className="card"
-						>
-							<h3>Deploy &rarr;</h3>
-							<p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-						</a>
-					</div>
-				</main>
+					<Text padding="0.4rem" fontWeight="bold" fontSize="1.6rem" marginTop="2rem">
+						The Roadmap
+					</Text>
+					<Text padding="0.4rem">
+						This first version of the platform was developed as a part of the precursor grant of National
+						Mission on Biodiversity and Human Well-Being (NMBHWB) during the period October 2019 to
+						September 2020. It is work ion progress and over time we plan to enrich the portal with more
+						data and rich visualizations.
+					</Text>
+				</Stack>
 
 				<footer>
 					<a href="https://www.metastringfoundation.org/" target="_blank">
 						Powered by Metastring
 					</a>
 				</footer>
-
-				<style jsx>{`
-					.container {
-						min-height: 100vh;
-						padding: 0 0.5rem;
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
-						align-items: center;
-					}
-
-					main {
-						padding: 5rem 0;
-						flex: 1;
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
-						align-items: center;
-					}
-
-					footer {
-						width: 100%;
-						height: 100px;
-						border-top: 1px solid #eaeaea;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-					}
-
-					footer img {
-						margin-left: 0.5rem;
-					}
-
-					footer a {
-						display: flex;
-						justify-content: center;
-						align-items: center;
-					}
-
-					a {
-						color: inherit;
-						text-decoration: none;
-					}
-
-					code {
-						background: #fafafa;
-						border-radius: 5px;
-						padding: 0.75rem;
-						font-size: 1.1rem;
-						font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-							Bitstream Vera Sans Mono, Courier New, monospace;
-					}
-
-					.grid {
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						flex-wrap: wrap;
-
-						max-width: 800px;
-						margin-top: 3rem;
-					}
-
-					.card {
-						margin: 1rem;
-						flex-basis: 45%;
-						padding: 1.5rem;
-						text-align: left;
-						color: inherit;
-						text-decoration: none;
-						border: 1px solid #eaeaea;
-						border-radius: 10px;
-						transition: color 0.15s ease, border-color 0.15s ease;
-					}
-
-					.card:hover,
-					.card:focus,
-					.card:active {
-						color: #0070f3;
-						border-color: #0070f3;
-					}
-
-					.card h3 {
-						margin: 0 0 1rem 0;
-						font-size: 1.5rem;
-					}
-
-					.card p {
-						margin: 0;
-						font-size: 1.25rem;
-						line-height: 1.5;
-					}
-
-					.logo {
-						height: 1em;
-					}
-
-					@media (max-width: 600px) {
-						.grid {
-							width: 100%;
-							flex-direction: column;
-						}
-					}
-				`}</style>
-			</div>
+			</Box>
 		</Layout>
 	);
 }
