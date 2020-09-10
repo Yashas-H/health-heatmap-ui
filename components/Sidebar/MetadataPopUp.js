@@ -22,6 +22,7 @@ import {
 
 import AppConstant from '../../constant/AppConstant';
 import { LayerContext } from '../../context/Layer';
+import { getSecondPartOrSame } from 'helper/stringUtils';
 
 function MetadatPopUp() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -97,15 +98,9 @@ function MetadatPopUp() {
 								</Text>
 								<Text fontSize={14}>
 									<Text fontWeight="bold" color="gray.500">
-										Type
-									</Text>
-									<Text>{metadata.indicator_type || 'N/A'}</Text>
-								</Text>
-								<Text fontSize={14}>
-									<Text fontWeight="bold" color="gray.500">
 										Definition
 									</Text>
-									<Text>{metadata.indicator_definition || 'N/A'}</Text>
+									<Text>{metadata["indicator.Definition"] || 'N/A'}</Text>
 								</Text>
 								<Text fontSize={14}>
 									<Text fontWeight="bold" color="gray.500">
@@ -120,21 +115,21 @@ function MetadatPopUp() {
 										Source Specific Info
 									</Text>
 									<Accordion allowToggle allowMultiple defaultIndex={[]}>
-										{_.map(metadata.source_specific, (source, name) => (
-											<AccordionItem key={source}>
+										{_.pairs(metadata.source_specific).map(([key, val]) => (
+											<AccordionItem key={key}>
 												<AccordionHeader>
 													<Box flex="1" textAlign="left">
-														{name}
+														{key}
 													</Box>
 													<AccordionIcon />
 												</AccordionHeader>
 												<AccordionPanel pb={4}>
-													{_.map(source, (data, key) => (
+													{_.pairs(val).map(([prop, value]) => (
 														<Text fontSize={14}>
 															<Text fontWeight="bold" color="gray.500">
-																{key}
+																{getSecondPartOrSame(prop)}
 															</Text>
-															<Text>{data[key] || 'N/A'}</Text>
+															<Text>{value || 'N/A'}</Text>
 														</Text>
 													))}
 												</AccordionPanel>
