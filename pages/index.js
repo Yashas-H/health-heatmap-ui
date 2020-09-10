@@ -50,8 +50,9 @@ export default function Home() {
 									<Icon name="arrow-forward" color="014491" />
 								</Text>
 								<Text className="link-text">
-									Get an overview of the health status of each district by building a composite index
-									from selected health indicators.
+									A page to visualize trends of infectious diseases across time and geography. The
+									Integrated Disease Surveillance Program (IDSP) monitors and reports on the
+									occurrence and spread of infectious diseases across the country
 								</Text>
 							</Box>
 						</Link>
@@ -62,8 +63,8 @@ export default function Home() {
 									<Icon name="arrow-forward" color="014491" />
 								</Text>
 								<Text className="link-text">
-									Get an overview of the health status of each district by building a composite index
-									from selected health indicators.
+									All health indicators along with the geo entity that have been curated can be
+									selected and visualized in a map view and a table view
 								</Text>
 							</Box>
 						</Link>
