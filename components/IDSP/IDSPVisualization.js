@@ -18,10 +18,10 @@ export default function IDSPVisualization({ filter }) {
     new Date(filter?.ranges?.["duration.start"]?.["gte"]),
     new Date(filter?.ranges?.["duration.start"]?.["lte"]),
   ];
+  const tooltipFunction = d => `${d["entity.Name"]} (${d["entity.State"]}) - ${d["duration.start"]} - ${d["value"]}`
   return (
     <>
       <Flex direction="column">
-        <Button marginLeft="auto">View Legend</Button>
         <BubbleChart
           data={data?.data}
           colorParam="diagnosis.id"
@@ -30,6 +30,7 @@ export default function IDSPVisualization({ filter }) {
           dateParam="duration.start"
           dateDomain={dateDomain}
           sizeParam="value"
+          tooltipFunction={tooltipFunction}
         />
       </Flex>
     </>
