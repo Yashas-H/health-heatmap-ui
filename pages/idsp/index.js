@@ -4,8 +4,7 @@ import _ from "underscore";
 import { Grid, Box } from "@chakra-ui/core";
 import moment from "moment";
 
-import IDSPSidebar from "components/IDSPSidebar";
-import { IDSPVisualization, IDSPTable } from "components/IDSPVisualization";
+import { IDSPSidebar, IDSPDataSide } from "components/IDSP";
 import Layout from "components/Layout";
 import { useDataFilter } from "context/hhm-data";
 
@@ -43,15 +42,12 @@ export default function IDSP() {
 
               <Box className="vis-right-column">
                 <div className="visualization-area">
-                  <IDSPVisualization
+                  <IDSPDataSide
                     filter={filter}
                   />
                 </div>
               </Box>
             </Grid>
-            <Box>
-              <IDSPTable filter={filter}/>
-            </Box>
           </div>
         </main>
       </div>

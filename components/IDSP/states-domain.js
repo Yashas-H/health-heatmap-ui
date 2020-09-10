@@ -2,6 +2,8 @@ import { contains } from "underscore";
 
 const statesInOrder = [
   "Jammu and Kashmir",
+  "Himachal Pradesh",
+  "Chandigarh",
   "Punjab",
   "Haryana",
   "Uttarakhand",
@@ -24,12 +26,16 @@ const statesInOrder = [
   "Chhatisgarh",
   "Andhra Pradesh",
   "Odisha",
+  "Daman and Diu",
+  "Dadra and Nagar Haveli",
   "Maharashtra",
   "Telangana",
   "Goa",
   "Tamil Nadu",
   "Karnataka",
   "Puducherry",
+  "Andaman and Nicobar Islands",
+  "Lakshadweep",
   "Kerala",
 ];
 
