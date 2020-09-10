@@ -28,13 +28,7 @@ export default function Sidebar({
 
   return (
     <>
-      <div>Selected Indicators:</div>
-      <List as="ol" styleType="decimal">
-        {filter?.terms?.["indicator.id"]?.map((i) => (
-          <ListItem>{i}</ListItem>
-        ))}
-      </List>
-      <div>Select from:</div>
+      <div>Choose indicators to include:</div>
       <Accordion allowToggle>
         {Object.entries(groupedIndicators).map(([key, value]) => (
           <AccordionItem key={key}>
