@@ -108,13 +108,14 @@ export default function Home() {
 						data and rich visualizations.
 					</Text>
 				</Stack>
-
-				<footer>
+			</Box>
+			<footer>
+				<Box textAlign="center" className="home-footer">
 					<a href="https://www.metastringfoundation.org/" target="_blank">
 						Powered by Metastring
 					</a>
-				</footer>
-			</Box>
+				</Box>
+			</footer>
 		</Layout>
 	);
 }
