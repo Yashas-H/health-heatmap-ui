@@ -3,6 +3,7 @@ import _ from "underscore";
 import Naksha from "naksha-component-react-restructured";
 import AppConstant from "constant/AppConstant";
 import formatMapData from "helper/formatMapData";
+import SelectedShow from "./SelectedShow";
 
 const conformItemToExploreMapDataStructure = (item) => {
   const entityId = item["entity.id"];
@@ -15,7 +16,7 @@ const conformItemToExploreMapDataStructure = (item) => {
   };
 };
 
-const Map = ({ data }) => {
+const Map = ({ filter, data }) => {
   const [externalLayers, setExternalLayers] = useState([]);
   useEffect(() => {
     if (data === undefined) {
@@ -60,6 +61,7 @@ const Map = ({ data }) => {
         // hiddenLayers={[{ id: 254 }, { id: 255 }]}
         externalLayers={externalLayers}
       />
+      <SelectedShow filter={filter}/>
     </div>
   );
 };
