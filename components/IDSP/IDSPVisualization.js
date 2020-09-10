@@ -4,7 +4,7 @@ import { Text, Spinner, Button, Box, Flex } from "@chakra-ui/core";
 import { BubbleChart } from "@metastring/multidimensional-charts";
 import { useData } from "context/hhm-data";
 import { getDomainFromStates } from "./states-domain";
-import { uniq } from "underscore";
+import { uniq, contains } from "underscore";
 
 export default function IDSPVisualization({ filter }) {
   const { isLoading, error, data } = useData(filter, ["meta.original"]);
@@ -18,7 +18,14 @@ export default function IDSPVisualization({ filter }) {
     new Date(filter?.ranges?.["duration.start"]?.["gte"]),
     new Date(filter?.ranges?.["duration.start"]?.["lte"]),
   ];
-  const tooltipFunction = d => `${d["entity.Name"]} (${d["entity.State"]}) - ${d["duration.start"]} - ${d["value"]}`
+  const casesOrDeaths = contains(
+    filter?.terms?.["meta.original.countOf"],
+    "Number of cases"
+  )
+    ? "cases"
+    : "deaths";
+  const tooltipFunction = (d) =>
+    `${d["diagnosis.id"]}: ${d["entity.Name"]} (${d["entity.State"]}) - ${d["duration.start"]} - ${d["value"]} ${casesOrDeaths}`;
   return (
     <>
       <Flex direction="column">
