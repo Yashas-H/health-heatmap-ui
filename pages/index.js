@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Button, Text, Stack, Box, SimpleGrid, Icon, Collapse, Link as LinkText } from '@chakra-ui/core';
+import { Button, Text, Stack, Box, SimpleGrid, Icon } from '@chakra-ui/core';
 import { Link as ScrollLink, Element } from 'react-scroll';
 
 import Layout from '../components/Layout';
 
 export default function Home() {
-	const [show, setShow] = useState([]);
-
-	const openReadMore = (i) => {
-		let ss = [...show];
-		ss[i] = !ss[i];
-		setShow(ss);
-	};
 	return (
 		<Layout>
 			<Head>
@@ -42,37 +35,34 @@ export default function Home() {
 						<Box className="link-box-home">
 							<Link href="/composite">
 								<>
-									<Text fontWeight="bold" fontSize="18px">
+									<Text fontWeight="bold" fontSize="18px" color="#014491">
 										Explore district on health status <Icon name="arrow-forward" color="014491" />
 									</Text>
 									<Text className="link-text">
 										Get an overview of the health status of each district by building a composite
 										index from selected health indicators
 									</Text>
+
+									<Text>
+										The set of indicators for the district are scaled, normalized and then used to
+										arrive at a composite score for each district. We have used a method inspired
+										from the methodology used by NITI Ayog in creating the Aspirational Districts
+										Program.
+									</Text>
+									<Text>
+										This interactive interface allows the user to select the participant indicators
+										and visualize the composite index on our map view and a sortable table view.
+										Explore, build and visualize the composite index.
+									</Text>
+									<Text>Explore, build and visualize the composite index.</Text>
 								</>
 							</Link>
-							<LinkText onClick={(e) => openReadMore(0)}>Read More</LinkText>
-							<Collapse mt={4} isOpen={show[0]} className="box-link-collapse">
-								<Text>
-									The set of indicators for the district are scaled, normalized and then used to
-									arrive at a composite score for each district. We have used a method inspired from
-									the methodology used by NITI Ayog in creating the Aspirational Districts Program.
-								</Text>
-								<Text>
-									This interactive interface allows the user to select the participant indicators and
-									visualize the composite index on our map view and a sortable table view. Explore,
-									build and visualize the composite index.
-								</Text>
-								<Link href="/composite">
-									<Text>Explore, build and visualize the composite index.</Text>
-								</Link>
-							</Collapse>
 						</Box>
 
 						<Box className="link-box-home">
 							<Link href="/idsp">
 								<>
-									<Text fontWeight="bold" fontSize="18px">
+									<Text fontWeight="bold" fontSize="18px" color="#014491">
 										Visualize the spread of infectious diseases in India{' '}
 										<Icon name="arrow-forward" color="014491" />
 									</Text>
@@ -81,30 +71,26 @@ export default function Home() {
 										management of zoonotic and infectious diseases. This is specially relevant in
 										the context of the current COVID 19 pandemic.
 									</Text>
-								</>
-							</Link>
-							<LinkText onClick={(e) => openReadMore(1)}>Read More</LinkText>
-							<Collapse mt={4} isOpen={show[1]} className="box-link-collapse">
-								<Text>
-									The Integrated Disease Surveillance Program (IDSP) monitors and reports on the
-									occurrence and spread of infectious diseases across the country. The program has
-									been active since 2008 and produces weekly reports on 21 infectious diseases and
-									their occurrence as PDF documents. Data has been extracted from these PDF documents
-									and with limited curation, we have published them on the portal.
-								</Text>
-								<Link href="/idsp">
+
+									<Text>
+										The Integrated Disease Surveillance Program (IDSP) monitors and reports on the
+										occurrence and spread of infectious diseases across the country. The program has
+										been active since 2008 and produces weekly reports on 21 infectious diseases and
+										their occurrence as PDF documents. Data has been extracted from these PDF
+										documents and with limited curation, we have published them on the portal.
+									</Text>
 									<Text>
 										Explore and visualize the occurrence and trends of infectious diseases across
 										time and geography.
 									</Text>
-								</Link>
-							</Collapse>
+								</>
+							</Link>
 						</Box>
 
 						<Box className="link-box-home">
 							<Link href="/map">
 								<>
-									<Text fontWeight="bold" fontSize="18px">
+									<Text fontWeight="bold" fontSize="18px" color="#014491">
 										Deep dive into health indicators of India{' '}
 										<Icon name="arrow-forward" color="014491" />
 									</Text>
@@ -112,22 +98,19 @@ export default function Home() {
 										All health indicators along with the geo entity that have been curated can be
 										selected and visualized in a map view and a table view.
 									</Text>
+
+									<Text>
+										Indicators can be overlaid on the map canvas and can be filtered along other
+										dimensions of the indicator.
+									</Text>
+									<Text>
+										Additional environmental layers like rainfall, vegetation and forest types, from
+										the India Biodiversity Portal can also be overlaid along with the health
+										indicator.
+									</Text>
+									<Text>Explore health indicators of India.</Text>
 								</>
 							</Link>
-							<LinkText onClick={(e) => openReadMore(2)}>Read More</LinkText>
-							<Collapse mt={4} isOpen={show[2]} className="box-link-collapse">
-								<Text>
-									Indicators can be overlaid on the map canvas and can be filtered along other
-									dimensions of the indicator.
-								</Text>
-								<Text>
-									Additional environmental layers like rainfall, vegetation and forest types, from the
-									India Biodiversity Portal can also be overlaid along with the health indicator.
-								</Text>
-								<Link href="/map">
-									<Text>Explore health indicators of India.</Text>
-								</Link>
-							</Collapse>
 						</Box>
 					</SimpleGrid>
 				</Stack>
@@ -135,7 +118,7 @@ export default function Home() {
 				<Element name="faq"></Element>
 				<Stack spacing={1} marginTop={5}>
 					<Text padding="0.4rem" fontWeight="bold" fontSize="1.6rem" marginTop="2rem">
-						How how do we collect the data?
+						How do we collect the data?
 					</Text>
 					<Text padding="0.4rem">
 						The Health Heatmmap of India is an attempt to aggregate publicly available health data from
@@ -150,7 +133,7 @@ export default function Home() {
 						tabular visualizations allow viewing and exploration of the data from different perspectives
 					</Text>
 					<Text padding="0.4rem" fontWeight="bold" fontSize="1.6rem" marginTop="2rem">
-						How do we massage the data?
+						How do we curate the data?
 					</Text>
 					<Text padding="0.4rem">
 						The data on the platform have been extracted from various sources and in various formats. After

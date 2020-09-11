@@ -33,27 +33,25 @@
 .link-box-home {
 	border-radius: 6px;
 	padding: 15px;
-	color: #014491;
 	border: 1px solid #014491;
 	cursor: pointer;
 	a {
-		font-size: 12px;
 		margin-top: 5px;
 	}
 	.link-text {
 		margin-top: 1rem;
-		font-size: 15px;
 		color: #000;
 	}
-	.box-link-collapse {
-		color: #000;
-		p {
-			margin-bottom: 12px;
-			font-size: 15px;
-			&:last-child {
-				font-weight: bold;
-				color: #014491;
-			}
+	p {
+		margin-bottom: 12px;
+		font-weight: 300;
+		&:first-child {
+			font-weight: bold;
+			color: #014491;
+		}
+		&:last-child {
+			font-weight: bold;
+			color: #014491;
 		}
 	}
 }
