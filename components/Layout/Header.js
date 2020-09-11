@@ -27,7 +27,7 @@ const Header = (props) => {
 				<Flex align="center" mr={5}>
 					<Heading as="h1" size="lg" letterSpacing={'-.05rem'}>
 						<Link href="/">
-							<a href="#">Health Heatmap <sup className="title-sup">alpha</sup></a>
+							<a href="#">Health Heatmap <sup className="title-sup">beta</sup></a>
 						</Link>
 					</Heading>
 				</Flex>

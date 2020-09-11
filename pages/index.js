@@ -1,11 +1,19 @@
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Button, Text, Stack, Box, SimpleGrid, Icon } from '@chakra-ui/core';
+import { Button, Text, Stack, Box, SimpleGrid, Icon, Collapse, Link as LinkText } from '@chakra-ui/core';
 import { Link as ScrollLink, Element } from 'react-scroll';
 
 import Layout from '../components/Layout';
 
 export default function Home() {
+	const [show, setShow] = useState([]);
+
+	const openReadMore = (i) => {
+		let ss = [...show];
+		ss[i] = !ss[i];
+		setShow(ss);
+	};
 	return (
 		<Layout>
 			<Head>
@@ -18,8 +26,8 @@ export default function Home() {
 				</h1>
 				<p className="description">FOR INDIA'S DATA-DRIVEN DECISION MAKING</p>
 				<Text padding="12px" maxWidth="800px" marginX="auto" marginTop="20px" textAlign="center">
-					This is an alpha version of the health heatmap with the intent of collecting all the public health
-					data, curating them based on a data model and deploying them on a map-based open access platform.
+					This is an initial version of the Health Heatmap of India, an open access platform for aggregation,
+					curation and visualization of Health Indicators of India.
 				</Text>
 
 				<ScrollLink to="faq" smooth={true} duration={500}>
@@ -31,43 +39,96 @@ export default function Home() {
 			<Box maxWidth="1080px" marginX="auto" marginTop={5} paddingX="1rem">
 				<Stack>
 					<SimpleGrid columns={3} spacing={5} marginY="3rem">
-						<Link href="/composite">
-							<Box className="link-box-home">
-								<Text fontWeight="bold" fontSize="18px">
-									Score your district on Health Indicators{' '}
-									<Icon name="arrow-forward" color="014491" />
+						<Box className="link-box-home">
+							<Link href="/composite">
+								<>
+									<Text fontWeight="bold" fontSize="18px">
+										Explore district on health status <Icon name="arrow-forward" color="014491" />
+									</Text>
+									<Text className="link-text">
+										Get an overview of the health status of each district by building a composite
+										index from selected health indicators
+									</Text>
+								</>
+							</Link>
+							<LinkText onClick={(e) => openReadMore(0)}>Read More</LinkText>
+							<Collapse mt={4} isOpen={show[0]} className="box-link-collapse">
+								<Text>
+									The set of indicators for the district are scaled, normalized and then used to
+									arrive at a composite score for each district. We have used a method inspired from
+									the methodology used by NITI Ayog in creating the Aspirational Districts Program.
 								</Text>
-								<Text className="link-text">
-									Get an overview of the health status of each district by building a composite index
-									from selected health indicators.
+								<Text>
+									This interactive interface allows the user to select the participant indicators and
+									visualize the composite index on our map view and a sortable table view. Explore,
+									build and visualize the composite index.
 								</Text>
-							</Box>
-						</Link>
-						<Link href="/idsp">
-							<Box className="link-box-home">
-								<Text fontWeight="bold" fontSize="18px">
-									Visualize the spread of infectious diseases in India over last 12 years
-									<Icon name="arrow-forward" color="014491" />
+								<Link href="/composite">
+									<Text>Explore, build and visualize the composite index.</Text>
+								</Link>
+							</Collapse>
+						</Box>
+
+						<Box className="link-box-home">
+							<Link href="/idsp">
+								<>
+									<Text fontWeight="bold" fontSize="18px">
+										Visualize the spread of infectious diseases in India{' '}
+										<Icon name="arrow-forward" color="014491" />
+									</Text>
+									<Text className="link-text">
+										Reports of infectious diseases are very important for early tracking and
+										management of zoonotic and infectious diseases. This is specially relevant in
+										the context of the current COVID 19 pandemic.
+									</Text>
+								</>
+							</Link>
+							<LinkText onClick={(e) => openReadMore(1)}>Read More</LinkText>
+							<Collapse mt={4} isOpen={show[1]} className="box-link-collapse">
+								<Text>
+									The Integrated Disease Surveillance Program (IDSP) monitors and reports on the
+									occurrence and spread of infectious diseases across the country. The program has
+									been active since 2008 and produces weekly reports on 21 infectious diseases and
+									their occurrence as PDF documents. Data has been extracted from these PDF documents
+									and with limited curation, we have published them on the portal.
 								</Text>
-								<Text className="link-text">
-									A page to visualize trends of infectious diseases across time and geography. The
-									Integrated Disease Surveillance Program (IDSP) monitors and reports on the
-									occurrence and spread of infectious diseases across the country
+								<Link href="/idsp">
+									<Text>
+										Explore and visualize the occurrence and trends of infectious diseases across
+										time and geography.
+									</Text>
+								</Link>
+							</Collapse>
+						</Box>
+
+						<Box className="link-box-home">
+							<Link href="/map">
+								<>
+									<Text fontWeight="bold" fontSize="18px">
+										Deep dive into health indicators of India{' '}
+										<Icon name="arrow-forward" color="014491" />
+									</Text>
+									<Text className="link-text">
+										All health indicators along with the geo entity that have been curated can be
+										selected and visualized in a map view and a table view.
+									</Text>
+								</>
+							</Link>
+							<LinkText onClick={(e) => openReadMore(2)}>Read More</LinkText>
+							<Collapse mt={4} isOpen={show[2]} className="box-link-collapse">
+								<Text>
+									Indicators can be overlaid on the map canvas and can be filtered along other
+									dimensions of the indicator.
 								</Text>
-							</Box>
-						</Link>
-						<Link href="/map">
-							<Box className="link-box-home">
-								<Text fontWeight="bold" fontSize="18px">
-									Deep dive into health indicators of India
-									<Icon name="arrow-forward" color="014491" />
+								<Text>
+									Additional environmental layers like rainfall, vegetation and forest types, from the
+									India Biodiversity Portal can also be overlaid along with the health indicator.
 								</Text>
-								<Text className="link-text">
-									All health indicators along with the geo entity that have been curated can be
-									selected and visualized in a map view and a table view
-								</Text>
-							</Box>
-						</Link>
+								<Link href="/map">
+									<Text>Explore health indicators of India.</Text>
+								</Link>
+							</Collapse>
+						</Box>
 					</SimpleGrid>
 				</Stack>
 
@@ -77,7 +138,7 @@ export default function Home() {
 						How how do we collect the data?
 					</Text>
 					<Text padding="0.4rem">
-						The Health HeatMap of India is an attempt to aggregate publicly available health data from
+						The Health Heatmmap of India is an attempt to aggregate publicly available health data from
 						diverse sources, curate it and warehouse it in a searchable, queryable format and make it
 						available on an open access platform with a range of visualizations
 					</Text>
@@ -92,11 +153,9 @@ export default function Home() {
 						How do we massage the data?
 					</Text>
 					<Text padding="0.4rem">
-						The data on the platform have been extracted, curated and transformed from various sources and
-						in various formats. While we have done the first cut at curation, we are putting out the data
-						with source attribution for the first time on a public platform for public scrutiny, feedback
-						and suggestions. Alternatively : After a first attempt at curation, the data is now available on
-						this portal with source attribution for public scrutiny, feedback and suggestions.
+						The data on the platform have been extracted from various sources and in various formats. After
+						a first attempt at curation, the data is now available on this portal with source attribution
+						for public scrutiny, feedback and suggestions
 					</Text>
 
 					<Text padding="0.4rem" fontWeight="bold" fontSize="1.6rem" marginTop="2rem">
@@ -105,8 +164,8 @@ export default function Home() {
 					<Text padding="0.4rem">
 						This first version of the platform was developed as a part of the precursor grant of National
 						Mission on Biodiversity and Human Well-Being (NMBHWB) during the period October 2019 to
-						September 2020. It is work ion progress and over time we plan to enrich the portal with more
-						data and rich visualizations.
+						September 2020. It is work in progress and over time we plan to enrich the portal with more data
+						and rich visualizations
 					</Text>
 				</Stack>
 			</Box>
