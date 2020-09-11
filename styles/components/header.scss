@@ -1,11 +1,22 @@
 .nav {
-	.header-burger {
-		cursor: pointer;
-	}
-	.title-sup {
-		font-size: 12px;
-		font-weight: 300;
-		margin-left: -2px;
-        color: #ffffffad;
-	}
+  .header-burger {
+    cursor: pointer;
+  }
+  .title-sup {
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: -2px;
+    color: #ffffffad;
+  }
+  .menu-links {
+    a {
+      padding: 0.6rem;
+      &.selected {
+        // border: 1px solid #ffffff;
+		color: #ffffff;
+		background-color: #014491;
+		border-radius: 3px;
+      }
+    }
+  }
 }

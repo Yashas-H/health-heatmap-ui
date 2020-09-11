@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import Link from "./Link";
 import { Box, Heading, Flex, Text } from "@chakra-ui/core";
 
 const MenuItems = ({ children }) => (
@@ -19,12 +19,12 @@ const Header = (props) => {
         align="center"
         justify="space-between"
         wrap="wrap"
-        padding="1rem"
+        padding="0"
         bg="#1D75D9"
         color="#ffffff"
         {...props}
       >
-        <Flex align="center" mr={5}>
+        <Flex align="center" mr={5} padding="1rem">
           <Heading as="h1" size="lg" letterSpacing={"-.05rem"}>
             <Link href="/">
               <a href="#">
@@ -63,6 +63,7 @@ const Header = (props) => {
           flexGrow={1}
           width={{ sm: "full", md: "auto" }}
           justifyContent={"flex-end"}
+          className="menu-links"
         >
           <MenuItems>
             <Link href="/">
