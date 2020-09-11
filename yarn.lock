@@ -1676,10 +1676,10 @@
     "@babel/runtime" "^7.0.0"
     gl-matrix "^3.0.0"
 
-"@metastring/multidimensional-charts@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@metastring/multidimensional-charts/-/multidimensional-charts-0.2.2.tgz#4587bba5b62e20b21a2393582e23f62cd378a429"
-  integrity sha512-u2sU65UWIdnp+50/RHpRWydvMRwOk3mY/MsvcRi/DklERI88ukzHLo5D8rG2GBxuL0Ogf10YVVOXoypOEJoBGA==
+"@metastring/multidimensional-charts@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@metastring/multidimensional-charts/-/multidimensional-charts-0.2.4.tgz#16991494ad90a1ba68df02e408c4c5be9340cd24"
+  integrity sha512-udmtscv9fwQveN7a/urh9vItuUPUWBdQx0ZS+qTsbN65aNyGKKLnX0TPOVBeeD6pHlu9eXPTgs14rWcq39WvMQ==
   dependencies:
     d3 "^5.16.0"
 
@@ -9630,6 +9630,11 @@ prepend-http@^1.0.0, prepend-http@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
+
+prettier@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.1.1.tgz#d9485dd5e499daa6cb547023b87a6cf51bee37d6"
+  integrity sha512-9bY+5ZWCfqj3ghYBLxApy2zf6m+NJo5GzmLTpr9FsApsfjriNnS2dahWReHMi7qNPhhHl9SYHJs2cHZLgexNIw==
 
 pretty-format@^25.2.1, pretty-format@^25.5.0:
   version "25.5.0"
