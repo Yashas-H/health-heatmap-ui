@@ -37,6 +37,9 @@
 	cursor: pointer;
 	a {
 		margin-top: 5px;
+		&:hover{
+			text-decoration: none;
+		}
 	}
 	.link-text {
 		margin-top: 1rem;

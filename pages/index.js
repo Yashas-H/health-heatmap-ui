@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Button, Text, Stack, Box, SimpleGrid, Icon } from '@chakra-ui/core';
+import { Button, Text, Stack, Box, SimpleGrid, Icon, Link as PageLink } from '@chakra-ui/core';
 import { Link as ScrollLink, Element } from 'react-scroll';
 
 import Layout from '../components/Layout';
@@ -33,7 +33,7 @@ export default function Home() {
 				<Stack>
 					<SimpleGrid columns={3} spacing={5} marginY="3rem">
 						<Box className="link-box-home">
-							<Link href="/composite">
+							<PageLink href="/composite" textDecoration="none">
 								<>
 									<Text fontWeight="bold" fontSize="18px" color="#014491">
 										Explore district on health status <Icon name="arrow-forward" color="014491" />
@@ -56,11 +56,11 @@ export default function Home() {
 									</Text>
 									<Text>Explore, build and visualize the composite index.</Text>
 								</>
-							</Link>
+							</PageLink>
 						</Box>
 
 						<Box className="link-box-home">
-							<Link href="/idsp">
+							<PageLink href="/idsp" textDecoration="none">
 								<>
 									<Text fontWeight="bold" fontSize="18px" color="#014491">
 										Visualize the spread of infectious diseases in India{' '}
@@ -84,11 +84,11 @@ export default function Home() {
 										time and geography.
 									</Text>
 								</>
-							</Link>
+							</PageLink>
 						</Box>
 
 						<Box className="link-box-home">
-							<Link href="/map">
+							<PageLink href="/map" textDecoration="none">
 								<>
 									<Text fontWeight="bold" fontSize="18px" color="#014491">
 										Deep dive into health indicators of India{' '}
@@ -110,7 +110,7 @@ export default function Home() {
 									</Text>
 									<Text>Explore health indicators of India.</Text>
 								</>
-							</Link>
+							</PageLink>
 						</Box>
 					</SimpleGrid>
 				</Stack>
