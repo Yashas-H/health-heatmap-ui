@@ -40,7 +40,7 @@ export default function IDSP() {
                 <IDSPSidebar filter={filter} dispatchFilter={dispatchFilter} />
               </Box>
 
-              <Box className="vis-right-column">
+              <Box className="vis-right-column" borderLeft="1px solid #ccc">
                 <div className="visualization-area">
                   <IDSPDataSide
                     filter={filter}

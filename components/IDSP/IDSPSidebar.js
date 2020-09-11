@@ -30,7 +30,6 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
 			direction="column"
 			alignItems="left"
 			textAlign="center"
-			borderRight="1px solid #ccc"
 			height="calc(100vh - 62px)"
 			overflowY="scroll"
 		>
