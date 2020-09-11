@@ -57,6 +57,7 @@ function Layer({ layer, q, onAddToMap, selectedLayers, layersLoading }) {
 						{layer.license}
 					</Badge>
 				</Box>
+				<Text fontSize="12px">Source: IBP</Text>
 				<Button
 					size="xs"
 					minW="5rem"

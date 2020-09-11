@@ -79,6 +79,10 @@ function MetadatPopUpIBP() {
 									<Text fontSize="sm">{metadata.license}</Text>
 								</Stack>
 								<Stack spacing={0}>
+									<Text fontSize="xs">Source</Text>
+									<Text fontSize="sm">IBP</Text>
+								</Stack>
+								<Stack spacing={0}>
 									<Text fontSize="xs">Attribution</Text>
 									<CollapsibleText fontSize="sm">{metadata.attribution}</CollapsibleText>
 								</Stack>
