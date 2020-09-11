@@ -4,7 +4,7 @@
 		"nakshaApi": "http://49.206.244.232/naksha-api/api"
 	},
 	"production": {
-		"apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
+		"apiBaseUrl": "http://128.199.30.8:8092/api",
 		"nakshaApi": "http://49.206.244.232/naksha-api/api"
 	},
 	"qa": {
