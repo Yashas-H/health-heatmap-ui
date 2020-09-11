@@ -203,7 +203,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 							{layer.indicator ? layer.indicator.indicatorName : layer.layerName}
 						</Text>
 						<Text fontWeight="300" fontSize="12px">
-							Source: {layer.indicator ? layer.indicator.source : layer.createdBy}
+							Source: {layer.indicator ? layer.indicator.source : "IBP"}
 						</Text>
 					</Box>
 				</Stack>
