@@ -74,7 +74,7 @@ const Header = (props) => {
 						</Link>
 					</MenuItems>
 					<MenuItems>
-						<Link href="/map">
+						<Link href="/about">
 							<a href="#">About</a>
 						</Link>
 					</MenuItems>
