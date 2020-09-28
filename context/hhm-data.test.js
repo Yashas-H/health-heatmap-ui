@@ -10,12 +10,31 @@ describe("filter reducer", () => {
     };
     const newState = filterReducer(state, {
       type: "remove-term-entirely",
-      payload: ["indicator.id"],
+      payload: "indicator.id",
     });
 
     expect(newState).toEqual({
       terms: {
         "entity.State": ["Something"],
+      },
+    });
+  });
+
+  it("add-term should add correctly", () => {
+    const state = {
+      terms: {
+        "entity.State": ["Something"],
+      },
+    };
+    const newState = filterReducer(state, {
+      type: "add-term",
+      payload: ["indicator.id", "MMR"],
+    });
+
+    expect(newState).toEqual({
+      terms: {
+        "entity.State": ["Something"],
+        "indicator.id": ["MMR"]
       },
     });
   });
