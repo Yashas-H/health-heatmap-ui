@@ -21,9 +21,9 @@ function SelectedShow({ filter }) {
           </Box>
           <Stack className="layer-stack" marginTop="-28px">
             <Stack className="layer-loading-stack">
-                <Text p="10px 10px 0px" fontWeight="extrabold" fontSize="16px">
-                  Indicators Included
-                </Text>
+              <Text p="10px 10px 0px" fontWeight="extrabold" fontSize="16px">
+                Indicators Included
+              </Text>
               {_.map(selectedIndicators, (indicator) => (
                 <Stack
                   key={indicator}

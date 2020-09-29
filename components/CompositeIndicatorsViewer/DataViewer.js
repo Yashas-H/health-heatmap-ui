@@ -27,7 +27,7 @@ export default function DataViewer({ filter }) {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Map data={compositeScores} filter={filter}/>
+            <Map data={compositeScores} filter={filter} />
           </TabPanel>
           <TabPanel>
             {compositeScoreLoading ? (

@@ -61,7 +61,7 @@ const Map = ({ filter, data }) => {
         // hiddenLayers={[{ id: 254 }, { id: 255 }]}
         externalLayers={externalLayers}
       />
-      <SelectedShow filter={filter}/>
+      <SelectedShow filter={filter} />
     </div>
   );
 };

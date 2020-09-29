@@ -39,9 +39,7 @@ const statesInOrder = [
   "Kerala",
 ];
 
-statesInOrder.reverse()
+statesInOrder.reverse();
 
 export const getDomainFromStates = (states) =>
-  statesInOrder.filter((s) =>
-    contains(states ?? [], s)
-  );
+  statesInOrder.filter((s) => contains(states ?? [], s));

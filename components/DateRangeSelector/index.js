@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker'
+import React, { useState } from "react";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 
-import './styles.scss';
+import "./styles.scss";
 
 function DateRangeSelector() {
-  const [date, setDate] = useState([new Date(), new Date()],);
+  const [date, setDate] = useState([new Date(), new Date()]);
 
-  return (
-    <DateRangePicker
-        onChange={date => setDate(date)}
-        value={date}
-    />
-  );
+  return <DateRangePicker onChange={(date) => setDate(date)} value={date} />;
 }
 
 export default DateRangeSelector;

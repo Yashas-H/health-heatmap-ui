@@ -1,169 +1,169 @@
 .sidebar-container {
-	.sidebar-header {
-		z-index: 1;
-		background: #fff;
-		border-bottom: 1px dotted #ccc;
-	}
-	.searchbox {
-		border: 1px solid #e0e0e0;
-		margin: 8px 12px;
-		border-radius: 5px;
-		input#search-bar {
-			margin: 0 auto;
-			width: 100%;
-			height: 35px;
-			padding: 0 15px;
-			font-size: 12px;
-			border: none;
-			outline: none;
-			border-radius: 0;
-			&:focus {
-				border: 1px solid #008abf;
-				transition: 0.35s ease;
-				// color: #008ABF;
-				&::-webkit-input-placeholder {
-					transition: opacity 0.45s ease;
-					opacity: 0;
-				}
-				&::-moz-placeholder {
-					transition: opacity 0.45s ease;
-					opacity: 0;
-				}
-				&:-ms-placeholder {
-					transition: opacity 0.45s ease;
-					opacity: 0;
-				}
-			}
-		}
-		.search-icon {
-			svg {
-				position: relative;
-				float: right;
-				width: 20px;
-				height: 20px;
-				top: -29px;
-				right: 14px;
-				color: #929292;
-			}
-		}
-	}
-	.expand-all-stack {
-		padding: 1px 16px;
-		.expand-collapse-btn {
-			font-size: 12px;
-			color: #3182ce;
-			font-weight: 400;
-			cursor: pointer;
-			margin-right: 10px;
-		}
-	}
-	.inidicator-list {
-		overflow-y: scroll;
-		height: calc(100% - 62px);
-		position: fixed;
-		width: 30%;
-		background: #fff;
-		padding-bottom: 110px;
-	}
-	.ibp-layer-description {
-		display: block;
-		display: -webkit-box;
-		max-width: 400px;
-		max-height: 55.2px;
-		margin: 0 auto;
-		font-size: 14px;
-		line-height: 1.4;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
+  .sidebar-header {
+    z-index: 1;
+    background: #fff;
+    border-bottom: 1px dotted #ccc;
+  }
+  .searchbox {
+    border: 1px solid #e0e0e0;
+    margin: 8px 12px;
+    border-radius: 5px;
+    input#search-bar {
+      margin: 0 auto;
+      width: 100%;
+      height: 35px;
+      padding: 0 15px;
+      font-size: 12px;
+      border: none;
+      outline: none;
+      border-radius: 0;
+      &:focus {
+        border: 1px solid #008abf;
+        transition: 0.35s ease;
+        // color: #008ABF;
+        &::-webkit-input-placeholder {
+          transition: opacity 0.45s ease;
+          opacity: 0;
+        }
+        &::-moz-placeholder {
+          transition: opacity 0.45s ease;
+          opacity: 0;
+        }
+        &:-ms-placeholder {
+          transition: opacity 0.45s ease;
+          opacity: 0;
+        }
+      }
+    }
+    .search-icon {
+      svg {
+        position: relative;
+        float: right;
+        width: 20px;
+        height: 20px;
+        top: -29px;
+        right: 14px;
+        color: #929292;
+      }
+    }
+  }
+  .expand-all-stack {
+    padding: 1px 16px;
+    .expand-collapse-btn {
+      font-size: 12px;
+      color: #3182ce;
+      font-weight: 400;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  }
+  .inidicator-list {
+    overflow-y: scroll;
+    height: calc(100% - 62px);
+    position: fixed;
+    width: 30%;
+    background: #fff;
+    padding-bottom: 110px;
+  }
+  .ibp-layer-description {
+    display: block;
+    display: -webkit-box;
+    max-width: 400px;
+    max-height: 55.2px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.4;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 .accordion-container {
-	margin-bottom: 0;
-	margin: 10px 0;
-	.sub-group-accordion:last-child {
-		margin-bottom: 30px;
-	}
-	.indicator-item:last-child {
-		margin-bottom: 20px;
-	}
-	.accordion-header {
-		color: #5a5a5a;
-		padding: 2px 6px;
-		font-weight: bold;
-		font-size: 15px;
-		cursor: pointer;
-		svg {
-			color: #9c9c9c;
-			width: 16px;
-			height: 16px;
-			display: inline;
-		}
-	}
-	li {
-		list-style: none;
-		margin-left: 6px;
-		&.indicator-item {
-			margin-left: 5px;
-			margin-right: 5px;
-		}
-		&.sub-group {
-			font-size: 14px;
-			margin-top: 5px;
-			padding-right: 5px;
-			font-weight: 300;
-			&.has-border {
-				border-radius: 5px;
-				border: 1px solid #f3f3f3;
-			}
-			.sub-group-chevy {
-				svg {
-					width: 20px;
-					height: 20px;
-				}
-			}
-			.sub-group-header {
-				padding: 2px 12px;
-				font-weight: normal;
-				cursor: pointer;
-				padding-right: 0;
-				svg {
-					color: #9c9c9c;
-					width: 16px;
-					height: 16px;
-					display: inline;
-				}
-			}
-		}
+  margin-bottom: 0;
+  margin: 10px 0;
+  .sub-group-accordion:last-child {
+    margin-bottom: 30px;
+  }
+  .indicator-item:last-child {
+    margin-bottom: 20px;
+  }
+  .accordion-header {
+    color: #5a5a5a;
+    padding: 2px 6px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    svg {
+      color: #9c9c9c;
+      width: 16px;
+      height: 16px;
+      display: inline;
+    }
+  }
+  li {
+    list-style: none;
+    margin-left: 6px;
+    &.indicator-item {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    &.sub-group {
+      font-size: 14px;
+      margin-top: 5px;
+      padding-right: 5px;
+      font-weight: 300;
+      &.has-border {
+        border-radius: 5px;
+        border: 1px solid #f3f3f3;
+      }
+      .sub-group-chevy {
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .sub-group-header {
+        padding: 2px 12px;
+        font-weight: normal;
+        cursor: pointer;
+        padding-right: 0;
+        svg {
+          color: #9c9c9c;
+          width: 16px;
+          height: 16px;
+          display: inline;
+        }
+      }
+    }
 
-		.indicators-list {
-			margin-left: 18px;
-			.indicator-item {
-				.label-inline {
-					margin-top: -20px;
-					font-family: inherit;
-					font-size: 13px;
-					display: block;
-					.indicator-title {
-						margin-left: 12px;
-						padding-right: 12px;
-					}
-				}
-			}
-			&.hidden {
-				display: none;
-			}
-		}
-	}
+    .indicators-list {
+      margin-left: 18px;
+      .indicator-item {
+        .label-inline {
+          margin-top: -20px;
+          font-family: inherit;
+          font-size: 13px;
+          display: block;
+          .indicator-title {
+            margin-left: 12px;
+            padding-right: 12px;
+          }
+        }
+      }
+      &.hidden {
+        display: none;
+      }
+    }
+  }
 }
 .count-badge {
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-	font-size: 12px;
-	line-height: 18px;
-	text-align: center;
-	color: #505050;
-	background: #e6e6e6;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: #505050;
+  background: #e6e6e6;
 }

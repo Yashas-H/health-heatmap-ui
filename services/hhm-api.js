@@ -33,17 +33,15 @@ export const getCompositeScores = (filter) =>
     });
 
 export const getData = (filter, fields) => {
-  const req = request
-    .post(`${API_ROOT}/data`)
-  
+  const req = request.post(`${API_ROOT}/data`);
+
   if (Array.isArray(fields)) {
-    fields.forEach(field => {
-      req.query({include: field})
-    })
+    fields.forEach((field) => {
+      req.query({ include: field });
+    });
   }
   return req
     .send(filter)
     .then((res) => res.body)
     .catch((err) => err.response?.body?.errors?.[0] ?? err);
-}
-  
+};

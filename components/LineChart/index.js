@@ -1,47 +1,47 @@
-import React from 'react';
-import {Line, defaults} from 'react-chartjs-2';
-import moment from 'moment';
+import React from "react";
+import { Line, defaults } from "react-chartjs-2";
+import moment from "moment";
 
 const stateCodes = {
-  AP: 'Andhra Pradesh',
-  AR: 'Arunachal Pradesh',
-  AS: 'Assam',
-  BR: 'Bihar',
-  CT: 'Chhattisgarh',
-  GA: 'Goa',
-  GJ: 'Gujarat',
-  HR: 'Haryana',
-  HP: 'Himachal Pradesh',
-  JH: 'Jharkhand',
-  KA: 'Karnataka',
-  KL: 'Kerala',
-  MP: 'Madhya Pradesh',
-  MH: 'Maharashtra',
-  MN: 'Manipur',
-  ML: 'Meghalaya',
-  MZ: 'Mizoram',
-  NL: 'Nagaland',
-  OR: 'Odisha',
-  PB: 'Punjab',
-  RJ: 'Rajasthan',
-  SK: 'Sikkim',
-  TN: 'Tamil Nadu',
-  TG: 'Telangana',
-  TR: 'Tripura',
-  UT: 'Uttarakhand',
-  UP: 'Uttar Pradesh',
-  WB: 'West Bengal',
-  AN: 'Andaman and Nicobar Islands',
-  CH: 'Chandigarh',
-  DN: 'Dadra and Nagar Haveli',
-  DD: 'Daman and Diu',
-  DL: 'Delhi',
-  JK: 'Jammu and Kashmir',
-  LA: 'Ladakh',
-  LD: 'Lakshadweep',
-  PY: 'Puducherry',
+  AP: "Andhra Pradesh",
+  AR: "Arunachal Pradesh",
+  AS: "Assam",
+  BR: "Bihar",
+  CT: "Chhattisgarh",
+  GA: "Goa",
+  GJ: "Gujarat",
+  HR: "Haryana",
+  HP: "Himachal Pradesh",
+  JH: "Jharkhand",
+  KA: "Karnataka",
+  KL: "Kerala",
+  MP: "Madhya Pradesh",
+  MH: "Maharashtra",
+  MN: "Manipur",
+  ML: "Meghalaya",
+  MZ: "Mizoram",
+  NL: "Nagaland",
+  OR: "Odisha",
+  PB: "Punjab",
+  RJ: "Rajasthan",
+  SK: "Sikkim",
+  TN: "Tamil Nadu",
+  TG: "Telangana",
+  TR: "Tripura",
+  UT: "Uttarakhand",
+  UP: "Uttar Pradesh",
+  WB: "West Bengal",
+  AN: "Andaman and Nicobar Islands",
+  CH: "Chandigarh",
+  DN: "Dadra and Nagar Haveli",
+  DD: "Daman and Diu",
+  DL: "Delhi",
+  JK: "Jammu and Kashmir",
+  LA: "Ladakh",
+  LD: "Lakshadweep",
+  PY: "Puducherry",
 };
-function getStateName(key){
+function getStateName(key) {
   return stateCodes[key.toUpperCase()];
 }
 
@@ -51,21 +51,21 @@ function LineChart(props) {
   defaults.global.elements.line.fill = false;
 
   defaults.global.tooltips.intersect = false;
-  defaults.global.tooltips.mode = 'nearest';
-  defaults.global.tooltips.position = 'average';
-  defaults.global.tooltips.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+  defaults.global.tooltips.mode = "nearest";
+  defaults.global.tooltips.position = "average";
+  defaults.global.tooltips.backgroundColor = "rgba(255, 255, 255, 0.6)";
   defaults.global.tooltips.displayColors = false;
-  defaults.global.tooltips.borderColor = '#c62828';
+  defaults.global.tooltips.borderColor = "#c62828";
   defaults.global.tooltips.borderWidth = 1;
-  defaults.global.tooltips.titleFontColor = '#000';
-  defaults.global.tooltips.bodyFontColor = '#000';
+  defaults.global.tooltips.titleFontColor = "#000";
+  defaults.global.tooltips.bodyFontColor = "#000";
   defaults.global.tooltips.caretPadding = 4;
   defaults.global.tooltips.intersect = false;
-  defaults.global.tooltips.mode = 'nearest';
-  defaults.global.tooltips.position = 'nearest';
+  defaults.global.tooltips.mode = "nearest";
+  defaults.global.tooltips.position = "nearest";
 
   defaults.global.legend.display = true;
-  defaults.global.legend.position = 'bottom';
+  defaults.global.legend.position = "bottom";
 
   defaults.global.hover.intersect = false;
 
@@ -76,16 +76,16 @@ function LineChart(props) {
   const statesData = new Map();
 
   props.data.forEach((data, index) => {
-    if (data.status !== 'Confirmed') {
+    if (data.status !== "Confirmed") {
       return;
     }
 
     Object.keys(data).forEach((key) => {
-      if (key === 'date') {
-        dates.push(moment(data.date.trim(), 'DD MMM'));
+      if (key === "date") {
+        dates.push(moment(data.date.trim(), "DD MMM"));
       }
 
-      if (key === 'status' || key === 'date') {
+      if (key === "status" || key === "date") {
         return;
       }
 
@@ -96,7 +96,7 @@ function LineChart(props) {
         statesData.get(key).length > 0
           ? parseInt(statesData.get(key)[statesData.get(key).length - 1])
           : 0;
-      const currentValue = data[key] !== '' ? parseInt(data[key]) : 0;
+      const currentValue = data[key] !== "" ? parseInt(data[key]) : 0;
       statesData.get(key).push(previousValue + currentValue);
     });
   });
@@ -108,27 +108,27 @@ function LineChart(props) {
   );
 
   const colors = [
-    '#ff073a',
-    '#28a745',
-    '#342ead',
-    '#7D5BA6',
-    '#DD7596',
-    '#16c8f0',
-    '#f67575',
-    '#2b580c',
-    '#9D44B5',
-    '#91132d',
-    '#6D9DC5',
-    '#2b580c',
-    '#6c757d',
-    '#f67575',
-    '#d4f8e8',
+    "#ff073a",
+    "#28a745",
+    "#342ead",
+    "#7D5BA6",
+    "#DD7596",
+    "#16c8f0",
+    "#f67575",
+    "#2b580c",
+    "#9D44B5",
+    "#91132d",
+    "#6D9DC5",
+    "#2b580c",
+    "#6c757d",
+    "#f67575",
+    "#d4f8e8",
   ];
 
   let index = 0;
   const datasets = [];
   sortedMap.forEach((data, key) => {
-    if (key === 'tt') {
+    if (key === "tt") {
       return;
     }
 
@@ -139,7 +139,7 @@ function LineChart(props) {
     datasets.push({
       borderWidth: 1.5,
       data: statesData.get(key),
-      borderCapStyle: 'round',
+      borderCapStyle: "round",
       pointBackgroundColor: colors[index],
       label: getStateName(key),
       borderColor: colors[index],
@@ -156,10 +156,10 @@ function LineChart(props) {
 
   const options = {
     responsive: true,
-    events: ['click', 'mousemove', 'mouseout', 'touchstart', 'touchmove'],
+    events: ["click", "mousemove", "mouseout", "touchstart", "touchmove"],
     maintainAspectRatio: false,
     tooltips: {
-      mode: 'index',
+      mode: "index",
     },
     elements: {
       point: {
@@ -180,7 +180,7 @@ function LineChart(props) {
     scales: {
       yAxes: [
         {
-          type: 'linear',
+          type: "linear",
           ticks: {
             beginAtZero: true,
             max: undefined,
@@ -188,31 +188,31 @@ function LineChart(props) {
           },
           scaleLabel: {
             display: false,
-            labelString: 'Total Cases',
+            labelString: "Total Cases",
           },
         },
       ],
       xAxes: [
         {
-          type: 'time',
+          type: "time",
           time: {
-            unit: 'day',
-            tooltipFormat: 'MMM DD',
+            unit: "day",
+            tooltipFormat: "MMM DD",
             stepSize: 7,
             displayFormats: {
-              millisecond: 'MMM DD',
-              second: 'MMM DD',
-              minute: 'MMM DD',
-              hour: 'MMM DD',
-              day: 'MMM DD',
-              week: 'MMM DD',
-              month: 'MMM DD',
-              quarter: 'MMM DD',
-              year: 'MMM DD',
+              millisecond: "MMM DD",
+              second: "MMM DD",
+              minute: "MMM DD",
+              hour: "MMM DD",
+              day: "MMM DD",
+              week: "MMM DD",
+              month: "MMM DD",
+              quarter: "MMM DD",
+              year: "MMM DD",
             },
           },
           gridLines: {
-            color: 'rgba(0, 0, 0, 0)',
+            color: "rgba(0, 0, 0, 0)",
           },
         },
       ],
@@ -223,7 +223,7 @@ function LineChart(props) {
     <div className="charts-header">
       <div className="chart-title">{props.title}</div>
       <div className="chart-content">
-        <Line data={dataset} options={options} height={500}/>
+        <Line data={dataset} options={options} height={500} />
       </div>
     </div>
   );

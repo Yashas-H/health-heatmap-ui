@@ -34,7 +34,7 @@ describe("filter reducer", () => {
     expect(newState).toEqual({
       terms: {
         "entity.State": ["Something"],
-        "indicator.id": ["MMR"]
+        "indicator.id": ["MMR"],
       },
     });
   });

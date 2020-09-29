@@ -4,10 +4,10 @@ The frontend of [healthheatmapindia.org](https://healthheatmapindia.org)
 
 Technologies used:
 
-* React & Next.js
-* Mapbox
-* d3
-* Chakra UI
+- React & Next.js
+- Mapbox
+- d3
+- Chakra UI
 
 ## Quick start
 
@@ -25,4 +25,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 This project is licensed under the Apache-2.0, Copyright (c) 2020 Metastring Foundation - [metastringfoundation.org](https://www.metastringfoundation.org/)
-

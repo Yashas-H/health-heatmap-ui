@@ -42,9 +42,7 @@ export default function IDSP() {
 
               <Box className="vis-right-column" borderLeft="1px solid #ccc">
                 <div className="visualization-area">
-                  <IDSPDataSide
-                    filter={filter}
-                  />
+                  <IDSPDataSide filter={filter} />
                 </div>
               </Box>
             </Grid>

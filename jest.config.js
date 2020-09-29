@@ -1,3 +1,3 @@
 module.exports = {
-    modulePaths: ["<rootDir>/"]
-  }
+  modulePaths: ["<rootDir>/"],
+};

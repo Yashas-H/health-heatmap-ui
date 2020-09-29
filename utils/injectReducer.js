@@ -1,8 +1,8 @@
-import React from 'react';
-import hoistNonReactStatics from 'hoist-non-react-statics';
-import { ReactReduxContext } from 'react-redux';
+import React from "react";
+import hoistNonReactStatics from "hoist-non-react-statics";
+import { ReactReduxContext } from "react-redux";
 
-import getInjectors from './reducerInjectors';
+import getInjectors from "./reducerInjectors";
 
 /**
  * Dynamically injects a reducer
@@ -11,15 +11,15 @@ import getInjectors from './reducerInjectors';
  * @param {function} reducer A reducer that will be injected
  *
  */
-export default ({ key, reducer }) => WrappedComponent => {
+export default ({ key, reducer }) => (WrappedComponent) => {
   class ReducerInjector extends React.Component {
     static WrappedComponent = WrappedComponent;
 
     static contextType = ReactReduxContext;
 
-    static displayName = `withReducer(${WrappedComponent.displayName ||
-      WrappedComponent.name ||
-      'Component'})`;
+    static displayName = `withReducer(${
+      WrappedComponent.displayName || WrappedComponent.name || "Component"
+    })`;
 
     constructor(props, context) {
       super(props, context);

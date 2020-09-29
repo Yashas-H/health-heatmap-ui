@@ -1,16 +1,16 @@
-@import './home.scss';
-@import './about.scss';
-@import './map.scss';
-@import './filters.scss';
-@import './components/map.scss';
-@import './components/sidebar.scss';
-@import './components/header.scss';
-@import './components/datagrid.scss';
-@import './components/filters.scss';
-@import './components/layers.scss';
+@import "./home.scss";
+@import "./about.scss";
+@import "./map.scss";
+@import "./filters.scss";
+@import "./components/map.scss";
+@import "./components/sidebar.scss";
+@import "./components/header.scss";
+@import "./components/datagrid.scss";
+@import "./components/filters.scss";
+@import "./components/layers.scss";
 body {
-	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 button:focus {
-	box-shadow: none !important;
+  box-shadow: none !important;
 }

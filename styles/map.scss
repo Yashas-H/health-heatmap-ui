@@ -1,58 +1,58 @@
-.visualization-area{
-    min-height:calc(100% - 50px);
+.visualization-area {
+  min-height: calc(100% - 50px);
 }
-.react-tabs{
-    .react-tabs__tab-list{
-        background: #fff;
-        border-bottom: none;
-        margin-bottom: 0;
-        font-size: 13px;
-        font-weight: normal;
-        .react-tabs__tab{
-            &:focus{
-                box-shadow: none;
-            }
-        }
-        .react-tabs__tab--selected{
-            border: none;
-            border-bottom: 4px solid #2196F3;
-        }
+.react-tabs {
+  .react-tabs__tab-list {
+    background: #fff;
+    border-bottom: none;
+    margin-bottom: 0;
+    font-size: 13px;
+    font-weight: normal;
+    .react-tabs__tab {
+      &:focus {
+        box-shadow: none;
+      }
     }
-}
-.vis-menu-area{
-    display: flex;
-    justify-content: flex-end;
-    padding-bottom: 0;
-    align-items: center;
-    height: 100%;
-}
-.vis-right-column{
-    padding: 0 !important;
-}
-.indicator-selector{
-    .indicator-dropdown{
-        width: calc(100%);
-        padding: 0 5px 3px 0;
-        .select__single-value{
-            top: 15px !important;
-            color: hsl(217, 84%, 34%);
-        }
-        .select__value-container{
-            font-size: 14px;
-            font-weight: normal;
-        }
-        #react-select-2-input{
-            height: 0 !important;
-        }
-        .select__dropdown-indicator{
-            padding-top: 0;
-        }
-        .select__indicator-separator{
-            margin-top: 0;
-        }
+    .react-tabs__tab--selected {
+      border: none;
+      border-bottom: 4px solid #2196f3;
     }
+  }
 }
-.select__menu{
-    font-size: 12px;
-    font-weight: 400;
+.vis-menu-area {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0;
+  align-items: center;
+  height: 100%;
+}
+.vis-right-column {
+  padding: 0 !important;
+}
+.indicator-selector {
+  .indicator-dropdown {
+    width: calc(100%);
+    padding: 0 5px 3px 0;
+    .select__single-value {
+      top: 15px !important;
+      color: hsl(217, 84%, 34%);
+    }
+    .select__value-container {
+      font-size: 14px;
+      font-weight: normal;
+    }
+    #react-select-2-input {
+      height: 0 !important;
+    }
+    .select__dropdown-indicator {
+      padding-top: 0;
+    }
+    .select__indicator-separator {
+      margin-top: 0;
+    }
+  }
+}
+.select__menu {
+  font-size: 12px;
+  font-weight: 400;
 }

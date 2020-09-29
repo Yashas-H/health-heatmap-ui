@@ -1,14 +1,14 @@
 {
-	"development": {
-		"apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
-		"nakshaApi": "http://128.199.30.8/naksha-api/api"
-	},
-	"production": {
-		"apiBaseUrl": "https://healthheatmapindia.org/api",
-		"nakshaApi": "https://healthheatmapindia.org/naksha-api/api"
-	},
-	"qa": {
-		"apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
-		"nakshaApi": "http://128.199.30.8/naksha-api/api"
-	}
+  "development": {
+    "apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
+    "nakshaApi": "http://128.199.30.8/naksha-api/api"
+  },
+  "production": {
+    "apiBaseUrl": "https://healthheatmapindia.org/api",
+    "nakshaApi": "https://healthheatmapindia.org/naksha-api/api"
+  },
+  "qa": {
+    "apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
+    "nakshaApi": "http://128.199.30.8/naksha-api/api"
+  }
 }
