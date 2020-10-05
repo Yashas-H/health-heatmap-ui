@@ -12,17 +12,17 @@ export default function formatMapData(data, type, opacity) {
   const chromaScale = data.legendType === "POSITIVE" ? "YlGn" : "OrRd";
   // Parse data
   const apiData = type === DISTRICT ? data.district : data.state;
-  let layer = type === DISTRICT ? distMap : stateMap;
+  const layer = type === DISTRICT ? distMap : stateMap;
 
   const colors = chroma.scale(chromaScale).colors(Object.keys(apiData).length);
-  let max = Math.max.apply(
+  const max = Math.max.apply(
     Math,
     _.map(apiData, (o) =>
       isNaN(parseFloat(o[0].value)) ? 0 : parseFloat(o[0].value)
     )
   );
 
-  let min = Math.min.apply(
+  const min = Math.min.apply(
     Math,
     _.map(apiData, (o) =>
       isNaN(parseFloat(o[0].value)) ? 0 : parseFloat(o[0].value)
@@ -52,7 +52,7 @@ export default function formatMapData(data, type, opacity) {
   const legendColors = chroma.scale(chromaScale).colors(6);
   const l = _.map(legendColors, (color, i) => {
     return {
-      color: color,
+      color,
       value: parseInt(min + Math.ceil(i * step)),
     };
   });
@@ -62,7 +62,7 @@ export default function formatMapData(data, type, opacity) {
     indicatorName: data.indicatorName,
     legendType: data.legendType,
     source: data.source,
-    data: data,
+    data,
     legends: l.reverse(),
   };
   return layer;

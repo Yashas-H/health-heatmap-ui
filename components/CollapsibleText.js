@@ -15,7 +15,8 @@ function CollapsibleText({ children }) {
       {expanded ? children.toString() : c}
       {needsExpansion && (
         <Link color="gray.400" onClick={() => setExpanded(!expanded)}>
-          ...{linkText}
+          ...
+          {linkText}
         </Link>
       )}
     </Text>

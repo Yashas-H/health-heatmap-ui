@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "./Link";
 import { Box, Heading, Flex, Text } from "@chakra-ui/core";
+import Link from "./Link";
 
 const MenuItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
@@ -25,10 +25,12 @@ const Header = (props) => {
         {...props}
       >
         <Flex align="center" mr={5} padding="1rem">
-          <Heading as="h1" size="lg" letterSpacing={"-.05rem"}>
+          <Heading as="h1" size="lg" letterSpacing="-.05rem">
             <Link href="/">
               <a href="#">
-                Health Heatmap <sup className="title-sup">beta</sup>
+                Health Heatmap 
+                {' '}
+                <sup className="title-sup">beta</sup>
               </a>
             </Link>
           </Heading>
@@ -55,14 +57,14 @@ const Header = (props) => {
           width={{ sm: "full", md: "auto" }}
           alignItems="center"
           flexGrow={1}
-        ></Box>
+        />
 
         <Box
           display={{ sm: show ? "block" : "none", md: "flex" }}
           mt={{ base: 4, md: 0 }}
           flexGrow={1}
           width={{ sm: "full", md: "auto" }}
-          justifyContent={"flex-end"}
+          justifyContent="flex-end"
           className="menu-links"
         >
           <MenuItems>

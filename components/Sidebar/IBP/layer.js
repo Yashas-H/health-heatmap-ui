@@ -21,10 +21,8 @@ function Layer({ layer, q, onAddToMap, selectedLayers, layersLoading }) {
 
   useEffect(() => {
     setSelected(
-      _.indexOf(_.keys(selectedLayers), layer.id) >= 0 ||
-        _.findWhere(layersLoading, { id: layer.id })
-        ? true
-        : false
+      !!(_.indexOf(_.keys(selectedLayers), layer.id) >= 0 ||
+        _.findWhere(layersLoading, { id: layer.id }))
     );
   }, [selectedLayers, layersLoading]);
 
@@ -37,7 +35,7 @@ function Layer({ layer, q, onAddToMap, selectedLayers, layersLoading }) {
       p={0}
       padding="6px"
     >
-      <Stack isInline={true} spacing="2" p={0}>
+      <Stack isInline spacing="2" p={0}>
         <Image
           objectFit="contain"
           flexShrink={0}
@@ -53,7 +51,7 @@ function Layer({ layer, q, onAddToMap, selectedLayers, layersLoading }) {
             onClick={(e) => setShowMetadata({ ...layer, isIbp: true })}
           >
             <Box mt="2px">
-              <Info size={"16px"} color="#717171" />
+              <Info size="16px" color="#717171" />
             </Box>
             <Text mb={1} fontSize="15px" fontWeight="bold">
               <Highlight search={q}>{layer.layerName}</Highlight>

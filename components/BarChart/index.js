@@ -43,7 +43,7 @@ function BarChart({ data, availableIndicators }) {
   const [axis, setAxis] = useState({});
 
   if (!data || data.length === 0) {
-    return <div></div>;
+    return <div />;
   }
 
   const colors = [
@@ -76,12 +76,12 @@ function BarChart({ data, availableIndicators }) {
       data: [],
     };
 
-    /**Create Labels */
+    /** Create Labels */
     const labels = _.map(entities, (entity) => {
       return entity.label;
     });
 
-    /**Create Datasets */
+    /** Create Datasets */
     const datasets = _.map(groups, (group, index) => {
       return {
         ...datasetTemplate,
@@ -99,8 +99,8 @@ function BarChart({ data, availableIndicators }) {
     });
 
     setGraphData({
-      labels: labels,
-      datasets: datasets,
+      labels,
+      datasets,
     });
   };
 

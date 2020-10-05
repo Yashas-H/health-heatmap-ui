@@ -37,7 +37,7 @@ function IndicatorItem({ indicator, q }) {
         <Stack isInline spacing="3px" align="center" my="3px">
           <Box>
             <Info
-              size={"18px"}
+              size="18px"
               cursor="pointer"
               onClick={(e) => setShowMetadata(indicator)}
               color="#717171"
@@ -56,7 +56,9 @@ function IndicatorItem({ indicator, q }) {
             <Text fontSize="sm">
               <Highlight
                 search={q}
-              >{`${indicator["indicator.id"]} (${indicator["source.id"]})`}</Highlight>
+              >
+                {`${indicator["indicator.id"]} (${indicator["source.id"]})`}
+              </Highlight>
             </Text>
           </Checkbox>
         </Stack>
@@ -65,7 +67,7 @@ function IndicatorItem({ indicator, q }) {
           <Stack isInline spacing="3px" align="center" my="3px">
             <Box>
               <Info
-                size={"18px"}
+                size="18px"
                 cursor="pointer"
                 onClick={(e) => setShowMetadata(indicator)}
                 color="#717171"
@@ -87,14 +89,17 @@ function IndicatorItem({ indicator, q }) {
                       selectIndicator({
                         ...indicator,
                         id: source.id,
-                        ["source.id"]: source.name,
+                        "source.id": source.name,
                       });
                     else deSelectIndicator(source.id);
                   }}
                   py={1}
                 >
                   <Text fontSize="sm">
-                    <Highlight search={q}>Source: {source.name}</Highlight>
+                    <Highlight search={q}>
+                      Source:
+                      {source.name}
+                    </Highlight>
                   </Text>
                 </Checkbox>
               </Stack>

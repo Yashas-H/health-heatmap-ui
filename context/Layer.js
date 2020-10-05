@@ -23,14 +23,14 @@ const LayerContextProvider = (props) => {
       setFiltersLoading([...filtersLoading, indicator]);
     }
     let terms = {
-      ["indicator.id"]: [indicator["indicator.id"]],
-      ["source.id"]: [indicator["source.id"]],
+      "indicator.id": [indicator["indicator.id"]],
+      "source.id": [indicator["source.id"]],
     };
     if (filters && !_.isEmpty(filters)) terms = { ...terms, ...filters };
     request
       .post(`${AppConstant.config.appBaseUrl}/data/autoFiltered`)
       .send({
-        terms: terms,
+        terms,
       })
       .then((res) => {
         let stateData = _.filter(
@@ -52,7 +52,7 @@ const LayerContextProvider = (props) => {
             indicator["indicator.Positive/Negative"] || indicator.legendType,
           source: indicator["source.id"],
           id: indicator.id,
-          filteredData: filters ? true : false,
+          filteredData: !!filters,
         });
         setLoadedData({
           ...loadedData,
@@ -105,8 +105,8 @@ const LayerContextProvider = (props) => {
       .post(`${AppConstant.config.appBaseUrl}/filters`)
       .send({
         terms: {
-          ["indicator.id"]: [indicator.indicatorName],
-          ["source.id"]: [indicator.source],
+          "indicator.id": [indicator.indicatorName],
+          "source.id": [indicator.source],
         },
       })
       .then((res) => {
@@ -123,21 +123,21 @@ const LayerContextProvider = (props) => {
   return (
     <LayerContext.Provider
       value={{
-        selectedLayers: selectedLayers,
-        setSelectedLayers: setSelectedLayers,
-        loadIndicatorData: loadIndicatorData,
-        currentIndicatorData: currentIndicatorData,
-        showMetadata: showMetadata,
-        setShowMetadata: setShowMetadata,
-        layersLoading: layersLoading,
-        setLayersLoading: setLayersLoading,
-        loadedData: loadedData,
-        setLoadedData: setLoadedData,
-        filtersAvailable: filtersAvailable,
-        getFilterInfoForIndicator: getFilterInfoForIndicator,
-        filtersLoading: filtersLoading,
-        layerEntity: layerEntity,
-        setLayerEntity: setLayerEntity,
+        selectedLayers,
+        setSelectedLayers,
+        loadIndicatorData,
+        currentIndicatorData,
+        showMetadata,
+        setShowMetadata,
+        layersLoading,
+        setLayersLoading,
+        loadedData,
+        setLoadedData,
+        filtersAvailable,
+        getFilterInfoForIndicator,
+        filtersLoading,
+        layerEntity,
+        setLayerEntity,
       }}
     >
       {props.children}

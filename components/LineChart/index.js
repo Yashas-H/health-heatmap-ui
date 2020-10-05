@@ -70,7 +70,7 @@ function LineChart(props) {
   defaults.global.hover.intersect = false;
 
   if (!props.data || props.data.length === 0) {
-    return <div></div>;
+    return <div />;
   }
 
   const statesData = new Map();
@@ -151,7 +151,7 @@ function LineChart(props) {
 
   const dataset = {
     labels: dates,
-    datasets: datasets,
+    datasets,
   };
 
   const options = {

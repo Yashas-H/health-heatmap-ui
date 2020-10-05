@@ -49,7 +49,7 @@ const Map = ({ filter, data }) => {
           pitch: 0,
           minZoom: 3.5,
         }}
-        loadToC={true}
+        loadToC
         showToC={false}
         mapboxApiAccessToken="pk.eyJ1IjoiZGVlcGt0IiwiYSI6ImNrYWRuZHdkdjBiOHYydG1iY3RyaW52ancifQ.7jlcNtPLOyIBA1GdOzLbfg"
         nakshaApiEndpoint={AppConstant.config.nakshaApi}

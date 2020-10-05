@@ -11,19 +11,19 @@ import {
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
-  Tooltip,
-} from "@chakra-ui/core";
-
-import {
+  Tooltip
+,
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverArrow,
   PopoverBody,
   PopoverCloseButton,
-  PopoverHeader,
-} from "@chakra-ui/core";
-import { List, ListItem, ListIcon } from "@chakra-ui/core";
+  PopoverHeader
+, List, ListItem, ListIcon } from "@chakra-ui/core";
+
+
+
 
 import formatMapData from "../../helper/formatMapData";
 import { LayerContext } from "../../context/Layer";
@@ -32,9 +32,9 @@ import Filters from "../Filters";
 
 const filterTypes = ["gender.id", "settlement.id", "socialgroup.id"];
 const filterNames = {
-  ["gender.id"]: "Gender",
-  ["settlement.id"]: "Settlement",
-  ["socialgroup.id"]: "Social Group",
+  "gender.id": "Gender",
+  "settlement.id": "Settlement",
+  "socialgroup.id": "Social Group",
 };
 
 function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
@@ -117,8 +117,8 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
       loadIndicatorData(
         {
           ...i,
-          ["indicator.id"]: i.indicatorName,
-          ["source.id"]: i.source,
+          "indicator.id": i.indicatorName,
+          "source.id": i.source,
         },
         filtersToSend
       );
@@ -175,7 +175,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
 
   const handleDuplicateLayer = (l) => {
     const sl = { ...selectedLayers };
-    let layerOrder = _.keys(selectedLayers);
+    const layerOrder = _.keys(selectedLayers);
     sl[`${l.__id}-DUPE`] = {
       ...l,
       id: `${l.__id}-DUPE`,
@@ -192,7 +192,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
       },
     };
     layerOrder.splice(_.indexOf(layerOrder, l.id), 0, `${l.__id}-DUPE`);
-    let newItems = {};
+    const newItems = {};
     _.each(layerOrder, (lo) => (newItems[lo] = sl[lo]));
     setSelectedLayers(JSON.parse(JSON.stringify(newItems)));
   };
@@ -200,7 +200,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
   const handleShowMetadata = (e) => {
     const metdataInfo = layer.isIbp
       ? { ...layer }
-      : { ...layer.indicator, ["indicator.id"]: layer.indicator.indicatorName };
+      : { ...layer.indicator, "indicator.id": layer.indicator.indicatorName };
     setShowMetadata(metdataInfo);
   };
 
@@ -223,7 +223,9 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
                 : layer.layerName}
             </Text>
             <Text fontWeight="300" fontSize="12px">
-              Source: {layer.indicator ? layer.indicator.source : "IBP"}
+              Source: 
+              {' '}
+              {layer.indicator ? layer.indicator.source : "IBP"}
             </Text>
           </Box>
         </Stack>
@@ -258,19 +260,19 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
           </Slider>
         </Flex>
         <Box>
-          <Stack isInline spacing={3} shouldWrapChildren={true} color="#717171">
+          <Stack isInline spacing={3} shouldWrapChildren color="#717171">
             <Flex align="flex-end">
               <Tooltip label="Show/Hide Layer">
                 <Stack isInline>
                   {opacity ? (
                     <Eye
-                      size={"20px"}
+                      size="20px"
                       cursor="pointer"
                       onClick={(e) => setOpacity(0)}
                     />
                   ) : (
                     <EyeOff
-                      size={"20px"}
+                      size="20px"
                       cursor="pointer"
                       onClick={(e) => setOpacity(100)}
                     />
@@ -284,7 +286,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
                   <>
                     <PopoverTrigger>
                       {/* <Tooltip label="Switch Layer Data"> */}
-                      <Layers size={"20px"} cursor="pointer" />
+                      <Layers size="20px" cursor="pointer" />
                       {/* </Tooltip> */}
                     </PopoverTrigger>
                     <PopoverContent zIndex={4} width="150px">
@@ -325,7 +327,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
                 )}
               </Popover>
             ) : (
-              <Layers size={"20px"} cursor="not-allowed" color="#dcdcdc" />
+              <Layers size="20px" cursor="not-allowed" color="#dcdcdc" />
             )}
             <Tooltip label="Filters">
               <Box
@@ -341,7 +343,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
             </Tooltip>
             <Tooltip label="Layer Information" zIndex="9">
               <Info
-                size={"20px"}
+                size="20px"
                 cursor="pointer"
                 onClick={handleShowMetadata}
               />
@@ -355,8 +357,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
                 onClick={(e) =>
                   removeIndicator(
                     layer.indicator ? layer.indicator.id : layer.id
-                  )
-                }
+                  )}
                 cursor="pointer"
               />
             </Tooltip>
@@ -389,7 +390,7 @@ function Layer({ layer, layerIndex, dragHandleProps, onDuplicateLayer }) {
                       style={{
                         backgroundColor: d.color,
                       }}
-                    ></Box>
+                    />
                     <Box textAlign="center">{d.value}</Box>
                   </Box>
                 );

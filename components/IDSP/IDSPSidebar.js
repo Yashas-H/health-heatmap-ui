@@ -56,7 +56,7 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
             style={{
               width: `100%`,
             }}
-            value={filter?.ranges?.["duration.start"]?.["gte"]}
+            value={filter?.ranges?.["duration.start"]?.gte}
             onChange={(e) => {
               dispatchFilter({
                 type: "add-range-date",
@@ -71,7 +71,7 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
             style={{
               width: `100%`,
             }}
-            value={filter?.ranges?.["duration.start"]?.["lte"]}
+            value={filter?.ranges?.["duration.start"]?.lte}
             onChange={(e) => {
               dispatchFilter({
                 type: "add-range-date",
@@ -163,8 +163,7 @@ export default function IDSPSidebar({ filter, dispatchFilter }) {
             dispatchFilter({
               type: "set-term",
               payload: ["meta.original.countOf", [e.target.value]],
-            })
-          }
+            })}
           value={filter?.terms?.["meta.original.countOf"][0]}
         >
           <Radio value="Number of cases">Number of Cases</Radio>

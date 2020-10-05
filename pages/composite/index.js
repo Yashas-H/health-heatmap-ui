@@ -37,7 +37,7 @@ export default function CompositePage({}) {
           <meta name="description" content="Health Heat Map" />
         </Helmet>
         <div>
-          <Grid gridTemplateColumns={"30% 1fr"} gap={0}>
+          <Grid gridTemplateColumns="30% 1fr" gap={0}>
             <Box>
               <Sidebar
                 relevantDataFilter={relevantDataFilter}

@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import request from "superagent";
 import _ from "underscore";
 import { v4 as uuidv4 } from "uuid";
-import { Box, Skeleton, Stack } from "@chakra-ui/core";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from "@chakra-ui/core";
+import { Box, Skeleton, Stack , Tabs, TabList, TabPanels, Tab, TabPanel, Text } from "@chakra-ui/core";
+
 
 import AppConstant from "../../constant/AppConstant";
 import Accordion from "./Accordion";

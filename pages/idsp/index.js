@@ -35,7 +35,7 @@ export default function IDSP() {
       <div className="container">
         <main>
           <div>
-            <Grid gridTemplateColumns={"20% 1fr"} gap={10}>
+            <Grid gridTemplateColumns="20% 1fr" gap={10}>
               <Box>
                 <IDSPSidebar filter={filter} dispatchFilter={dispatchFilter} />
               </Box>

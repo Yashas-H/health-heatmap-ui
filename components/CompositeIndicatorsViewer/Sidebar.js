@@ -8,8 +8,8 @@ import {
   Checkbox,
   Skeleton,
   Box,
-} from "@chakra-ui/core";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from "@chakra-ui/core";
+ Tabs, TabList, TabPanels, Tab, TabPanel, Text } from "@chakra-ui/core";
+
 export default function Sidebar({
   relevantDataFilter,
   filter,
@@ -20,7 +20,12 @@ export default function Sidebar({
   });
 
   if (indicatorsError) {
-    return <div>An Error: {indicatorsError.message}</div>;
+    return (
+      <div>
+        An Error:
+        {indicatorsError.message}
+      </div>
+);
   }
   const groupedIndicators = groupBy(indicators, (i) => i["indicator.Category"]);
 

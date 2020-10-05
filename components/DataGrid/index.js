@@ -47,7 +47,9 @@ function DataGrid({ indicatorsLoaded, selectedLayers }) {
         {_.map(indicatorsLoaded, (indicator, key) => (
           <DataTab
             key={key}
-          >{`${indicator.indicatorName} (${indicator.source})`}</DataTab>
+          >
+            {`${indicator.indicatorName} (${indicator.source})`}
+          </DataTab>
         ))}
       </TabList>
 

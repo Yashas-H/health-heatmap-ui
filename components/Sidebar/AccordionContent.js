@@ -37,7 +37,7 @@ function AccordionContent({ subgroup, name, openAll, setOpenAll, q }) {
             </Stack>
           </div>
           <Stack
-            className={`indicators-list`}
+            className="indicators-list"
             spacing={10}
             display={active || q ? "block" : "none"}
           >

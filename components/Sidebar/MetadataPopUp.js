@@ -20,9 +20,9 @@ import {
   AccordionIcon,
 } from "@chakra-ui/core";
 
+import { getSecondPartOrSame } from "helper/stringUtils";
 import AppConstant from "../../constant/AppConstant";
 import { LayerContext } from "../../context/Layer";
-import { getSecondPartOrSame } from "helper/stringUtils";
 
 function MetadatPopUp() {
   const { isOpen, onOpen, onClose } = useDisclosure();

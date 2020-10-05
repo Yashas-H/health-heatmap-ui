@@ -38,7 +38,7 @@ export default function Home() {
           Indicators of India.
         </Text>
 
-        <ScrollLink to="faq" smooth={true} duration={500}>
+        <ScrollLink to="faq" smooth duration={500}>
           <Button
             variantColor="white"
             margin="auto"
@@ -62,7 +62,8 @@ export default function Home() {
                     color="#014491"
                     className="box-header-title"
                   >
-                    Deep dive into health indicators of India{" "}
+                    Deep dive into health indicators of India
+                    {" "}
                     <Icon name="arrow-forward" color="014491" />
                   </Text>
                   <Text className="link-text">
@@ -93,7 +94,8 @@ export default function Home() {
                     color="#014491"
                     className="box-header-title"
                   >
-                    Explore district health status{" "}
+                    Explore district health status
+                    {" "}
                     <Icon name="arrow-forward" color="014491" />
                   </Text>
                   <Text className="link-text">
@@ -128,7 +130,8 @@ export default function Home() {
                     color="#014491"
                     className="box-header-title"
                   >
-                    Visualize the spread of infectious diseases in India{" "}
+                    Visualize the spread of infectious diseases in India
+                    {" "}
                     <Icon name="arrow-forward" color="014491" />
                   </Text>
                   <Text className="link-text">
@@ -160,7 +163,7 @@ export default function Home() {
           </SimpleGrid>
         </Stack>
 
-        <Element name="faq"></Element>
+        <Element name="faq" />
         <Stack spacing={1} marginTop={5}>
           <Text
             padding="0.4rem"

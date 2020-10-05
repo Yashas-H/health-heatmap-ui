@@ -51,7 +51,8 @@ export default function About() {
             feedback.
           </Text>
           <Text>
-            The project has been executed by{" "}
+            The project has been executed by
+            {" "}
             <a
               href="https://www.metastringfoundation.org/"
               target="_blank"

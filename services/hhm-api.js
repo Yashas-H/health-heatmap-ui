@@ -1,5 +1,6 @@
 import AppConstant from "constant/AppConstant";
 import request from "superagent";
+
 const API_ROOT = AppConstant.config.appBaseUrl;
 
 export const getIndicators = () =>

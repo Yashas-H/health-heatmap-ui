@@ -25,7 +25,7 @@ function Grid({ IndicatorData }) {
         accessor: "value",
       },
       {
-        Header: type + " Code",
+        Header: `${type  } Code`,
         accessor: "code",
       },
       {
@@ -47,7 +47,7 @@ function Grid({ IndicatorData }) {
         accessor: "value",
       },
       {
-        Header: type + " Code",
+        Header: `${type  } Code`,
         accessor: "code",
       },
       {

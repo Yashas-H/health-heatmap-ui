@@ -30,8 +30,7 @@ function Filters({
                 size="sm"
                 value={filtersSelected[key]}
                 onChange={(e) =>
-                  onFilterChange({ value: e.target.value, filterType: key })
-                }
+                  onFilterChange({ value: e.target.value, filterType: key })}
                 isDisabled={isBusy}
               >
                 {_.map(filter, (f) => (
@@ -47,8 +46,7 @@ function Filters({
                   <Link
                     isDisabled={!filtersSelected[key]}
                     onClick={(e) =>
-                      onFilterChange({ value: "", filterType: key })
-                    }
+                      onFilterChange({ value: "", filterType: key })}
                   >
                     Clear
                   </Link>

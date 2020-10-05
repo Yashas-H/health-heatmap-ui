@@ -70,7 +70,7 @@ function Layers() {
   };
 
   const onLayerOrderChange = (newOrder) => {
-    let newList = {};
+    const newList = {};
     _.each(newOrder, (item) => {
       newList[item.__id] = item;
     });
@@ -104,7 +104,9 @@ function Layers() {
                     {layer.isIbp ? layer.layerName : layer["indicator.id"]}
                   </Text>
                   <Text fontWeight="300" fontSize="12px">
-                    Source: {layer.isIbp ? "IBP" : layer["source.id"]}
+                    Source: 
+                    {' '}
+                    {layer.isIbp ? "IBP" : layer["source.id"]}
                   </Text>
                   <LoadingSkeleton />
                 </Stack>

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { ChevronRight, ChevronDown } from "react-feather";
 import _ from "underscore";
 
-import AccordionContent from "./AccordionContent";
 import { Box, Text, Stack } from "@chakra-ui/core";
+import AccordionContent from "./AccordionContent";
 
 function Accordion({ group, openAll, setOpenAll, q }) {
   const [active, setActive] = useState(false);
@@ -26,7 +26,10 @@ function Accordion({ group, openAll, setOpenAll, q }) {
           <Stack isInline spacing={2} mt="5px" justifyContent="space-between">
             <Stack isInline>
               <span className="sub-group-chevy">{chevron}</span>
-              <Text>{group.name} </Text>
+              <Text>
+                {group.name}
+                {' '}
+              </Text>
             </Stack>
             <Text className="count-badge">{group.count}</Text>
           </Stack>

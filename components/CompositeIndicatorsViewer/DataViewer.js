@@ -1,7 +1,7 @@
 import { useCompositeScore } from "context/hhm-data";
 import { useTable } from "react-table";
-import TableOfResults from "./Table";
 import { Tabs, TabList, Tab, Text, TabPanels, TabPanel } from "@chakra-ui/core";
+import TableOfResults from "./Table";
 import Map from "./Map";
 
 export default function DataViewer({ filter }) {

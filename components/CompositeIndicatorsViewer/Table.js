@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DataTable from "react-data-table-component";
-import { getUniqueKeysOf, ensureKeys } from "../../helper/listUtils";
 import { contains } from "underscore";
+import { getUniqueKeysOf, ensureKeys } from "../../helper/listUtils";
 
 const displayEverything = (list) => {
   const headers = getUniqueKeysOf(list);

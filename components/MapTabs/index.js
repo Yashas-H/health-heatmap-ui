@@ -3,8 +3,8 @@ import _ from "underscore";
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from "@chakra-ui/core";
 
 import { LayerContext } from "../../context/Layer";
-import Map from "../../components/Map";
-import DataGrid from "../../components/DataGrid";
+import Map from "../Map";
+import DataGrid from "../DataGrid";
 
 function MapTabs() {
   const { loadedData, selectedLayers } = useContext(LayerContext);
