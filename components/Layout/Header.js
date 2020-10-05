@@ -67,27 +67,27 @@ const Header = (props) => {
         >
           <MenuItems>
             <Link href="/">
-              <a href="#">Home</a>
+              <a>Home</a>
             </Link>
           </MenuItems>
           <MenuItems>
             <Link href="/map">
-              <a href="#">Deep Dive</a>
+              <a>Deep Dive</a>
             </Link>
           </MenuItems>
           <MenuItems>
             <Link href="/composite">
-              <a href="#">Composite Index</a>
+              <a>Composite Index</a>
             </Link>
           </MenuItems>
           <MenuItems>
             <Link href="/idsp">
-              <a href="#">Infectious Diseases</a>
+              <a>Infectious Diseases</a>
             </Link>
           </MenuItems>
           <MenuItems>
             <Link href="/about">
-              <a href="#">About</a>
+              <a>About</a>
             </Link>
           </MenuItems>
         </Box>
