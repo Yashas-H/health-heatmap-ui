@@ -36,7 +36,7 @@ function DataGrid({ indicatorsLoaded, selectedLayers }) {
   });
   return (
     <Tabs
-      variant="enclosed"
+      //variant="enclosed"
       index={tabIndex}
       onChange={handleTabsChange}
       size="sm"

@@ -60,8 +60,8 @@
   .inidicator-list {
     overflow-y: scroll;
     height: calc(100% - 62px);
-    position: fixed;
-    width: 30%;
+    //position: fixed;
+    width: 100%;
     background: #fff;
     padding-bottom: 110px;
   }

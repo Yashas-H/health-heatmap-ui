@@ -78,6 +78,11 @@ const Header = (props) => {
             </Link>
           </MenuItems>
           <MenuItems>
+            <Link href="/karnataka">
+              <a>Karnataka Covid Data</a>
+            </Link>
+          </MenuItems>
+          <MenuItems>
             <Link href="/composite">
               <a>Composite Index</a>
             </Link>

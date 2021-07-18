@@ -1,6 +1,6 @@
 {
   "development": {
-    "apiBaseUrl": "http://hhm.optimus.metastringfoundation.free.gen.in/api",
+    "apiBaseUrl": "http://hhm.staging.metastringfoundation.org/api/",
     "nakshaApi": "http://128.199.30.8/naksha-api/api"
   },
   "production": {
