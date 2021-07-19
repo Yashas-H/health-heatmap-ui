@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import _ from "underscore";
 import { LayerContext } from "../../context/Layer";
-import Map from "../Map";
+import Map2 from "../Map2";
 import DataGrid from "../DataGrid";
 import VerticalBar from './sampleChart'
 import {Grid} from '@material-ui/core';
@@ -34,7 +34,7 @@ function MapDashboard() {
             <Grid container xs={12}>
                 <Grid container xs={12} style={{'maxHeight':'100vh'}}>
                 <Grid item xs={7}>
-                        <Map />
+                        <Map2 />
                 </Grid>
                 <Grid item xs={5} style={{padding:"0px 20px"}}>
                 <VerticalBar/>

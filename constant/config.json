@@ -1,7 +1,7 @@
 {
   "development": {
     "apiBaseUrl": "http://hhm.staging.metastringfoundation.org/api/",
-    "nakshaApi": "http://128.199.30.8/naksha-api/api"
+    "nakshaApi": "https://healthheatmapindia.org/naksha-api/api"
   },
   "production": {
     "apiBaseUrl": "https://healthheatmapindia.org/api",
