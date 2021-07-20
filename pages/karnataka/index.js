@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet";
 import _ from "underscore";
 import { Box} from "@chakra-ui/core";
 import {Grid} from '@material-ui/core';
-import LayerContextProvider from "../../context/Layer";
-import Sidebar from "../../components/Sidebar";
+import LayerContextProvider2 from "../../context/Layer";
+import Sidebar2 from "../../components/Sidebar2";
 import MapTabs from "../../components/MapTabs";
 import MapDashboard from "components/MapDashboard";
 
@@ -31,7 +31,7 @@ export function HomePage({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <LayerContextProvider>
+    <LayerContextProvider2>
       <Layout>
         <article className="main-container">
           <Helmet>
@@ -49,7 +49,7 @@ export function HomePage({
                   <DrawerHeader borderBottomWidth="1px">Indicators List</DrawerHeader>
                   <DrawerBody>
                     <Box>
-                      <Sidebar/>
+                      <Sidebar2/>
                     </Box>
                   </DrawerBody>
                 </DrawerContent>
@@ -65,7 +65,7 @@ export function HomePage({
           </div>
         </article>
       </Layout>
-    </LayerContextProvider>
+    </LayerContextProvider2>
   );
 }
 
