@@ -69,7 +69,7 @@ function Sidebar() {
               item["indicator.id"] != "" &&
               item["indicator.Category"] &&
               item["indicator.Sub-Category"] &&
-              item["indicator.Category"] === "Rural Health Statistics"
+              item["indicator.Category"] === "Covid Statistics"
           ),
           "indicator.Category"
         );

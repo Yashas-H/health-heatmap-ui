@@ -30,6 +30,7 @@ export function HomePage({
   onChangeUsername,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  
   return (
     <LayerContextProvider2>
       <Layout>

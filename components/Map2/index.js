@@ -5,7 +5,6 @@ import Naksha from "naksha-component-react-restructured";
 import { LayerContext } from "../../context/Layer";
 import Filters from "../Filters";
 import Layers from "../Layers";
-
 import formatMapData from "../../helper/formatMapData";
 import AppConstant from "../../constant/AppConstant";
 
@@ -54,7 +53,6 @@ const Map2 = () => {
       );
     }
   };
-
   return (
     <div className="map-area">
       {/* Map2 */}
