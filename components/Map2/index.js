@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import _ from "underscore";
-import Naksha from "naksha-component-react-restructured";
+import Naksha from "naksha-component-react-restructured-2";
 
 import { LayerContext } from "../../context/Layer";
 import Filters from "../Filters";
