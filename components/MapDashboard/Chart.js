@@ -21,7 +21,7 @@ const Piechart = (datavalue) => {
   const data = {
     maintainAspectRatio: false,
     responsive: false,
-    //labels: datavalue['data']['district'],
+    labels: datavalue['data']['district'],
     datasets: [
       {
         data: datavalue['data']['values'],
@@ -35,7 +35,17 @@ const Piechart = (datavalue) => {
     <div style={{width:'400px',margin:'20px auto'}}>
     <Pie
       data={data}
-      options={options}
+      options= {{
+        plugins: {
+            title: {
+                display: true,
+                text: datavalue['data']['indicatorName']
+            },
+            legend:{
+              display:false
+            }
+        }
+    }}
       width={'300px'}
     />
     </div>
@@ -57,6 +67,14 @@ const Barchart = (datavalue) => {
   return (
     <Bar
       data={data}
+      options= {{
+        plugins: {
+            title: {
+                display: true,
+                text: datavalue['data']['indicatorName']
+            }
+        }
+    }}
     />
   )
 }
@@ -67,18 +85,15 @@ const getData=(data)=>{
   let district=[]
  
     district=Object.keys(data[topLayer[0]]['properties'])
-  
   const values=[]
   for(let i=0;i<district.length;i++){
     values.push(data[topLayer[0]]['properties'][district[i]][0]['value'])
   }
-  return {'district':district,'values':values}
+  return {'indicatorName':data[topLayer[0]]['indicator']['indicatorName'],'district':district,'values':values}
 }
 
 const tableData=(data)=>{
-  console.log(data)
   const topLayer=Object.keys(data)
-  console.log(topLayer)
   let indicatorList=[]
   let state=Object.keys(data[topLayer[0]]['indicator']['data']['district'])
   for(let i=0;i<topLayer.length;i++){
@@ -101,14 +116,14 @@ const getTable=(tData)=>{
   <Table aria-label="simple table">
     <TableHead>
       <TableRow>
-        {tData[0].map((i)=>(<TableCell style={{fontSize:'18px'}}>{i}</TableCell>))}
+        {tData[0].map((i)=>(<TableCell style={{fontSize:'15px'}}>{i}</TableCell>))}
       </TableRow>
     </TableHead>
     {console.log(tData.splice(0,1))}
     <TableBody>
       {tData.map((row) => (
         <TableRow>
-        {row.map((column)=>(<TableCell>{column}</TableCell>))}
+        {row.map((column)=>(<TableCell style={{fontSize:'15px'}}>{column}</TableCell>))}
         </TableRow>
       ))}
     </TableBody>
@@ -125,8 +140,8 @@ const CreateGraph = (props) => {
     <Grid style={{margin:'20px 0px'}}>
       <Tabs size="md" variant="enclosed">
         <TabList>
-          <Tab>Pie Chart</Tab>
-          <Tab>Bar Chart</Tab>
+          <Tab>Pie View</Tab>
+          <Tab>Histogram View</Tab>
           <Tab>Table</Tab>
         </TabList>
         <TabPanels>
