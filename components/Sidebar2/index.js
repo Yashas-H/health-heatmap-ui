@@ -188,7 +188,7 @@ function Sidebar() {
                 </Stack>
               </Box>
               {indicators ? (
-                <Box mt="10px" className="inidicator-list">
+                <Box mt="10px" className="inidicator-list2">
                   <Box mx="7px">
                     {_.map(filteredIndicators, (group, index) => (
                       <Accordion

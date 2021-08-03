@@ -59,9 +59,17 @@
   }
   .inidicator-list {
     overflow-y: scroll;
-    height: calc(100% - 62px);
-    //position: fixed;
-    width: 100%;
+    height: calc(100% - 70px);
+    position: fixed;
+    width: 30%;
+    background: #fff;
+    padding-bottom: 110px;
+  }
+  .inidicator-list2 {
+    overflow-y: scroll;
+    height: calc(100% - 70px);
+    position: fixed;
+    width: 90%;
     background: #fff;
     padding-bottom: 110px;
   }

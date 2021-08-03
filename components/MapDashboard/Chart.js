@@ -111,7 +111,8 @@ const tableData=(data)=>{
   return tableDataList;
 }
 
-const getTable=(tData)=>{
+const getTable=(tData,mapClick)=>{
+  console.log(mapClick)
   return <div>
   <Table aria-label="simple table">
     <TableHead>
@@ -119,11 +120,14 @@ const getTable=(tData)=>{
         {tData[0].map((i)=>(<TableCell style={{fontSize:'15px'}}>{i}</TableCell>))}
       </TableRow>
     </TableHead>
-    {console.log(tData.splice(0,1))}
+    {console.log(tData.splice(0, 1))}
     <TableBody>
       {tData.map((row) => (
         <TableRow>
-        {row.map((column)=>(<TableCell style={{fontSize:'15px'}}>{column}</TableCell>))}
+        {
+          row[0]===mapClick['new_distt'] ? row.map((column)=>(<TableCell style={{backgroundColor:'lightgrey',fontSize:'15px'}}>{column}</TableCell>)) :  row.map((column)=>(<TableCell style={{fontSize:'15px'}}>{column}</TableCell>))
+        
+        }
         </TableRow>
       ))}
     </TableBody>
@@ -134,6 +138,7 @@ const getTable=(tData)=>{
 const CreateGraph = (props) => {
   let data={}
   const tableDataList=tableData(props['selectedLayers'])
+  let mapClick=props['mapInsideClick']
   data=getData(props['selectedLayers'])
 
   return (
@@ -153,7 +158,7 @@ const CreateGraph = (props) => {
           </TabPanel>
           <TabPanel>
             <div style={{height:'100%'}}>
-          {getTable(tableDataList)}
+          {getTable(tableDataList,mapClick)}
           </div>
           </TabPanel>
         </TabPanels>

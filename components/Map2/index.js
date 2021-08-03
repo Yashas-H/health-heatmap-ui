@@ -9,7 +9,7 @@ import Layers from "../Layers";
 import formatMapData from "../../helper/formatMapData";
 import AppConstant from "../../constant/AppConstant";
 
-const Map2 = () => {
+const Map2 = (props) => {
   const [externalLayers, setExternalLayers] = useState([]);
   const {
     setSelectedLayers,
@@ -19,6 +19,7 @@ const Map2 = () => {
     setLayerEntity,
     layerEntity,
   } = useContext(LayerContext);
+  //console.log(props['setMapInsideClick'])
 
   useEffect(() => {
     if (!_.isEmpty(currentIndicatorData)) updateMap2();
@@ -37,6 +38,7 @@ const Map2 = () => {
 
   const updateMap2 = () => {
     const data = currentIndicatorData;
+    
     const type = layerEntity[data.id]
       ? layerEntity[data.id].toUpperCase()
       : _.isEmpty(data.district)
@@ -56,9 +58,10 @@ const Map2 = () => {
   };
   const clickHandler = (feat) => {
     console.log("Map2 inside clickHandler",feat);
+    props['setMapInsideClick'](feat)
   }
   return (
-    <div className="map-area">
+    <div className="map-area" style={{ maxHeight:'600px'}}>
       {/* Map2 */}
       <Naksha
         viewPort={{

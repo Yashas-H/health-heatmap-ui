@@ -143,7 +143,7 @@ function IBPLayers() {
           </div>
         </Box>
 
-        <Box mt="10px" className="inidicator-list">
+        <Box mt="10px" className="inidicator-list2">
           <Stack>
             {_.map(filteredLayers, (layer) => (
               <Layer

@@ -82,6 +82,11 @@ const Header = (props) => {
               <a>Karnataka Covid Data</a>
             </Link>
           </MenuItems>
+          {/* <MenuItems>
+            <Link href="/dashboard">
+              <a>Dashboard</a>
+            </Link>
+          </MenuItems> */}
           <MenuItems>
             <Link href="/composite">
               <a>Composite Index</a>
